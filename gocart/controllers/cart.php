@@ -2,17 +2,43 @@
 
 class Cart extends Front_Controller {
 
+	var $customer;
+	
+	function __construct()
+	{
+		parent::__construct();
+			
+		$this->load->model(array('point_model','credit_model','admin_model'));		
+		$this->customer = $this->go_cart->customer();
+	}
+	
+	public function staff_login($password, $username)
+	{
+		// Get the value in the field
+		$username = $_POST[$username];
+	
+		$is_staff = $this->admin_model->login($username,$password);
+		
+		if (!$is_staff)
+		{
+			$this->form_validation->set_message('staff_login', lang('not_staff_error_message'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}	
+	}
+	
 	function index()
 	{
 		//make sure they're logged in
 		$this->Customer_model->is_logged_in('cart/index/');
-		
+						
 		$data['page_title']	= 'VIP Privileges';
 		$data['seo_title']	= 'VIP Privileges';
 		$data['homepage']			= true;
-		$this->view('details', $data);
-		
-		
+		$this->view('details', $data);		
 		//$this->view('homepage', $data);
 	}
 
@@ -821,7 +847,319 @@ class Cart extends Front_Controller {
 		$this->Customer_model->is_logged_in('cart/member_center/');
 		$data['page_title']	= 'Member Center';
 		$data['seo_title']	= 'Member Center';
+		
+		$data['customer_points'] = $this->point_model->get_point_amt($this->customer['id']);
+		$data['customer_credits'] = $this->credit_model->get_total_credit_consume($this->customer['id']);
+		$data['customer_credits_remain'] = $this->credit_model->get_credit_amt($this->customer['id']);
+		
+		
 		$this->view('member_center', $data);
 	}
+	
+	function top_up_credit_qrcode()
+	{
+		$data['page_title']	= 'Top Up Credit QR Code';
+		$data['seo_title']	= 'Top Up Credit QR Code';
+		$this->load->library('ciqrcode');
+	
+		$link = site_url('top_up_credit/'.$this->customer['id']);
+	
+		$params['data'] = $link;
+		$params['level'] = 'H';
+		$params['size'] = 5;
+		$params['savename'] = FCPATH.'uploads/qrcode/top_up_credit_qrcode.png';
+		$this->ciqrcode->generate($params);
+		
+		$data['qr_code'] = '<img src="'.base_url().'uploads/qrcode/top_up_credit_qrcode.png" />';
+		$data['customer'] = (array)$this->Customer_model->get_customer($this->customer['id']);
+		
+			
+		$this->view('top_up_credit_qrcode', $data);
+	}
+	
+	function top_up_credit($customer_id = '')
+	{
+		$data['page_title']	= 'Top Up Credit';
+		$data['seo_title']	= 'Top Up Credit';
+
+		// 		$this->load->helper('captcha');
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<div>', '</div>');
+		$submitted 	= $this->input->post('submitted');
+		$data['error'] = '';		
+		$data['customer_id'] = $this->customer['id'];
+		$data['customer'] = $this->customer;
+		
+		if ($submitted){		
+			$this->form_validation->set_rules('staff_branch', 'lang:staff_branch', 'required|max_length[100]');
+			$this->form_validation->set_rules('staff_username', 'lang:staff_username', 'trim|required|max_length[100]');
+			$this->form_validation->set_rules('staff_password', 'lang:staff_password', 'trim|required|min_length[6]|callback_staff_login[staff_username]');			
+			$this->form_validation->set_rules('customer_cost', 'lang:customer_cost', 'required|numeric');
+			$this->form_validation->set_rules('customer_topup_value', 'lang:customer_topup_value', 'required|numeric');
+			$this->form_validation->set_rules('topup_remark', 'lang:remark');
+			
+			//original is: if ($this->form_validation->run() == TRUE && strcmp(strtoupper($userCaptcha),strtoupper($word)) == 0)
+			//string compare
+			if ($this->form_validation->run() == TRUE)
+			{
+				$staff_branch	  		= $this->input->post('staff_branch');
+				$staff_username	  		= $this->input->post('staff_username');
+				$staff_password	  		= $this->input->post('staff_password');
+				
+				$admin = $this->admin_model->get_admin($staff_username,$staff_password);	
+
+				$customer_id			= $this->input->post('customer_id');
+				$customer_cost			= $this->input->post('customer_cost');				
+				$customer_topup_value	= $this->input->post('customer_topup_value');												
+				$topup_remark			= $this->input->post('topup_remark');
+				
+				$save['id'] = '';
+				$save['customer_id'] = $customer_id;
+				$save['cost'] = $customer_cost;
+				$save['in']   = $customer_topup_value;
+				$save['created'] = date("Y-m-d H:i:s");
+				$save['staff_id'] = $admin['id'];
+				$save['branch'] = $staff_branch;
+				$save['status'] = 1; //enable
+				$save['remark'] = $topup_remark;
+																
+				$id = $this->credit_model->save_credit($save);						
+		
+				//$this->session->set_flashdata('message', 'Hi '. $name. '. Thank you! We will response you as soon as possible.');
+				redirect('cart/top_up_credit_info/'.$id);
+			}else{
+		
+				/* if(strcmp(strtoupper($userCaptcha),strtoupper($word)) != 0){
+				 //if there is still no search term throw an error
+				$this->session->set_flashdata('error', 'Security code not match. Please try again');
+				} */
+		
+				$data['error'] = validation_errors();
+		
+				/* Setup vals to pass into the create_captcha function */
+				// 				$vals = array(
+				// 						'img_path' => 'uploads/static/',
+				// 						'img_url' => base_url().'uploads/static/',
+				// 				);
+		
+				/* Generate the captcha */
+				// 				$data['captcha'] = create_captcha($vals);
+		
+				// 				/* Store the captcha value (or 'word') in a session to retrieve later */
+				// 				$this->session->set_userdata('captchaWord', $data['captcha']['word']);
+		
+			}
+		
+		}else{
+			// 			$vals = array(
+			// 					'img_path' => 'uploads/static/',
+			// 					'img_url' => base_url().'uploads/static/',
+			// 			);
+		
+			// 			/* Generate the captcha */
+			// 			$data['captcha'] = create_captcha($vals);
+		
+			// 			/* Store the captcha value (or 'word') in a session to retrieve later */
+			// 			$this->session->set_userdata('captchaWord', $data['captcha']['word']);
+		}
+		
+			
+		$this->view('top_up_credit', $data);
+	}
+	
+	function top_up_credit_info($credit_id = 0)
+	{
+		$data['page_title']	= 'Top Up Credit Info';
+		$data['seo_title']	= 'Top Up Credit Info';
+		$data['credit_info'] = $this->credit_model->get_credit($credit_id);
+		$this->view('top_up_credit_info', $data);
+	}
+	
+	function consumption_qrcode()
+	{
+		$data['page_title']	= 'Consumption QR Code';
+		$data['seo_title']	= 'Consumption QR Code';
+		$this->load->library('ciqrcode');
+	
+		$link = site_url('consumption/'.$this->customer['id']);
+	
+		$params['data'] = $link;
+		$params['level'] = 'H';
+		$params['size'] = 5;
+		$params['savename'] = FCPATH.'uploads/qrcode/consumption_qrcode.png';
+		$this->ciqrcode->generate($params);
+	
+		$data['qr_code'] = '<img src="'.base_url().'uploads/qrcode/consumption_qrcode.png" />';
+		$data['customer'] = (array)$this->Customer_model->get_customer($this->customer['id']);
+				
+		$this->view('consumption_qrcode', $data);
+	}
+	
+	function consumption($customer_id = '')
+	{
+		$data['page_title']	= 'Consumption';
+		$data['seo_title']	= 'Consumption';
+			
+		// 		$this->load->helper('captcha');
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<div>', '</div>');
+		$submitted 	= $this->input->post('submitted');
+		$data['error'] = '';
+		$data['customer_id'] = $this->customer['id'];
+		$data['customer'] = $this->customer;
+		
+		if ($submitted){
+			$this->form_validation->set_rules('staff_branch', 'lang:staff_branch', 'required|max_length[100]');
+			$this->form_validation->set_rules('staff_username', 'lang:staff_username', 'trim|required|max_length[100]');
+			$this->form_validation->set_rules('staff_password', 'lang:staff_password', 'trim|required|min_length[6]|callback_staff_login[staff_username]');
+			
+			$this->form_validation->set_rules('payment', 'lang:payment', 'required');
+			$this->form_validation->set_rules('consume_amount', 'lang:consume_amount', 'required|numeric');
+			$this->form_validation->set_rules('topup_remark', 'lang:remark');
+				
+			//original is: if ($this->form_validation->run() == TRUE && strcmp(strtoupper($userCaptcha),strtoupper($word)) == 0)
+			//string compare
+			if ($this->form_validation->run() == TRUE)
+			{
+				$staff_branch	  		= $this->input->post('staff_branch');
+				$staff_username	  		= $this->input->post('staff_username');
+				$staff_password	  		= $this->input->post('staff_password');
+	
+				$admin = $this->admin_model->get_admin($staff_username,$staff_password);
+	
+				$customer_id			= $this->input->post('customer_id');
+				$consume_amount			= $this->input->post('consume_amount');
+				$remark					= $this->input->post('remark');
+				$payment				= $this->input->post('payment');
+					
+				
+				if($payment == 'credit')
+				{
+					$save['id'] = '';
+					$save['customer_id'] = $customer_id;
+					$save['out'] 		= $consume_amount;
+					$save['created'] = date("Y-m-d H:i:s");
+					$save['staff_id'] = $admin['id'];
+					$save['branch'] = $staff_branch;
+					//$save['status'] = 1; //enable
+					$save['remark'] = $remark;
+					
+					$id = $this->credit_model->save_credit($save);
+				}
+				else{
+					$save['id'] = '';
+					$save['customer_id'] = $customer_id;
+					$save['depoint'] 	= $consume_amount;
+					$save['created'] = date("Y-m-d H:i:s");
+					$save['staff_id'] = $admin['id'];
+					$save['branch'] = $staff_branch;
+					//$save['status'] = 1; //enable
+					$save['remark'] = $remark;
+						
+					$id = $this->point_model->save_point($save);
+				}
+				
+				
+	
+				//$this->session->set_flashdata('message', 'Hi '. $name. '. Thank you! We will response you as soon as possible.');
+				redirect('cart/consumption_info/'.$id.'/'.$payment);
+			}else{
+	
+				/* if(strcmp(strtoupper($userCaptcha),strtoupper($word)) != 0){
+				 //if there is still no search term throw an error
+				$this->session->set_flashdata('error', 'Security code not match. Please try again');
+				} */
+	
+				$data['error'] = validation_errors();
+	
+				/* Setup vals to pass into the create_captcha function */
+				// 				$vals = array(
+				// 						'img_path' => 'uploads/static/',
+				// 						'img_url' => base_url().'uploads/static/',
+				// 				);
+	
+				/* Generate the captcha */
+				// 				$data['captcha'] = create_captcha($vals);
+	
+				// 				/* Store the captcha value (or 'word') in a session to retrieve later */
+				// 				$this->session->set_userdata('captchaWord', $data['captcha']['word']);
+	
+			}
+	
+		}else{
+			// 			$vals = array(
+			// 					'img_path' => 'uploads/static/',
+			// 					'img_url' => base_url().'uploads/static/',
+			// 			);
+	
+			// 			/* Generate the captcha */
+			// 			$data['captcha'] = create_captcha($vals);
+	
+			// 			/* Store the captcha value (or 'word') in a session to retrieve later */
+			// 			$this->session->set_userdata('captchaWord', $data['captcha']['word']);
+		}
+	
+			
+		$this->view('consumption', $data);
+	}
+	
+	function consumption_info($id = 0, $payment = '')
+	{
+		$data['page_title']	= 'Consumption Info';
+		$data['seo_title']	= 'Consumption Info';
+		
+		if($payment == 'credit')
+		{
+			$data['info'] = $this->credit_model->get_credit($id);
+		}
+		else
+		{
+			$data['info'] = $this->point_model->get_point($id);
+		}
+				
+		$this->view('consumption_info', $data);
+	}
+	
+	function membership_promotion()
+	{
+		$data['page_title']	= 'Membership Promotion';
+		$data['seo_title']	= 'Membership Promotion';
+		
+		$this->view('membership_promotion', $data);
+	}
+	
+	function news()
+	{
+		$data['page_title']	= 'News';
+		$data['seo_title']	= 'News';
+	
+		$this->view('news', $data);
+	}
+	
+	function my_vouchers()
+	{
+		$data['page_title']	= 'My Vouchers';
+		$data['seo_title']	= 'My Vouchers';
+	
+		$this->view('my_vouchers', $data);
+	}
+	
+	function my_coupons()
+	{
+		$data['page_title']	= 'My Coupons';
+		$data['seo_title']	= 'My Coupons';
+	
+		$this->view('my_coupons', $data);
+	}
+	
+	function transaction_record()
+	{
+		$data['page_title']	= 'Transaction Record';
+		$data['seo_title']	= 'Transaction Record';
+	
+		$this->view('transaction_record', $data);
+	}
+	
+	
 	
 }

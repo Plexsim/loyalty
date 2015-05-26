@@ -26,6 +26,8 @@
 <?php echo theme_css('style.css', true);?>
 <?php echo theme_css('splash.css', true);?>
 
+<?php echo theme_css('print.css', true);?>
+
 <?php echo theme_css('swipebox.css', true);?>
 
 <!--google lato font family-->

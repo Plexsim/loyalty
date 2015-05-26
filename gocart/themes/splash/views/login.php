@@ -82,8 +82,8 @@
 				
 			</form>
 		
-			<div style="text-align:center;margin:25px 0 25px 0;">
-				<!--a href="<?php echo site_url('secure/forgot_password'); ?>"><?php echo lang('forgot_password')?></a> | --><a href="<?php echo site_url('secure/register'); ?>" style="font-size:30px;"><?php echo lang('register');?></a>
+			<div class="label_instruction">
+				<a href="<?php echo site_url('secure/forgot_password'); ?>"><?php echo lang('forgot_password')?></a> | <a href="<?php echo site_url('secure/register'); ?>"><?php echo lang('register');?></a>
 			</div>
 				
 				

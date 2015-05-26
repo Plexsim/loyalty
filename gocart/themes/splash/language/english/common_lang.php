@@ -258,3 +258,36 @@ $lang['giftcard_already_applied']			= 'Your gift card is already applied';
 $lang['error_updating_cart']				= 'There was an error updating the cart!';
 $lang['not_enough_stock']					= 'The quantity requested for the "%s" product could not be added. We only have %d item(s) in stock.';
 $lang['remove_item']						= 'Are you sure you want to remove this item from your cart?';
+
+
+//loyalty language
+$lang['staff_branch']						= 'Staff Branch';
+$lang['staff_name']							= 'Staff Name';
+$lang['staff_username']						= 'Staff Username';
+$lang['staff_password']						= 'Staff Password';
+$lang['customer_name']						= 'Customer Name';
+$lang['customer_cost']						= 'Customer Cost';
+$lang['customer_topup_value']				= 'Customer Topup value';
+$lang['submit']								= 'Submit';
+$lang['remark']								= 'Remark';
+$lang['print_receipt']						= 'Print Receipt';
+$lang['receipt']							= 'Receipt';
+$lang['date']								= 'Date';
+$lang['top_up_date']						= 'Top Up Date';
+$lang['payment']							= 'Payment';
+$lang['total_consume']						= 'Total Consume';
+$lang['click_button']						= 'Click To Get';
+$lang['in']									= 'In';
+$lang['out']								= 'Out';
+$lang['consume_amount']						= 'Consume amount';
+
+
+
+
+
+//loyalty error messages
+$lang['not_staff_error_message']			= 'Invalid staff username and password. Please re-login again or ask adminstrative to process';
+$lang['return_to_topup_credit']				= 'Return to Topup Credit Form';
+$lang['return_to_consumption']				= 'Return to Consumption Form';
+
+

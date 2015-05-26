@@ -183,7 +183,7 @@ a.backtoblog{width:92%; padding:3% 4%; margin:-10px 0 15px 0; text-align:center;
 ul.responsive_table{ width:100%; float:left; clear:both; margin:0 0 10px 0; padding:0px; list-style:none;}
 li.table_row{width:100%; float:left; clear:both; line-height:30px;padding:0px; list-style:none;margin:0 0 1px 0;}
 .table_section_small{width:18%; float:left; padding:0 0 0 2%;}
-.table_section{ width:38%; float:left;padding:0 0 0 2%;}
+.table_section{ width:30%; float:left;padding:0 0 0 2%;}
 
 /*-----------------Latest tweets style-------------------*/
 .tweet{ width:100%; float:left; clear:both; margin:0;}
@@ -328,3 +328,24 @@ img{width:100%;height:auto;}
 .alert-danger .alert-link {
   color: #843534;
 }
+
+.label_instruction {
+	font-size:20px;
+	margin:20px 0 0 20px;
+	padding-bottom:20px;
+	text-align:center;
+}
+
+
+#trx_record{
+	font-size:20px;	
+}
+
+#trx_record tr:nth-child(even) { 
+	background: #A4D1FF;
+}
+
+#trx_record tr:nth-child(odd) { 
+	background: #EAF4FF;
+}
+

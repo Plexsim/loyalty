@@ -13,26 +13,11 @@ $phone		= array('id'=>'bill_phone', 'class'=>'form_input radius4 required', 'nam
 
 
 		<div class="sliderbg">
-			<div class="pages_container">
-				<?php if ($this->session->flashdata('message')):?>
-				<div class="alert alert-success">
-						<?php echo $this->session->flashdata('message');?>
-					</div>
-				<?php endif;?>
-			
-				<?php if ($this->session->flashdata('error')):?>
-					<div class="alert alert-danger">
-						<?php echo $this->session->flashdata('error');?>
-					</div>
-				<?php endif;?>
-			
-				<?php if (!empty($error)):?>
-					<div class="alert alert-danger">
-						<?php echo $error;?>
-					</div>
-				<?php endif;?>
-			 	<h2 class="page_title"><?php echo lang('form_register');?></h2>
-			
+			<div class="pages_container">				
+			 	
+			 	<h2 class="page_title"><?php echo lang('form_register');?></h2>			
+				<?php $this->load->view('error_message'); ?>   
+				
 				<?php echo form_open('secure/register'); ?>
 					<input type="hidden" name="submitted" value="submitted" />
 					<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
@@ -83,8 +68,8 @@ $phone		= array('id'=>'bill_phone', 'class'=>'form_input radius4 required', 'nam
 					</fieldset>
 				</form>
 			
-				<div style="text-align:center;margin:25px 0 25px 0;">
-					<a href="<?php echo site_url('secure/login'); ?>" style="font-size:30px;"><?php echo lang('go_to_login');?></a>
+				<div class="label_instruction">
+					<a href="<?php echo site_url('secure/login'); ?>"><?php echo lang('go_to_login');?></a>
 				</div>				
 			
 			

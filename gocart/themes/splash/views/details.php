@@ -23,10 +23,7 @@
 						<ul class="listing_detailed">                                          
 						
 							<ol>
-								<li><a href="#">Redemption point can redeem any <font style="color:blue">SEG Club</font> Merchant's Voucher / Gift </a></li>
-								<li>Spend of RM1 - 1point.</li>
-								<li>Can be used at any SEG Club Merchant's</li>
-								<li>The latest accumulation of point will be updated 24 Hour.</li>
+								<li>Redeem any Red Merchants Voucher & Gift Purchase of RM1 - 1 Point </li>								
 							</ol>													
 						                                        
 						 
@@ -39,10 +36,7 @@
 						<div class="toggle_container_point">
 						<ul class="listing_detailed">                                          						
 							<ol>
-								<li><a href="#">Redemption point can redeem any <font style="color:blue">SEG Club</font> Merchant's Voucher / Gift </a></li>
-								<li>Spend of RM1 - 1point.</li>
-								<li>Can be used at any SEG Club Merchant's</li>
-								<li>The latest accumulation of point will be updated 24 Hour.</li>
+								<li>RM1 - 1point.</li>								
 							</ol>
 						</ul>                                            
                     </div>
@@ -54,7 +48,7 @@
 						<ul class="listing_detailed">                                          						
 							<ol>
 								<li>
-									<p>SEG Club</p>
+									<p>Red Merchants</p>
 									</hr>
 									<p>Digitize your Customer loyalty Program & Simply using your phone to Collect Point & Redeem Voucher / Gifts</p>
 								</li>

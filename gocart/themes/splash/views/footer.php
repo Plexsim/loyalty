@@ -2,7 +2,7 @@
 
 
 <div class="navbar">
-  <center>
+  <div style="text-align:center;margin: 10px 0;>
     <table width="80%" height="38" border="0" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF">
     <tbody><tr>
       <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -13,32 +13,7 @@
                 <td><div align="center"><a href="<?php echo base_url(); ?>"><img src="<?php echo theme_img('icons/home.png')?>" width="25" border="0"></a></div></td>
               </tr>
             </tbody></table>
-          </div></td>
-          
-                                      
-          <!--td><div align="center">
-            <table width="100%" border="0" cellspacing="0" cellpadding="10">
-              <tbody><tr>
-                <td><div align="center"><a href="reward.php"><img src="<?php echo theme_img('icons/travel.png')?>" width="25" border="0"></a></div></td>
-              </tr>
-            </tbody></table>
-          </div></td>
-          <td><div align="center">
-            <table width="100%" border="0" cellspacing="0" cellpadding="10">
-              <tbody><tr>
-                <td><div align="center"><a href="network.php"><img src="<?php echo theme_img('icons/clients.png')?>" width="25" border="0"></a></div></td>
-              </tr>
-            </tbody></table>
-          </div></td-->
-          <!--td><div align="center"><a href="<?php echo site_url('cart/details');?>"><img src="<?php echo theme_img('icons/about.png')?>" width="25" border="0"></a></div></td-->
-          
-          <!--td><div align="center">
-            <table width="100%" border="0" cellspacing="0" cellpadding="10">
-              <tbody><tr>
-                <td><div align="center"><a href="setting.php"><img src="<?php echo theme_img('icons/services.png')?>" width="25" border="0"></a></div></td>
-              </tr>
-            </tbody></table>
-          </div></td-->
+          </div></td>               
           
           <td><div align="center">
             <table width="100%" border="0" cellspacing="0" cellpadding="10">
@@ -54,7 +29,7 @@
           <td><div align="center">
             <table width="100%" border="0" cellspacing="0" cellpadding="10">
               <tbody><tr>
-                <td><div align="center"><a href="<?php echo site_url('cart/company_details');?>"><img src="<?php echo theme_img('icons/law.png')?>" width="25" border="0"></a></div></td>
+                <td><div align="center"><a href="<?php echo site_url('company_details');?>"><img src="<?php echo theme_img('icons/law.png')?>" width="25" border="0"></a></div></td>
               </tr>
             </tbody></table>
           </div></td>
@@ -64,7 +39,7 @@
           <td><div align="center">
             <table width="100%" border="0" cellspacing="0" cellpadding="10">
               <tbody><tr>
-                <td><div align="center"><a href="<?php echo site_url('cart/my_card');?>"><img src="<?php echo theme_img('icons/docs.png')?>" width="25" border="0"></a></div></td>
+                <td><div align="center"><a href="<?php echo site_url('my_card');?>"><img src="<?php echo theme_img('icons/docs.png')?>" width="25" border="0"></a></div></td>
               </tr>
             </tbody></table>
           </div></td>
@@ -74,7 +49,7 @@
           <td><div align="center">
             <table width="100%" border="0" cellspacing="0" cellpadding="10">
               <tbody><tr>
-                <td><div align="center"><a href="<?php echo site_url('cart/member_center');?>"><img src="<?php echo theme_img('icons/about.png')?>" width="25" border="0"></a></div></td>
+                <td><div align="center"><a href="<?php echo site_url('member_center');?>"><img src="<?php echo theme_img('icons/about.png')?>" width="25" border="0"></a></div></td>
               </tr>
             </tbody></table>
           </div></td>
@@ -115,7 +90,7 @@
       </tbody></table></td>
       </tr>
   </tbody></table>
-</center>
+</div>
 </div>
 
 </div> <!-- END of Container in file header.php -->
@@ -135,7 +110,7 @@
 	
 	
     <!-- Demo -->
-         
+
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>	
 <script>
 
@@ -189,5 +164,7 @@
 	} );	
 
 </script>
+        
+
 </body>
 </html>

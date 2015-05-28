@@ -25,7 +25,7 @@ class Secure extends Front_Controller {
 		if ($redirect)
 		{
 			//redirect('secure/my_account/');
-			redirect('cart/details/');
+			redirect('cart/homeslide/');
 		}
 		
 		$data['page_title']	= 'Login';
@@ -49,7 +49,7 @@ class Secure extends Front_Controller {
 				{
 					//if there is not a redirect link, send them to the my account page
 					//$redirect = 'secure/my_account';
-					$redirect = 'cart/details';
+					$redirect = 'cart/homeslide';
 				}
 				//to login via ajax
 				if($ajax)
@@ -108,7 +108,7 @@ class Secure extends Front_Controller {
 		if ($redirect)
 		{
 			//redirect('secure/my_account');
-			redirect('cart/details');
+			redirect('cart/homeslide');
 		}
 		
 		$this->load->library('form_validation');
@@ -188,7 +188,7 @@ class Secure extends Front_Controller {
 			if ($redirect == '')
 			{
 				//$redirect = 'secure/my_account';
-				$redirect = 'cart/details';
+				$redirect = 'cart/homeslide';
 			}
 			
 			// save the customer info and get their new id

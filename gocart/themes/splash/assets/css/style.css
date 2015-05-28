@@ -237,24 +237,40 @@ img{width:100%;height:auto;}
 }
 #wrapper{ width:100%;}
 .services_icon{ padding:4.5% 0;}
+.label_instruction > img {
+    width: 70%;
+    height:auto;
+}
 }
 @media screen and (max-width: 480px) {
 img{width:100%;height:auto;}	
 .round_img{padding:15% 0px;}
 ul.social li{padding:6% 0;}
 .services_icon{padding:4.3% 0;}
+
+.label_instruction img{
+	width:50%;height:auto;
+}
+
 }
 @media screen and (max-width: 360px) {
 img{width:100%;height:auto;}
 .services_icon{padding:4.5% 0;}
 }
-@media screen and (max-width: 320px) {
-img{width:100%;height:auto;}	
-.borders ul li{padding:4% 0.1%;width:27%;}
-}
+
 .pages_container img{
 	max-width:100%;
 }
+
+@media screen and (max-width: 320px) {
+img{width:100%;height:auto;}	
+.borders ul li{padding:4% 0.1%;width:27%;}
+.label_instruction > img {
+    width: 70%;
+    height:auto;
+}
+}
+
 .alert {
   padding: 15px; 
   margin-bottom: 20px;
@@ -347,5 +363,105 @@ img{width:100%;height:auto;}
 
 #trx_record tr:nth-child(odd) { 
 	background: #EAF4FF;
+}
+
+.text_align_right{
+	text-align:right;
+}
+
+.text_align_left{
+	text-align:left;
+}
+
+#slides {
+  display: none
+}
+
+.container {
+  margin: 0 auto
+}
+
+/* For tablets & smart phones */
+@media (max-width: 767px) {
+  body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .container {
+    width: auto
+  }
+}
+
+/* For smartphones */
+@media (max-width: 480px) {
+  .container {
+    width: auto
+  }
+}
+
+/* For smaller displays like laptops */
+@media (min-width: 768px) and (max-width: 979px) {
+  .container {
+    width: 724px
+  }
+}
+
+/* For larger displays */
+@media (min-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+}
+
+#slides,
+#slides2,
+#slides3 {
+  display: none;
+  margin-bottom:50px;
+}
+
+.slidesjs-navigation {
+  margin-top:3px;
+}
+
+.slidesjs-previous {
+  margin-right: 5px;
+  float: left;
+}
+
+.slidesjs-next {
+  margin-right: 5px;
+  float: left;
+}
+
+.slidesjs-pagination {
+  margin: 6px 0 0;
+  float: right;
+  list-style: none;
+}
+
+.slidesjs-pagination li {
+  float: left;
+  margin: 0 1px;
+}
+
+.slidesjs-pagination li a {
+  display: block;
+  width: 13px;
+  height: 0;
+  padding-top: 13px;
+  background-image: url(../img/pagination.png);
+  background-position: 0 0;
+  float: left;
+  overflow: hidden;
+}
+
+.slidesjs-pagination li a.active,
+.slidesjs-pagination li a:hover.active {
+  background-position: 0 -13px
+}
+
+.slidesjs-pagination li a:hover {
+  background-position: 0 -26px
 }
 

@@ -107,6 +107,9 @@
 	<?php echo theme_js('twitter/jquery.tweet.js', true);?>
 	<?php echo theme_js('email.js', true);?>
 	
+	<?php echo theme_js('jquery.slides.min.js', true);?>
+	
+	
 	
 	
     <!-- Demo -->
@@ -165,6 +168,32 @@
 
 </script>
         
+<!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
+  <script>
+    $(function() {
 
+        
+      $('#slides').slidesjs({
+        width: 940,
+        height: 528,
+        navigation: {
+          effect: "fade"
+        },
+        start: 3,
+        play: {
+          auto: true
+        },
+        pagination: {
+          effect: "fade"
+        },
+        effect: {
+          fade: {
+            speed: 400
+          }
+        }
+      });
+    });
+  </script>
+  
 </body>
 </html>

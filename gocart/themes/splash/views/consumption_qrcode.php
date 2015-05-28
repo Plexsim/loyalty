@@ -9,7 +9,7 @@
 	             
             	 <center><?php echo $qr_code ?></center>
             	 
-            	 URL Link please click <a href="<?php echo site_url('consumption/'.$customer['id']);?>">here</a> 
+            	 <!--URL Link please click <a href="<?php echo site_url('consumption/'.$customer['id']);?>">here</a--> 
 	         </div>
 	       </div>
 	</div> 

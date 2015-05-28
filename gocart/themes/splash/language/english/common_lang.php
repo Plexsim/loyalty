@@ -280,6 +280,7 @@ $lang['click_button']						= 'Click To Get';
 $lang['in']									= 'In';
 $lang['out']								= 'Out';
 $lang['consume_amount']						= 'Consume amount';
+$lang['cost']								= 'Cost';
 
 
 

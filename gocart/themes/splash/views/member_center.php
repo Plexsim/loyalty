@@ -10,9 +10,9 @@
 				</h2>
 
 				<p>								
-				<center>
-					<img src="<?php echo theme_img('logo.png')?>">
-				</center>
+				<div class="label_instruction">
+					<img src="<?php echo theme_img('mc.jpg')?>">
+				</div>
 				</p>
 				<center><p>E - Member Card, easier carrier and never lost it.</p></center>
 				
@@ -25,7 +25,10 @@
 						<div class="table_section">
 							<center>
 								Consumer Records
-								<?php echo format_currency($customer_credits['total_consumption']) ?>
+								<?php 
+									//echo format_currency($customer_credits['total_consumption']) 	
+									echo $customer_credits['total_consumption'] > 0 ? $customer_credits['total_consumption'] : '0.00';
+								?>
 							</center>
 						</div>
 						<div class="table_section">
@@ -36,7 +39,7 @@
 							</center>
 						</div>
 						<div class="table_section">
-							<center>My Balance <?php echo $customer_credits_remain['credit_amt']?> </center>
+							<center>My Balance <?php echo $customer_credits_remain['credit_amt'] > 0 ? $customer_credits_remain['credit_amt'] : '0.00' ?> </center>
 						</div>
 					</li>
 				</ul>
@@ -76,6 +79,17 @@
 	            	</div>
             	</a>
 
+            	<a href="<?php echo site_url('details')?>">
+		            <div class="toogle_wrap radius8">
+		                <div class="go_next_page">Membership Card Detail</div>	            
+	            	</div>
+            	</a>
+            	
+            	<a href="<?php echo site_url('company_details')?>">
+		            <div class="toogle_wrap radius8">
+		                <div class="go_next_page">Company Contact</div>	            
+	            	</div>
+            	</a>
 
 			</div>
 		</div>

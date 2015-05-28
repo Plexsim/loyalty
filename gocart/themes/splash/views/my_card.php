@@ -7,7 +7,7 @@
 	             <div class="pages_container">
 	             <h2 class="page_title"><?php echo $page_title?></h2>
 	             <p>
-	                 <center><img src="<?php echo theme_img('logo.png')?>"></center>                       
+	                 <div class="label_instruction"><img src="<?php echo theme_img('mc.jpg')?>"></div>                       
 	             </p>
 	             <center><p>E - Member Card, easier carrier and never lost it.</p></center>
 	             <p>

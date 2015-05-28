@@ -38,8 +38,9 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'VIP Privileges';
 		$data['seo_title']	= 'VIP Privileges';
 		$data['homepage']			= true;
-		$this->view('details', $data);		
+		//$this->view('details', $data);		
 		//$this->view('homepage', $data);
+		$this->view('homeslide', $data);
 	}
 
 	function page($id = false)
@@ -826,6 +827,14 @@ class Cart extends Front_Controller {
 		$this->view('details', $data);
 	}
 	
+	function homeslide()
+	{
+		$this->Customer_model->is_logged_in('cart/homeslide/');
+		$data['page_title']	= 'VIP Privileges';
+		$data['seo_title']	= 'VIP Privileges';
+		$this->view('homeslide', $data);
+	}
+	
 	function company_details()
 	{
 		$this->Customer_model->is_logged_in('cart/company_details/');
@@ -1155,8 +1164,9 @@ class Cart extends Front_Controller {
 	function transaction_record()
 	{
 		$data['page_title']	= 'Transaction Record';
-		$data['seo_title']	= 'Transaction Record';
-	
+		$data['seo_title']	= 'Transaction Record';	
+		$data['credit_record'] = $this->credit_model->get_list($this->customer['id']);
+		
 		$this->view('transaction_record', $data);
 	}
 	

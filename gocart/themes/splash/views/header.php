@@ -29,6 +29,9 @@
 <?php echo theme_css('print.css', true);?>
 
 <?php echo theme_css('swipebox.css', true);?>
+<?php echo theme_css('font-awesome.min.css', true);?>
+
+
 
 <!--google lato font family-->
 <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'/>

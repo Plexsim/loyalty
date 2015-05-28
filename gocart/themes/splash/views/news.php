@@ -12,62 +12,26 @@
 					<?php echo $page_title?>
 				</h2>
 
-				<div class="portfolio_item radius8">
-					<div class="portfolio_image">
-						<a rel="gallery-1" href="<?php echo theme_img('owl5.jpg')?>"
-							class="swipebox" title="Webdesign work"><img
-							src="<?php echo theme_img('owl5.jpg')?>" alt="" title="" border="0" /> </a>
-						
-						
-						<div class="controls">
-								<input type="button" value="<?php echo lang('click_button');?>" name="click_button" href="#" class="form_submit radius4 red red_borderbottom"/>
-						</div>																		
-						
-					</div>
-					<div class="portfolio_details">
-						<h4>News</h4>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex</p>
-						
-						<a rel="gallery-2" href="<?php echo theme_img('owl5.jpg')?>"
-							class="swipebox view_details" title="Webdesign work">view details</a>
-					</div>
-				</div>
-				
-				<div class="portfolio_item radius8">
-					<div class="portfolio_image">
-						<a rel="gallery-1" href="<?php echo theme_img('owl6.jpg')?>"
-							class="swipebox" title="Webdesign work"><img
-							src="<?php echo theme_img('owl6.jpg')?>" alt="" title="" border="0" /> </a>
-							
-							<div class="controls">
-								<input type="button" value="<?php echo lang('click_button');?>" name="click_button" href="#" class="form_submit radius4 red red_borderbottom"/>
-							</div>
-					</div>
-					<div class="portfolio_details">
-						<h4>Collection Requirements</h4>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex</p>
-						<a rel="gallery-2" href="<?php echo theme_img('owl6.jpg')?>"
-							class="swipebox view_details" title="Webdesign work">view details</a>
-					</div>
-				</div>
-				<div class="portfolio_item radius8">
-					<div class="portfolio_image">
-						<a rel="gallery-1" href="<?php echo theme_img('owl7.jpg')?>"
-							class="swipebox" title="Webdesign work"><img
-							src="<?php echo theme_img('owl7.jpg')?>" alt="" title="" border="0" /> </a>
-							
-							<div class="controls">
-								<input type="button" value="<?php echo lang('click_button');?>" name="click_button" href="#" class="form_submit radius4 red red_borderbottom"/>
-							</div>
-					</div>
-					<div class="portfolio_details">
-						<h4>Collection Requirements</h4>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex</p>
-						<a rel="gallery-2" href="<?php echo theme_img('owl7.jpg')?>"
-							class="swipebox view_details" title="Webdesign work">view details</a>
-					</div>
-				</div>
+				<div class="toogle_wrap radius8">
+	                <div class="trigger"><a href="#">Come join us</a></div>
+	            
+	                <div class="toggle_container">
+	                <p>
+	            		We have alot job here waiting you
+	                </p>
+	                </div>
+	            </div>
 
+	            <div class="toogle_wrap radius8">
+	                <div class="trigger"><a href="#">Red Merchant double X point</a></div>
+	            
+	                <div class="toggle_container">
+	                <p>
+	            		here is the merchant list...
+	                </p>
+	                </div>
+	            </div>
+	            
 				<div class="clearfix"></div>
 				<div class="scrolltop radius20">
 					<a

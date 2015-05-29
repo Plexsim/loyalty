@@ -7,9 +7,7 @@
 			<div class="pages_container">
 				<h2 class="page_title">
 					<?php echo $page_title?>
-				</h2>
-				
-				//home slider here
+				</h2>			
 				
 				  <!-- SlidesJS Required: Start Slides -->
 				  <!-- The container is used to define the width of the slideshow -->

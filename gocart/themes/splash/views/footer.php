@@ -179,7 +179,7 @@
         navigation: {
           effect: "fade"
         },
-        start: 3,
+        start: 1,
         play: {
           auto: true
         },

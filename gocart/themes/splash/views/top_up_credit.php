@@ -5,7 +5,7 @@
 	                        
 	       <div class="sliderbg ">
 	       
-	       		 <?php echo form_open('cart/top_up_credit', 'class="form-horizontal"'); ?>
+	       		 <?php echo form_open('cart/top_up_credit/'. $encrypt .'/'.$customer_id, 'class="form-horizontal"'); ?>
 	             <div class="pages_container">
 		             <h2 class="page_title"><?php echo $page_title?></h2>
 		             		             

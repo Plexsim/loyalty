@@ -142,6 +142,8 @@ a.map_button{ background:url(../img/icons/map_pin.png) no-repeat left #29aae3;bo
 
 /* CSS Media Queries
 /*-----------------------------------------------------------------------------------*/
+
+
 @media screen and (max-width: 800px) {
 .logo{ padding:85px 0 0px 0;font-size:65px; line-height:0px; letter-spacing:-3px;}
 .logo span{ font-size:30px; letter-spacing:5px;}
@@ -157,6 +159,7 @@ ul.splash_social{margin:35px 10% 55px 10%;}
 ul.splash_social{margin:15px 10% 45px 10%;}
 .slide-to-navigate{ font-size:14px; line-height:40px;}
 #menu ul li{  padding:4.6% 0.3%;width:28.5%;margin:1% 0 2% 3.2%;}
+
 }
 @media screen and (max-width: 320px) {
 #menu ul li{  padding:4.1% 0.1%;width:28.5%;margin:1% 0 2% 3.5%;}
@@ -165,6 +168,7 @@ ul.splash_social{margin:15px 10% 45px 10%;}
 	width: 25px;
 	height: auto;
 }
+
 
 }
 
@@ -176,5 +180,15 @@ ul.splash_social{margin:15px 10% 45px 10%;}
   position: fixed;
   top: 100%;
   margin-top: -5em;
+  margin-left: 0px;
+  margin-right: 0px;
   z-index: 100;
+}
+
+@media screen and (max-width: 768px) {
+	.navbar {
+	  margin-left: -20px;
+	  margin-right: 0px;
+	  z-index: 100;
+	}
 }

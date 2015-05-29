@@ -412,6 +412,12 @@ Class Customer_model extends CI_Model
         $result = $this->db->get_where('customers', array('email'=>$email));
         return $result->row_array();
     }
+    
+    function get_customer_by_id($customer_id)
+    {
+    	$result = $this->db->get_where('customers', array('id'=>$customer_id));
+    	return $result->row_array();
+    }
 
     private function aes256Encrypt($data)
     {

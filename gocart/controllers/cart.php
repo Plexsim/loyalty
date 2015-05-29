@@ -12,6 +12,29 @@ class Cart extends Front_Controller {
 		$this->customer = $this->go_cart->customer();
 	}
 	
+	public function run_key() {
+	
+		$chars = array(
+				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+				'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+				'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+				'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '?', '!', '@', '#',
+				'$', '%', '^', '&', '*', '(', ')', '[', ']', '{', '}', '|', ';', '/', '=', '+'
+		);
+	
+		shuffle($chars);
+	
+		$num_chars = count($chars) - 1;
+		$token = '';
+	
+		for ($i = 0; $i < $num_chars; $i++){ // <-- $num_chars instead of $len
+			$token .= $chars[mt_rand(0, $num_chars)];
+		}
+	
+		return $token;
+	}
+	
 	public function staff_login($password, $username)
 	{
 		// Get the value in the field
@@ -871,33 +894,46 @@ class Cart extends Front_Controller {
 		$data['seo_title']	= 'Top Up Credit QR Code';
 		$this->load->library('ciqrcode');
 	
-		$link = site_url('top_up_credit/'.$this->customer['id']);
-	
+		$encrypt = random_string('alnum', 16);
+		//echo $this->run_key();
+		//echo random_string((string)$this->run_key(), 16);
+		
+		$link = site_url('cart/top_up_credit/'. $encrypt .'/'.$this->customer['id']);	
 		$params['data'] = $link;
 		$params['level'] = 'H';
 		$params['size'] = 5;
 		$params['savename'] = FCPATH.'uploads/qrcode/top_up_credit_qrcode.png';
 		$this->ciqrcode->generate($params);
 		
+		$data['link'] = $link;
+		$data['encrypt'] = $encrypt;
 		$data['qr_code'] = '<img src="'.base_url().'uploads/qrcode/top_up_credit_qrcode.png" />';
 		$data['customer'] = (array)$this->Customer_model->get_customer($this->customer['id']);
-		
-			
+					
 		$this->view('top_up_credit_qrcode', $data);
 	}
 	
-	function top_up_credit($customer_id = '')
-	{
+	function top_up_credit($string_passing_value,$customer_id = NULL)
+	{				
+/* 		if(empty($customer_id))
+		{
+			redirect('cart');
+		} */
+		
 		$data['page_title']	= 'Top Up Credit';
 		$data['seo_title']	= 'Top Up Credit';
-
+		$data['encrypt'] = $string_passing_value;
 		// 		$this->load->helper('captcha');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<div>', '</div>');
 		$submitted 	= $this->input->post('submitted');
-		$data['error'] = '';		
-		$data['customer_id'] = $this->customer['id'];
-		$data['customer'] = $this->customer;
+		$data['error'] = '';
+		
+		//$data['customer_id'] = $this->customer['id'];
+		$data['customer_id'] = $customer_id;
+				
+		//$data['customer'] = $this->customer;
+		$data['customer'] = $this->Customer_model->get_customer_by_id($customer_id);
 		
 		if ($submitted){		
 			$this->form_validation->set_rules('staff_branch', 'lang:staff_branch', 'required|max_length[100]');
@@ -990,7 +1026,9 @@ class Cart extends Front_Controller {
 		$data['seo_title']	= 'Consumption QR Code';
 		$this->load->library('ciqrcode');
 	
-		$link = site_url('consumption/'.$this->customer['id']);
+		$encrypt = random_string('alnum', 16);
+		
+		$link = site_url('cart/consumption/'.$encrypt.'/'.$this->customer['id']);
 	
 		$params['data'] = $link;
 		$params['level'] = 'H';
@@ -998,24 +1036,29 @@ class Cart extends Front_Controller {
 		$params['savename'] = FCPATH.'uploads/qrcode/consumption_qrcode.png';
 		$this->ciqrcode->generate($params);
 	
+		$data['link'] = $link;
+		$data['encrypt'] = $encrypt;
 		$data['qr_code'] = '<img src="'.base_url().'uploads/qrcode/consumption_qrcode.png" />';
 		$data['customer'] = (array)$this->Customer_model->get_customer($this->customer['id']);
 				
 		$this->view('consumption_qrcode', $data);
 	}
 	
-	function consumption($customer_id = '')
-	{
+	function consumption($string_passing_value,$customer_id = NULL)
+	{				
 		$data['page_title']	= 'Consumption';
 		$data['seo_title']	= 'Consumption';
+		$data['encrypt'] = $string_passing_value;
 			
 		// 		$this->load->helper('captcha');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<div>', '</div>');
 		$submitted 	= $this->input->post('submitted');
 		$data['error'] = '';
-		$data['customer_id'] = $this->customer['id'];
-		$data['customer'] = $this->customer;
+		//$data['customer_id'] = $this->customer['id'];
+		$data['customer_id'] = $customer_id;				
+		//$data['customer'] = $this->customer;
+		$data['customer'] = $this->Customer_model->get_customer_by_id($customer_id);
 		
 		if ($submitted){
 			$this->form_validation->set_rules('staff_branch', 'lang:staff_branch', 'required|max_length[100]');

@@ -9,7 +9,7 @@
 	             
             	 <div class="label_instruction"><?php echo $qr_code ?></div>
             	 
-            	 <!-- URL Link please click <a href="<?php echo site_url('top_up_credit/'.$customer['id']);?>">here</a--> 
+            	 URL Link please click <a href="<?php echo $link ?>">here</a> 
 	         </div>
 	       </div>
 	</div> 

@@ -3,7 +3,7 @@
 
 <div class="navbar">
   <div style="text-align:center;margin: 10px 0;>
-    <table width="80%" height="38" border="0" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF">
+    <table width="100%" height="38" border="0" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF">
     <tbody><tr>
       <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody><tr>

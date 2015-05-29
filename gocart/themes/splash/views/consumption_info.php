@@ -23,10 +23,11 @@
             	 	<blockquote><span><b><?php echo lang('total_consume');?> : </b></span> <span><?php echo $info['out']?></span></blockquote>            	 	
             	 <?php endif;?>            	             	 
             	         
+            	 <blockquote><span><b><?php echo lang('remark');?> : </b></span> <span><?php echo $info['remark']?></span></blockquote>        
             	         
-            	 <div class="label_instruction no-print">
+            	 <!--div class="label_instruction no-print">
 					<a href="<?php echo site_url('consumption_qrcode'); ?>"><?php echo lang('return_to_consumption');?></a>
-				 </div>
+				 </div-->
             	             	 
 	         	</div>
 	       </div>

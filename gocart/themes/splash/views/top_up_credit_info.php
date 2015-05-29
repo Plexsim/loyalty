@@ -18,11 +18,11 @@
             	 <blockquote><span><b><?php echo lang('customer_name');?> : </b></span> <span><?php echo $credit_info['customer_name']?></span></blockquote>
             	 <blockquote><span><b><?php echo lang('customer_cost');?> : </b></span> <span><?php echo $credit_info['cost']?></span></blockquote>
             	 <blockquote><span><b><?php echo lang('customer_topup_value');?> : </b></span> <span><?php echo $credit_info['in']?></span></blockquote>
+            	         <blockquote><span><b><?php echo lang('remark');?> : </b></span> <span><?php echo $credit_info['remark']?></span></blockquote>
             	         
-            	         
-            	 <div class="label_instruction no-print">
+            	 <!--div class="label_instruction no-print">
 					<a href="<?php echo site_url('top_up_credit'); ?>"><?php echo lang('return_to_topup_credit');?></a>
-				 </div>
+				 </div-->
             	             	 
 	         	</div>
 	       </div>

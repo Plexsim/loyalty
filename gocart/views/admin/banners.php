@@ -49,7 +49,11 @@ function areyousure()
 
 <strong style="float:left;"><?php echo lang('sort_banners')?></strong>
 
-<table class="table table-striped">
+    <div class="row">
+		<div class="col-sm-12">
+			<div class="ibox">
+ 				<div class="ibox-content">
+<table class="table table-striped table-hover">
 	<thead>
 		<tr>
 			<th><?php echo lang('sort');?></th>
@@ -107,7 +111,7 @@ function areyousure()
 			<td><?php echo $disable;?></td>
 			<td>
 				<div class="btn-group" style="float:right">
-					<a class="btn" href="<?php echo  site_url($this->config->item('admin_folder').'/banners/form/'.$banner->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+					<a class="btn btn-bitbucket" href="<?php echo  site_url($this->config->item('admin_folder').'/banners/form/'.$banner->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
 					<a class="btn btn-danger" href="<?php echo  site_url($this->config->item('admin_folder').'/banners/delete/'.$banner->id);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 				</div>
 			</td>
@@ -116,5 +120,5 @@ function areyousure()
 	</tbody>
 	<?php endif;?>
 </table>
-
+</div></div></div></div>
 <?php include('footer.php');

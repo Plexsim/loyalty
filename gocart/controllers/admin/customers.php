@@ -4,6 +4,7 @@ class Customers extends Admin_Controller {
 
 	//this is used when editing or adding a customer
 	var $customer_id	= false;	
+	protected $activemenu 	= 'customers';
 
 	function __construct()
 	{		
@@ -18,7 +19,7 @@ class Customers extends Admin_Controller {
 	{
 		//we're going to use flash data and redirect() after form submissions to stop people from refreshing and duplicating submissions
 		//$this->session->set_flashdata('message', 'this is our message');
-		
+		$data['activemenu'] = $this->activemenu;
 		$data['page_title']	= lang('customers');
 		$data['customers']	= $this->Customer_model->get_customers(50,$page, $field, $by);
 		
@@ -71,6 +72,7 @@ class Customers extends Admin_Controller {
 
 	function form($id = false)
 	{
+		$data['activemenu'] 		= $this->activemenu;
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		
@@ -79,8 +81,10 @@ class Customers extends Admin_Controller {
 		//default values are empty if the customer is new
 		$data['id']					= '';
 		$data['group_id']			= '';
+		$data['name']				= '';
 		$data['firstname']			= '';
 		$data['lastname']			= '';
+		
 		$data['email']				= '';
 		$data['phone']				= '';
 		$data['company']			= '';
@@ -111,6 +115,7 @@ class Customers extends Admin_Controller {
 			//set values to db values
 			$data['id']					= $customer->id;
 			$data['group_id']			= $customer->group_id;
+			$data['name']				= $customer->name;
 			$data['firstname']			= $customer->firstname;
 			$data['lastname']			= $customer->lastname;
 			$data['email']				= $customer->email;
@@ -121,11 +126,9 @@ class Customers extends Admin_Controller {
 			
 		}
 		
-		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'lang:lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required|max_length[255]');		
 		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]|callback_check_email');
-		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('company', 'lang:company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[32]');		
 		$this->form_validation->set_rules('active', 'lang:active');
 		$this->form_validation->set_rules('group_id', 'group_id', 'numeric');
 		$this->form_validation->set_rules('email_subscribe', 'email_subscribe', 'numeric|max_length[1]');
@@ -146,6 +149,7 @@ class Customers extends Admin_Controller {
 		{
 			$save['id']		= $id;
 			$save['group_id'] 	= $this->input->post('group_id');
+			$save['name']		= $this->input->post('name');
 			$save['firstname']	= $this->input->post('firstname');
 			$save['lastname']	= $this->input->post('lastname');
 			$save['email']		= $this->input->post('email');

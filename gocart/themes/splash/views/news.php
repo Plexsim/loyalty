@@ -12,25 +12,20 @@
 					<?php echo $page_title?>
 				</h2>
 
+				<?php foreach($latest_news as $new):?>
+				
 				<div class="toogle_wrap radius8">
-	                <div class="trigger"><a href="#">Come join us</a></div>
+	                <div class="trigger"><a href="#"><?php echo $new['title'] ?></a></div>
 	            
 	                <div class="toggle_container">
 	                <p>
-	            		We have alot job here waiting you
+	            		<?php echo $new['content'] ?>
 	                </p>
 	                </div>
 	            </div>
-
-	            <div class="toogle_wrap radius8">
-	                <div class="trigger"><a href="#">Red Merchant double X point</a></div>
 	            
-	                <div class="toggle_container">
-	                <p>
-	            		here is the merchant list...
-	                </p>
-	                </div>
-	            </div>
+	            <?php endforeach;?>
+	            
 	            
 				<div class="clearfix"></div>
 				<div class="scrolltop radius20">

@@ -13,10 +13,10 @@
 				  <!-- The container is used to define the width of the slideshow -->
 				  <div class="container">
 				    <div id="slides">
-				      <img src="<?php echo theme_img('banner0.jpg')?>" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/">
-				      <img src="<?php echo theme_img('banner1.jpg')?>" alt="Photo by: Daniel Parks Link: http://www.flickr.com/photos/parksdh/5227623068/">
-				      <img src="<?php echo theme_img('banner2.jpg')?>" alt="Photo by: Mike Ranweiler Link: http://www.flickr.com/photos/27874907@N04/4833059991/">
-				      <img src="<?php echo theme_img('banner3.jpg')?>" alt="Photo by: Stuart SeegerLink: http://www.flickr.com/photos/stuseeger/97577796/">
+				    <?php foreach($sliders as $slider):?>
+	        			<img src="<?php echo base_url('uploads/'.$slider['image'])?>" alt="" title=""/> 
+	        		<?php endforeach;?>
+				    <!--img src="<?php echo theme_img('banner0.jpg')?>" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/"-->				      
 				    </div>
 				  </div>
 				  <!-- End SlidesJS Required: Start Slides -->
@@ -27,17 +27,22 @@
             	</div>
             	</a>
             	
-            	<a href="tel:0165247163">
+            	
+            	<?php if((isset($companies[0]['phone']) && !empty($companies[0]['phone']))){?>
+            	<a href="tel:<?php echo $companies[0]['phone']?>">
             	<div class="toogle_wrap radius8">
-	                <div class="go_next_page">0165247163</div>	            
+	                <div class="go_next_page"><?php echo $companies[0]['phone'] ?></div>	            
             	</div>
             	</a>
+            	<?php }?>
 				
-				<a style="cursor: pointer;" onclick="myNavFunc()">
+				<?php if((isset($companies[0]['address']) && !empty($companies[0]['address']))){?>
+				<a style="cursor: pointer;" onclick="myNavFunc('<?php echo $companies[0]['gps']?>')">
             	<div class="toogle_wrap radius8">
-	                <div class="go_next_page">3-3A / NB Plaza, 3000 Jalan Baru, 13700 Perai, Pulau Pinang</div>	            
+	                <div class="go_next_page"><?php echo $companies[0]['address']?></div>	            
             	</div>
             	</a>
+            	<?php }?>
             	
             	<a href="<?php echo site_url('company_details')?>">
             	<div class="toogle_wrap radius8">

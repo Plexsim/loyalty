@@ -52,6 +52,19 @@ function format_ymd($date)
 	}
 }
 
+function format_ymd_malaysia($date)
+{
+	if(empty($date) || $date == '00-00-0000')
+	{
+		return '';
+	}
+	else
+	{
+		$d = explode('-', $date);
+		return $d[2].'-'.$d[1].'-'.$d[0];
+	}
+}
+
 function format_mdy($date)
 {
 	if(empty($date) || $date == '0000-00-00')

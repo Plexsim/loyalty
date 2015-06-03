@@ -5,7 +5,47 @@
             <div>
 
                 <!--h1 class="logo-name">Red Merchant</h1-->
-
+				
+				    <?php
+				    //lets have the flashdata overright "$message" if it exists
+				    if($this->session->flashdata('message'))
+				    {
+				        $message    = $this->session->flashdata('message');
+				    }
+				    
+				    if($this->session->flashdata('error'))
+				    {
+				        $error  = $this->session->flashdata('error');
+				    }
+				    
+				    if(function_exists('validation_errors') && validation_errors() != '')
+				    {
+				        $error  = validation_errors();
+				    }
+				    ?>
+				    
+				    <div id="js_error_container" class="alert alert-error" style="display:none;"> 
+				        <p id="js_error"></p>
+				    </div>
+				    
+				    <div id="js_note_container" class="alert alert-note" style="display:none;">
+				        
+				    </div>
+				    
+				    <?php if (!empty($message)): ?>
+				        <div class="alert alert-success alert-dismissable">
+				           <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+				            <?php echo $message; ?>
+				        </div>
+				    <?php endif; ?>
+				
+				    <?php if (!empty($error)): ?>
+				        <div class="alert alert-danger alert-dismissable">
+				           <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+				            <?php echo $error; ?>
+				        </div>
+				    <?php endif; ?>
+				
             <img src="<?php echo base_url('assets/img/logo.png');?>" >
             
             </div>
@@ -26,9 +66,9 @@
                  <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
         		 <input type="hidden" value="submitted" name="submitted"/>
                 
-                <a href="#"><small>Forgot password?</small></a>
+                <!--a href="#"><small>Forgot password?</small></a>
                 <p class="text-muted text-center"><small>Do not have an account?</small></p>
-                <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>
+                <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a-->
             <?php echo  form_close(); ?>
             <p class="m-t"> <small>Red Merchant &copy; 2015</small> </p>
         </div>

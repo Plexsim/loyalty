@@ -2,6 +2,8 @@
 
 class Dashboard extends Admin_Controller {
 
+	protected $activemenu 	= 'dashboard';
+	
 	function __construct()
 	{
 		parent::__construct();
@@ -23,6 +25,8 @@ class Dashboard extends Admin_Controller {
 		//check to see if shipping and payment modules are installed
 		$data['payment_module_installed']	= (bool)count($this->Settings_model->get_settings('payment_modules'));
 		$data['shipping_module_installed']	= (bool)count($this->Settings_model->get_settings('shipping_modules'));
+		
+		$data['activemenu'] = $this->activemenu;
 		
 		$data['page_title']	=  lang('dashboard');
 		

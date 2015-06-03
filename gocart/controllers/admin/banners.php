@@ -8,6 +8,8 @@ Banner Admin controller
 
 class Banners extends Admin_Controller {
 	
+	protected $activemenu 	= 'banners';
+	
 	function __construct()
 	{
 		parent::__construct();
@@ -24,6 +26,7 @@ class Banners extends Admin_Controller {
 	function index()
 	{
 		$data['page_title']			= lang('banner_collections');
+		$data['activemenu'] 		= $this->activemenu;
 		
 		$data['banner_collections']	= $this->banner_model->banner_collections();
 		$this->view(config_item('admin_folder').'/banner_collections', $data);
@@ -32,6 +35,7 @@ class Banners extends Admin_Controller {
 	function banner_collection_form($banner_collection_id = false)
 	{
 		$data['page_title']			= lang('banner_collection_form');
+		$data['activemenu'] 		= $this->activemenu;
 		
 		$this->load->library('form_validation');
 		
@@ -90,6 +94,7 @@ class Banners extends Admin_Controller {
 	
 	function banner_collection($banner_collection_id)
 	{
+		$data['activemenu'] 		= $this->activemenu;
 		$data['banner_collection']	= $this->banner_model->banner_collection($banner_collection_id);
 		if(!$data['banner_collection'])
 		{
@@ -137,6 +142,7 @@ class Banners extends Admin_Controller {
 		}
 		
 		$data['page_title']	= lang('banner_form');
+		$data['activemenu'] = $this->activemenu;
 		
 		$this->form_validation->set_rules('name', 'lang:name', 'trim|required|full_decode');
 		$this->form_validation->set_rules('enable_date', 'lang:enable_date', 'trim');

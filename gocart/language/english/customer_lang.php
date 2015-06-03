@@ -8,6 +8,7 @@ $lang['customers']					= 'Customers';
 $lang['customer_form']				= 'Customer Form';
 $lang['firstname']					= 'First Name';
 $lang['lastname']					= 'Last Name';
+$lang['name']						= 'Name';
 $lang['email']						= 'Email';
 $lang['phone']						= 'Phone';
 $lang['contact']					= 'Contact';
@@ -37,7 +38,7 @@ $lang['customer_group_form']		= 'Customer Group Form';
 $lang['address_form']				= 'Address Form';
 $lang['attributes']					= 'Attributes';
 $lang['xml_download']				= 'Export Customers (XML)';
-$lang['subscriber_download']		= 'Opt-in Emails (CSV)';
+$lang['subscriber_download']		= 'Subscribe Emails (CSV)';
 $lang['no_addresses']				= 'There are currently no addresses for this customer.';
 $lang['no_customers']				= 'There are currently no customer.';
 $lang['message_saved_group']		= 'The customer group has been saved.';
@@ -45,6 +46,9 @@ $lang['message_saved_customer']		= 'The customer has been saved.';
 $lang['message_saved_address']		= 'The address has been saved.';
 $lang['message_customer_deleted']	= 'The customer has been deleted.';
 $lang['message_address_deleted']	= 'The address has been deleted.';
+$lang['customer_details']			= 'Customer details';
+
+
 
 $lang['error_not_found']			= 'The requested customer could not be found.';
 $lang['error_address_not_found']	= 'The requested address could not be found.';

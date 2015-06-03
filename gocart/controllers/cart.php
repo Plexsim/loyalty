@@ -8,7 +8,8 @@ class Cart extends Front_Controller {
 	{
 		parent::__construct();
 			
-		$this->load->model(array('point_model','credit_model','admin_model'));		
+		$this->load->model(array('point_model','credit_model','admin_model','Slider_model','Company_model','latest_news_model','Settings_model'));	
+			
 		$this->customer = $this->go_cart->customer();
 	}
 	
@@ -61,6 +62,8 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'VIP Privileges';
 		$data['seo_title']	= 'VIP Privileges';
 		$data['homepage']			= true;
+		$data['sliders'] 			= $this->Slider_model->display_one_slider();
+		$data['companies'] 			= $this->Company_model->get_company_list();
 		//$this->view('details', $data);		
 		//$this->view('homepage', $data);
 		$this->view('homeslide', $data);
@@ -863,6 +866,9 @@ class Cart extends Front_Controller {
 		$this->Customer_model->is_logged_in('cart/company_details/');
 		$data['page_title']	= 'Company Details';
 		$data['seo_title']	= 'Company Details';
+		
+		$data['companies'] = $this->Company_model->get_company_list();
+		
 		$this->view('company_details', $data);
 	}
 	
@@ -871,6 +877,9 @@ class Cart extends Front_Controller {
 		$this->Customer_model->is_logged_in('cart/my_card/');
 		$data['page_title']	= 'My Card';
 		$data['seo_title']	= 'My Card';
+		$setting = $this->Settings_model->get_settings('gocart');
+		$data['image_card'] = $setting['image_card'];
+		
 		$this->view('my_card', $data);
 	}
 	
@@ -879,6 +888,8 @@ class Cart extends Front_Controller {
 		$this->Customer_model->is_logged_in('cart/member_center/');
 		$data['page_title']	= 'Member Center';
 		$data['seo_title']	= 'Member Center';
+		$setting = $this->Settings_model->get_settings('gocart');
+		$data['image_card'] = $setting['image_card'];
 		
 		$data['customer_points'] = $this->point_model->get_point_amt($this->customer['id']);
 		$data['customer_credits'] = $this->credit_model->get_total_credit_consume($this->customer['id']);
@@ -1185,6 +1196,8 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'News';
 		$data['seo_title']	= 'News';
 	
+		$data['latest_news'] = $this->latest_news_model->get_list();
+		
 		$this->view('news', $data);
 	}
 	

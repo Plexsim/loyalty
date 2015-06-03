@@ -19,6 +19,7 @@ $lang['common_products']= 'Products';
 $lang['common_digital_products']= 'Digital Products';
 $lang['common_content'] = 'Content';
 $lang['common_banners'] = 'Banners';
+$lang['common_slider'] = 'Slider';
 $lang['common_boxes'] = 'Boxes';
 $lang['common_pages'] = 'Pages';
 $lang['common_administrative']= 'Administrative';
@@ -35,6 +36,21 @@ $lang['common_front_end'] = 'Front End';
 $lang['common_dashboard'] = 'Dashboard';
 $lang['common_home']= 'Home';
 $lang['common_actions'] = 'Actions';
+$lang['common_company'] = 'Company';
+$lang['common_news'] = 'News';
+$lang['common_credits'] = 'Credits';
+$lang['common_topup_credit'] = 'Topup Credit';
+$lang['common_consumption'] = 'Consumption';
+$lang['common_point'] = 'Point';
+$lang['common_card'] = 'Member Card Custom';
+$lang['common_manage_customer'] = 'Manage Customer';
+$lang['common_view'] = 'View';
+$lang['common_search'] = 'Search';
+$lang['common_check_point'] = 'Check Point';
+$lang['common_add'] = 'Add';
+
+
+
 $lang['enabled'] = 'Enabled';
 $lang['disabled'] = 'Disabled';
 $lang['yes'] = 'Yes';

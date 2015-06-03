@@ -1,4 +1,4 @@
-
+<?php $admin_url = site_url($this->config->item('admin_folder')).'/';?>
 <div class="row">
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
@@ -6,8 +6,8 @@
 				<h5>Manage Branch</h5>
 			</div>
 			<div class="ibox-content">
-				<a href="add_branch.php" class="btn btn-w-m btn-danger">Add</a> <a
-					href="branch.php" class="btn btn-w-m btn-info">View </a>
+				<a href="#" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a> <a
+					href="#" class="btn btn-w-m btn-info"><?php echo lang('common_view')?> </a>
 			</div>
 		</div>
 	</div>
@@ -18,7 +18,7 @@
 				<h5>Prepaid</h5>
 			</div>
 			<div class="ibox-content">
-				<a href="prepaid.php" class="btn btn-w-m btn-danger">Add</a>
+				<a href="<?php echo $admin_url?>credit/consume_form" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
 			</div>
 		</div>
 	</div>
@@ -26,10 +26,10 @@
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>Manage Card</h5>
+				<h5><?php echo lang('common_manage_customer')?></h5>
 			</div>
 			<div class="ibox-content">
-				<a href="mg_card.php" class="btn btn-w-m btn-info">View</a>
+				<a href="<?php echo $admin_url?>customers" class="btn btn-w-m btn-info"><?php echo lang('common_view')?></a>
 			</div>
 		</div>
 	</div>
@@ -37,10 +37,10 @@
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>Check Point</h5>
+				<h5><?php echo lang('common_check_point')?></h5>
 			</div>
 			<div class="ibox-content">
-				<a href="check_point.php" class="btn btn-w-m btn-info">Search</a>
+				<a href="<?php echo $admin_url?>point" class="btn btn-w-m btn-info"><?php echo lang('common_search')?></a>
 			</div>
 		</div>
 	</div>
@@ -54,8 +54,8 @@
 				<h5>Manage Redemption</h5>
 			</div>
 			<div class="ibox-content">
-				<a href="add_redemption.php" class="btn btn-w-m btn-danger">Add</a>
-				<a href="mg_redemption.php" class="btn btn-w-m btn-info">View </a>
+				<a href="#" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
+				<a href="#" class="btn btn-w-m btn-info"><?php echo lang('common_view')?> </a>
 			</div>
 		</div>
 	</div>
@@ -66,7 +66,7 @@
 				<h5>Gift Redepmtion</h5>
 			</div>
 			<div class="ibox-content">
-				<a href="giftredempt.php" class="btn btn-w-m btn-danger">Add</a>
+				<a href="#" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
 			</div>
 		</div>
 	</div>
@@ -74,10 +74,10 @@
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>Credit</h5>
+				<h5><?php echo lang('common_credits')?></h5>
 			</div>
 			<div class="ibox-content">
-				<a href="credit.php" class="btn btn-w-m btn-danger">Add</a>
+				<a href="<?php echo $admin_url?>credit/topup_credit_form" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
 			</div>
 		</div>
 	</div>
@@ -85,10 +85,10 @@
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>Report</h5>
+				<h5><?php echo lang('common_reports')?></h5>
 			</div>
 			<div class="ibox-content">
-				<a href="report.php" class="btn btn-w-m btn-info">View</a>
+				<a href="#" class="btn btn-w-m btn-info"><?php echo lang('common_view')?></a>
 			</div>
 		</div>
 	</div>
@@ -138,22 +138,23 @@
 	</div>
 </div>
 
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="row">
-	<div class="span12" style="text-align:center;">
+	<div class="col-sm-12" style="text-align:center;">
 		<a class="btn btn-large" href="<?php echo site_url(config_item('admin_folder').'/customers');?>"><?php echo lang('view_all_customers');?></a>
 	</div>
 </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,7 +11,7 @@
 
 				<p>								
 				<div class="label_instruction">
-					<img src="<?php echo theme_img('mc.jpg')?>">
+					<img src="<?php echo base_url($image_card)?>" alt="member-card" class="image-card" style="width:450px; height:auto" />
 				</div>
 				</p>
 				<center><p>E - Member Card, easier carrier and never lost it.</p></center>

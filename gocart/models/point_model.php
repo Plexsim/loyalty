@@ -7,6 +7,82 @@ Class Point_model extends CI_Model
 	}
 	
 	
+	function get_points($search=false, $sort_by='', $sort_order='DESC', $limit=0, $offset=0)
+	{
+		if ($search)
+		{
+			
+			if(!empty($search->start_top))
+			{				
+				$this->db->where('created >=',format_ymd_malaysia($search->start_top));
+			}
+			if(!empty($search->end_top))
+			{
+				//increase by 1 day to make this include the final day
+				//I tried <= but it did not function. Any ideas why?
+				$search->end_date = date('Y-m-d', strtotime(format_ymd_malaysia($search->end_top))+86400);
+				$this->db->where('created <',format_ymd_malaysia($search->end_top));
+			}
+			if(!empty($search->customer_id))
+			{
+				//increase by 1 day to make this include the final day
+				//I tried <= but it did not function. Any ideas why?
+				$this->db->where('customer_id',$search->customer_id);
+			}
+			
+			
+			//branch
+			/* if(!empty($search->branch))
+			{
+			//increase by 1 day to make this include the final day
+			//I tried <= but it did not function. Any ideas why?
+			$this->db->where('branch',$search->branch);
+			}	 */
+			}
+	
+			if($limit>0)
+			{
+			$this->db->limit($limit, $offset);
+			}
+			if(!empty($sort_by))
+			{
+			$this->db->order_by($sort_by, $sort_order);
+			}
+	
+			return $this->db->get('point')->result();
+	}
+	
+		function get_points_count($search=false)
+		{
+		if ($search)
+		{
+		if(!empty($search->start_top))
+		{
+			$this->db->where('created >=',format_ymd_malaysia($search->start_top));
+			}
+			if(!empty($search->end_top))
+			{
+			$this->db->where('created <',format_ymd_malaysia($search->end_top));
+			}
+			if(!empty($search->customer_id))
+			{
+			//increase by 1 day to make this include the final day
+				//I tried <= but it did not function. Any ideas why?
+				$this->db->where('customer_id',$search->customer_id);
+			}
+			//branch
+				/* if(!empty($search->branch))
+			{
+			//increase by 1 day to make this include the final day
+				//I tried <= but it did not function. Any ideas why?
+				$this->db->where('branch',$search->branch);
+				}	 */
+	
+				}
+	
+				return $this->db->count_all_results('point');
+			}
+	
 	function get_list($customer_id = '')
 	{		
 		if($customer_id != '')

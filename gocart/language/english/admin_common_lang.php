@@ -48,6 +48,7 @@ $lang['common_view'] = 'View';
 $lang['common_search'] = 'Search';
 $lang['common_check_point'] = 'Check Point';
 $lang['common_add'] = 'Add';
+$lang['common_vouchers'] = 'Vouchers';
 
 
 

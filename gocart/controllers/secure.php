@@ -143,8 +143,8 @@ class Secure extends Front_Controller {
 		$this->form_validation->set_rules('name', 'lang:address_name', 'trim|required|max_length[255]');
 		$this->form_validation->set_rules('email', 'lang:address_email', 'trim|required|valid_email|max_length[128]|callback_check_email');
 		$this->form_validation->set_rules('phone', 'lang:address_phone', 'trim|required|max_length[32]|callback_check_phone');
-		//$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
-		//$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]');
+		$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
+		$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]');
 		$this->form_validation->set_rules('email_subscribe', 'lang:account_newsletter_subscribe', 'trim|numeric|max_length[1]');
 
 		
@@ -180,8 +180,8 @@ class Secure extends Front_Controller {
 			$save['active']				= $this->config->item('new_customer_status');
 			$save['email_subscribe']	= intval((bool)$this->input->post('email_subscribe'));
 			
-			//$save['password']			= $this->input->post('password');
-			$save['password']			= 'fd8fca90ed05d83e24bda699b7169f69bbf23e5a';
+			$save['password']			= $this->input->post('password');
+			//$save['password']			= 'fd8fca90ed05d83e24bda699b7169f69bbf23e5a';
 			$redirect					= $this->input->post('redirect');
 			
 			//if we don't have a value for redirect

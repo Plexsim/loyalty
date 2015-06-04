@@ -39,6 +39,19 @@ function reverse_format($date)
 	return "{$d[1]}-{$d[2]}-{$d[0]}";
 }
 
+function reverse_format_malaysia($date)
+{
+	if(empty($date))
+	{
+		return;
+	}
+
+	$d = explode('-', $date);
+
+	return "{$d[2]}-{$d[1]}-{$d[0]}";
+}
+
+
 function format_ymd($date)
 {
 	if(empty($date) || $date == '00-00-0000')

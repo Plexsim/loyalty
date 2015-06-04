@@ -282,6 +282,7 @@ $lang['out']								= 'Out';
 $lang['consume_amount']						= 'Consume amount';
 $lang['cost']								= 'Cost';
 
+$lang['no_vouchers']						= 'No Vouchers Currently';
 
 
 

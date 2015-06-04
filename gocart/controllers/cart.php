@@ -8,7 +8,7 @@ class Cart extends Front_Controller {
 	{
 		parent::__construct();
 			
-		$this->load->model(array('point_model','credit_model','admin_model','Slider_model','Company_model','latest_news_model','Settings_model'));	
+		$this->load->model(array('point_model','credit_model','admin_model','Slider_model','Company_model','latest_news_model','Settings_model','Voucher_model'));	
 			
 		$this->customer = $this->go_cart->customer();
 	}
@@ -858,6 +858,10 @@ class Cart extends Front_Controller {
 		$this->Customer_model->is_logged_in('cart/homeslide/');
 		$data['page_title']	= 'VIP Privileges';
 		$data['seo_title']	= 'VIP Privileges';
+				
+		$data['homepage']			= true;
+		$data['sliders'] 			= $this->Slider_model->display_one_slider();
+		$data['companies'] 			= $this->Company_model->get_company_list();
 		$this->view('homeslide', $data);
 	}
 	
@@ -1187,6 +1191,8 @@ class Cart extends Front_Controller {
 	{
 		$data['page_title']	= 'Membership Promotion';
 		$data['seo_title']	= 'Membership Promotion';
+		$data['customer_id'] = $this->customer['id'];
+		$data['vouchers']	= $this->Voucher_model->get_vouchers();
 		
 		$this->view('membership_promotion', $data);
 	}
@@ -1205,7 +1211,10 @@ class Cart extends Front_Controller {
 	{
 		$data['page_title']	= 'My Vouchers';
 		$data['seo_title']	= 'My Vouchers';
-	
+		
+		$data['vouchers'] = $this->Voucher_model->my_voucher($this->customer['id']);	
+		//$data['vouchers'] = $this->Voucher_model->my_voucher(3);
+		
 		$this->view('my_vouchers', $data);
 	}
 	
@@ -1226,6 +1235,32 @@ class Cart extends Front_Controller {
 		$this->view('transaction_record', $data);
 	}
 	
-	
+	/*---------------------------------------------------------------------------------------------------------
+	 | Function to add voucher into customers
+	|----------------------------------------------------------------------------------------------------------*/
+	function add_voucher()
+	{
+		$data = array();
+		$voucher_id = ($this->input->post('voucher_id')) ? $this->input->post('voucher_id') : 0;
+		$customer_id = ($this->input->post('customer_id')) ? $this->input->post('customer_id') : 0;		
+		//$voucher_id = 2;
+		//$customer_id = 3;
+		
+		//check table first
+		$exist = $this->Voucher_model->check_voucher_customer($voucher_id, $customer_id);
+
+		 if(!$exist){
+			$save['voucher_id'] = $voucher_id;
+			$save['customer_id'] = $customer_id;
+			$save['active'] = 0; //enable
+			
+			$result 	= $this->Voucher_model->add_voucher_customer($save);
+		}else{
+			$result		= 'GOT';
+		}				
+		
+		echo $result;
+		//echo $result; 
+	}
 	
 }

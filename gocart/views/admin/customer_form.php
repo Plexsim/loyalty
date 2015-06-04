@@ -33,7 +33,7 @@
                                   <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('password');?></label>
                                   <?php
 										$data	= array('name'=>'password', 'class'=>'form-control');
-										echo '<div class="col-sm-10">'.form_password($data).'</div>'; ?>                                  
+										echo '<div class="col-sm-10">'.form_password($data).'</div>'; ?>                        
                                   </div>
                                   
                                   <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('confirm');?></label>
@@ -74,7 +74,7 @@
                               								
 								<div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('group');?></label>
 									<?php echo '<div class="col-sm-10">'.form_dropdown('group_id', $group_list, set_value('group_id',$group_id), 'class="form-control m-b"').'</div>'; ?>
-								</div>		                    
+								</div>
                               																									
 								 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">

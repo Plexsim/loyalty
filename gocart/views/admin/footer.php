@@ -110,6 +110,24 @@ $('#consume_date').datepicker({
     autoclose: true
 });
 
+$('#datepicker1').datepicker({
+	format: 'dd-mm-yyyy',
+    todayBtn: "linked",
+    keyboardNavigation: false,
+    forceParse: false,
+    calendarWeeks: true,
+    autoclose: true
+});
+
+$('#datepicker2').datepicker({
+	format: 'dd-mm-yyyy',
+    todayBtn: "linked",
+    keyboardNavigation: false,
+    forceParse: false,
+    calendarWeeks: true,
+    autoclose: true
+});
+
 function do_search(val)
 {
 	$('#search_term').val($('#'+val).val());
@@ -205,6 +223,7 @@ $(function () {
                     $this.remove();
                 });
             });
+     
     $('#fileupload').fileupload({
         url: url,
         dataType: 'json',
@@ -286,7 +305,32 @@ $(function () {
         });
     }).prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+    // Change this to the location of your server-side upload handler:
+    var voucher_url = "<?php echo base_url(); ?>"+"admin/card/upload_card/",            
+       uploadButton = $('<button/>')
+           .addClass('btn btn-primary')
+           .prop('disabled', true)
+           .text('Processing...')
+           .on('click', function () {
+               var $this = $(this),
+                   data = $this.data();
+               $this
+                   .off('click')
+                   .text('Abort')
+                   .on('click', function () {
+                       $this.remove();
+                       data.abort();
+                   });
+               data.submit().always(function () {
+                   $this.remove();
+               });
+      });
+    
 });
+
+
 </script>
 
 </body>

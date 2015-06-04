@@ -86,7 +86,11 @@
                 <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'card') ? 'class="active"' : ''; ?>>
                     <a href="<?php echo $admin_url?>card"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_card') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
                 </li>
-                                
+                
+                <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'vouchers') ? 'class="active"' : ''; ?>>
+                    <a href="<?php echo $admin_url;?>vouchers"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_vouchers') ?></span></a>
+                </li>
+                                                       
             </ul>
 
         </div>

@@ -173,6 +173,7 @@ class Coupons extends Admin_Controller {
 			$save['start_date']				= format_ymd_malaysia($this->input->post('start_date'));
 			$save['end_date']				= format_ymd_malaysia($this->input->post('end_date'));
 			//$save['whole_order_coupon'] 	= $this->input->post('whole_order_coupon');
+			$save['whole_order_coupon'] 	= 1;
 			$save['max_product_instances'] 	= $this->input->post('max_product_instances');
 			//$save['reduction_target']		= $this->input->post('reduction_target');
 			$save['reduction_target']		= 'price';

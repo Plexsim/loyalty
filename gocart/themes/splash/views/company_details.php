@@ -7,7 +7,7 @@
                                         <div class="pages_container">
                                         <h2 class="page_title"><?php echo $page_title?></h2>
                            
-                           
+                           <?php echo (count($companies) < 1)?'<p>'.lang('no_companies').'</p>':''?>
                            <?php foreach ($companies as $company):?>
                            <ul class="listing_detailed">                                          
 						

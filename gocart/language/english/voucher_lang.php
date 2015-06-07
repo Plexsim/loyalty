@@ -7,6 +7,7 @@ Admin Voucher Language
 $lang['vouchers']				= 'Vouchers';
 $lang['voucher_form']			= 'Voucher Form';
 $lang['error_not_found']		= 'The requested voucher could not be found.';
+$lang['error_card_not_found']	= 'The requested member card could not be found.';
 $lang['no_vouchers']			= 'There are currently no vouchers.';
 $lang['confirm_delete_voucher']	= 'Are you sure you want to delete this voucher?';
 $lang['add_new_voucher']		= 'Add New Voucher';
@@ -20,8 +21,14 @@ $lang['reduction_amount']		= 'Reduction Amount';
 $lang['point_consume']			= 'Point Consume';
 $lang['start_date']				= 'Start Date (UTC)';
 $lang['end_date']				= 'End Date (UTC)';
+$lang['message_customer_voucher']	= 'The voucher and customer details has been found!';
 $lang['message_saved_voucher']	= 'The voucher has been saved!';
+$lang['error_saved_voucher']	= 'The voucher saving has been go wrong!';
 $lang['error_already_used']		= 'The requested voucher code is already in use!';
+$lang['error_voucher']			= 'The requested voucher code is invalid!';
+$lang['error_voucher_no_exist']			= 'The requested voucher code no exist, please check again!';
+$lang['home']					= 'Home';
+
 $lang['message_voucher_deleted']	= 'The voucher has been deleted.';
 $lang['attributes']				= 'Attributes';
 $lang['applies_to']				= 'Applies To';
@@ -42,7 +49,11 @@ $lang['fixed']					= 'Fixed';
 $lang['image']					= 'Image';
 $lang['content']				= 'Content';
 $lang['desc']					= 'Description';
-
+$lang['customer_voucher_form']	= 'Process Customer Voucher Form';
+$lang['customer_voucher_details']= 'Process Customer Voucher Details';
+$lang['card']					= 'Member Card';
+$lang['next']					= 'Next';
+$lang['status']					= 'Status';
 
 
 

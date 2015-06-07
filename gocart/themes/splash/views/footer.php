@@ -97,6 +97,8 @@
 
 	<!--scripts-->		
 	<?php echo theme_js('jquery-1.10.1.min.js', true);?>	
+	<?php echo theme_js('jquery-ui.js', true);?>	
+	
 	<?php echo theme_js('jquery.validate.min.js', true);?>
 	
 	
@@ -116,7 +118,10 @@
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>	
 <script>
-
+	$(function() {
+    	$( "#tabs" ).tabs();
+  	});
+  
 	$(".toggle_container").show();
 	$(".toggle_container_point").hide();
 	$(".toggle_container_company").hide();

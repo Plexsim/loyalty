@@ -166,6 +166,21 @@ class Coupon_model extends CI_Model
 		}
 	}
 	
+	function check_coupon($code=false)
+	{
+		$this->db->where('code', $code);
+		$count = $this->db->count_all_results('coupons');
+	
+		if ($count > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	// add product to coupon
 	function add_product($coupon_id, $prod_id, $seq=NULL)
 	{
@@ -221,6 +236,60 @@ class Coupon_model extends CI_Model
 	{
 		$this->db->where(array('coupon_id'=>$coupon_id, 'product_id'=>$prod_id));
 		$this->db->update('coupons_products', array('sequence'=>$seq));
+	}
+	
+	// Get list of product id's only - utility function
+	function check_coupon_customer($coupon_id, $customer_id)
+	{
+		$this->db->select('coupon_id');
+		$this->db->where('coupon_id', $coupon_id);
+		$this->db->where('customer_id', $customer_id);
+	
+		$count = $this->db->count_all_results('customer_coupon');
+	
+		if ($count > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	// add coupon, returns id
+	function add_coupon_customer($data)
+	{
+		$this->db->insert('customer_coupon', $data);
+		//return $this->db->insert_id(); // this is only for auto increment
+		return $this->db->affected_rows();
+	}
+	
+	// update coupon
+	function update_coupon_customer($data)
+	{
+		$this->db->where('coupon_id', $data['coupon_id']);
+		$this->db->where('customer_id', $data['customer_id']);
+		$this->db->update('customer_coupon', $data);
+		return $this->db->affected_rows();
+	}
+	
+	function my_coupon($customer_id)
+	{
+		$this->db->join("coupons", "coupons.id=customer_coupon.coupon_id");
+		//$this->db->join("customers", "customers.id=customer_coupon.customer_id");
+		$this->db->where('customer_id', $customer_id);
+		return $this->db->get('customer_coupon')->result();
+	}
+	
+	function my_coupon_details($coupon_id, $customer_id)
+	{
+		$this->db->select('*, customer_coupon.active as use_status ');
+		$this->db->join("coupons", "coupons.id=customer_coupon.coupon_id");
+		//$this->db->join("customers", "customers.id=customer_coupon.customer_id");
+		$this->db->where('customer_id', $customer_id);
+		$this->db->where('coupon_id', $coupon_id);
+		return $this->db->get('customer_coupon')->row_array();
 	}
 	
 }	

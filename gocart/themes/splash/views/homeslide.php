@@ -14,7 +14,7 @@
 				  <div class="container">
 				    <div id="slides">
 				    <?php foreach($sliders as $slider):?>
-	        			<img src="<?php echo base_url('uploads/'.$slider['image'])?>" alt="" title=""/> 
+	        			<img src="<?php echo base_url($slider['image'])?>" alt="" title=""/> 
 	        		<?php endforeach;?>
 				    <!--img src="<?php echo theme_img('banner0.jpg')?>" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/"-->				      
 				    </div>

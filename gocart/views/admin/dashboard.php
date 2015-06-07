@@ -6,8 +6,8 @@
 				<h5>Manage Branch</h5>
 			</div>
 			<div class="ibox-content">
-				<a href="#" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a> <a
-					href="#" class="btn btn-w-m btn-info"><?php echo lang('common_view')?> </a>
+				<a href="<?php echo $admin_url?>branch/branch_form" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a> <a
+					href="<?php echo $admin_url?>branch" class="btn btn-w-m btn-info"><?php echo lang('common_view')?> </a>
 			</div>
 		</div>
 	</div>
@@ -54,8 +54,8 @@
 				<h5>Manage Redemption</h5>
 			</div>
 			<div class="ibox-content">
-				<a href="#" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
-				<a href="#" class="btn btn-w-m btn-info"><?php echo lang('common_view')?> </a>
+				<a href="<?php echo $admin_url;?>vouchers/form" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
+				<a href="<?php echo $admin_url;?>vouchers" class="btn btn-w-m btn-info"><?php echo lang('common_view')?> </a>
 			</div>
 		</div>
 	</div>
@@ -140,11 +140,10 @@
 
 <div class="row">
 	<div class="col-sm-12" style="text-align:center;">
-		<a class="btn btn-large" href="<?php echo site_url(config_item('admin_folder').'/customers');?>"><?php echo lang('view_all_customers');?></a>
+		<a class="btn btn-danger btn-large" href="<?php echo site_url(config_item('admin_folder').'/customers');?>"><?php echo lang('view_all_customers');?></a>
 	</div>
 </div>
 
-</div>
 
 
 

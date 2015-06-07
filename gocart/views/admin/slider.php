@@ -51,3 +51,11 @@
 	<?php endif;?>
 </table>
 </div></div></div></div>
+
+
+<script>
+function areyousure()
+{
+	return confirm('<?php echo lang('confirm_delete_slider');?>');
+}
+</script>

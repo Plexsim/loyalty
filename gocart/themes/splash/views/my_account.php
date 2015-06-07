@@ -61,6 +61,10 @@ $confirm	= array('id'=>'confirm', 'class'=>'form_input radius4 required', 'name'
 					<div class="alert alert-danger">
 						<?php echo validation_errors();?>
 					</div>
+				<?php elseif ($this->session->flashdata('message')):?>
+					<div class="alert alert-info">
+						<?php echo $this->session->flashdata('message');?>
+					</div>										
 				<?php endif;?>						
 			
 				<h2 class="page_title">

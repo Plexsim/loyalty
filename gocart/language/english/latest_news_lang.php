@@ -11,7 +11,7 @@ $lang['latest_latest_news']			= 'Latest New';
 $lang['latest_news']					= 'News';
 $lang['attributes']				= 'Attributes';
 $lang['seo']					= 'SEO';
-$lang['latest_news_form']			= 'latest news Form';
+$lang['latest_news_form']			= 'Latest News Form';
 $lang['link_form']				= 'Link Form';
 $lang['title']					= 'Title';
 $lang['caption']				= 'Caption';
@@ -36,14 +36,13 @@ $lang['status']					= 'Status';
 $lang['enable']					= 'Enable';
 $lang['disable']				= 'Disable';
 $lang['edit']  					= 'Edit';
-$lang['delete']  				= 'delete';
-$lang['save']  					= 'save';
+$lang['delete']  				= 'Delete';
+$lang['save']  					= 'Save';
 $lang['best_photo_size']  		= 'Best photo size';
 $lang['width']  				= 'Width';
 $lang['height']  				= 'Height';
 $lang['latest_news_form']  			= 'News Form';
-
-
+$lang['home']						= 'Home';
 
 $lang['no_latest_news_or_links']		= 'There are currently no latest news or links.';
 $lang['error_page_not_found']			= 'The request page could not be found.';

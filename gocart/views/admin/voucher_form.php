@@ -1,9 +1,4 @@
-<script type="text/javascript">
-$(function(){
-$("#datepicker1").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker1_alt', altFormat: 'yy-mm-dd'}).attr('readonly', 'readonly');
-$("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_alt', altFormat: 'yy-mm-dd'}).attr('readonly', 'readonly');
-});
-</script>
+
 <?php 
 	$f_image		= array('name'=>'image', 'id'=>'image');
 ?>
@@ -89,10 +84,14 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 						 </div>		 
 						
 						 <div class="form-group"><label class="col-sm-2 control-label" for="desc"><?php echo lang('desc');?></label>
-							<?php
-							$data	= array('name'=>'desc', 'id'=>'desc', 'value'=>set_value('desc', $desc), 'class'=>'form-control');
-							echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
+														
+							<textarea class="input-block-level" id="summernote" name="desc" rows="5">
+                        		<?php echo set_value('desc', $desc) ?>
+                        	</textarea>
+							
 						 </div>	
+						 
+						 
 						
 						
 							<!-- div class="form-group">
@@ -125,44 +124,8 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 
 
 <script type="text/javascript">
-$('form').submit(function() {
-	$('.btn').attr('disabled', true).addClass('disabled');
-});
 
-$(document).ready(function(){
-	$("#gc_tabs").tabs();
-	
-	if($('#gc_voucher_type').val() == 'shipping')
-	{
-		$('#gc_voucher_price_fields').hide();
-	}
-	
-	$('#gc_voucher_type').bind('change keyup', function(){
-		if($(this).val() == 'price')
-		{
-			$('#gc_voucher_price_fields').show();
-		}
-		else
-		{
-			$('#gc_voucher_price_fields').hide();
-		}
-	});
-	
-	if($('#gc_voucher_appliesto_fields').val() == '1')
-	{
-		$('#gc_voucher_products').hide();
-	}
-	
-	$('#gc_voucher_appliesto_fields').bind('change keyup', function(){
-		if($(this).val() == 0)
-		{
-			$('#gc_voucher_products').show();
-		}
-		else
-		{
-			$('#gc_voucher_products').hide();
-		}
-	});
-});
+
+
 
 </script>

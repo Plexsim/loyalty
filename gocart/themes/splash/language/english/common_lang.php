@@ -281,8 +281,14 @@ $lang['in']									= 'In';
 $lang['out']								= 'Out';
 $lang['consume_amount']						= 'Consume amount';
 $lang['cost']								= 'Cost';
-
 $lang['no_vouchers']						= 'No Vouchers Currently';
+$lang['no_coupons']							= 'No Coupons Currently';
+$lang['no_news']							= 'No News Currently';
+$lang['no_companies']						= 'No Company Details Yet';
+
+$lang['coupons']							= 'Coupons';
+$lang['vouchers']							= 'Vouchers';
+
 
 
 

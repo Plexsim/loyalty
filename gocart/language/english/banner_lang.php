@@ -16,6 +16,9 @@ $lang['message_banner_collection_saved']	= 'The banner collection has been saved
 $lang['message_delete_banner_collection']	= 'The banner collection has been deleted.';
 $lang['confirm_delete_banner_collection']	= 'Are you sure you want to delete this banner collection and all it\\\'s contents?';
 $lang['banner_not_found']					= 'The requested banner could not be found.';
+$lang['home']								= 'Home';
+
+
 
 $lang['title']					= 'Title';
 $lang['link']					= 'Link';

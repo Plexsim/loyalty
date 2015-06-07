@@ -1,0 +1,34 @@
+.print-display{
+	display: none !important;
+}
+
+/* Printing Query
+/*-----------------------------------------------------------------------------------*/
+@media print {	
+	body{
+		font-family: Georgia, serif;
+		background: none;
+		color: black;		
+	}
+	
+	.pages_container{
+		page-break-inside: avoid;
+		margin:0; background-color:#ffffff; padding:20px 2.5%; border:1px #ffffff solid; width:90%;
+		
+		
+	}
+
+	.no-print, .no-print *
+    {
+        display: none !important;
+    }
+    
+    .print-display, .print-display *
+    {
+        display: block !important;
+    }	
+    
+    .navbar{
+    	display: none !important;
+    }
+}

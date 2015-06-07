@@ -30,12 +30,28 @@ Class Customer_model extends CI_Model
         return $this->db->count_all_results('customers');
     }
     
-    function get_customer($id)
+    function get_last_id()
     {
-        
+    	$this->db->select_max('card');
+		$this->db->from('customers');
+		$results = $this->db->get()->row();
+		if($results->card == '')
+		{
+			$last_id = 0;
+		}
+		else
+		{
+			$last_id = $results->card;
+		}
+		return $last_id;
+    }
+    
+    function get_customer($id)
+    {        
         $result = $this->db->get_where('customers', array('id'=>$id));
         return $result->row();
     }
+    
     
     function get_subscribers()
     {
@@ -175,6 +191,25 @@ Class Customer_model extends CI_Model
     	{
     		$this->db->where('id !=', $id);
     	}
+    	$count = $this->db->count_all_results();
+    
+    	if ($count > 0)
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    function check_card($str)
+    {
+    	$this->db->select('card');
+    	$this->db->from('customers');
+    	$this->db->where('card', $str);
+    	$this->db->where('active', 1);
+
     	$count = $this->db->count_all_results();
     
     	if ($count > 0)
@@ -421,7 +456,7 @@ Class Customer_model extends CI_Model
     
     function get_customer_by_card($card)
     {
-    	$result = $this->db->get_where('customers', array('card'=>$card));
+    	$result = $this->db->get_where('customers', array('card'=>$card, 'active'=>1));
     	return $result->row_array();
     }
 

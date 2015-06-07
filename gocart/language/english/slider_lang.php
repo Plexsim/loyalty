@@ -5,13 +5,13 @@ Admin latest gallery Language
 ******************************************/
 
 $lang['link_information']		= 'Link Information';
-$lang['add_new_slider']			= 'Add New latest slider';
+$lang['add_new_slider']			= 'Add New Slider';
 $lang['add_new_link']			= 'Add New Link';
-$lang['latest_slider']			= 'Latest Slider';
+$lang['slider']					= 'Slider';
 $lang['news']					= 'News';
 $lang['attributes']				= 'Attributes';
 $lang['seo']					= 'SEO';
-$lang['slider_form']			= 'latest slider Form';
+$lang['slider_form']			= 'Slider Form';
 $lang['link_form']				= 'Link Form';
 $lang['title']					= 'Title';
 $lang['caption']				= 'Caption';
@@ -36,16 +36,16 @@ $lang['status']					= 'Status';
 $lang['enable']					= 'Enable';
 $lang['disable']				= 'Disable';
 $lang['edit']  					= 'Edit';
-$lang['delete']  				= 'delete';
-$lang['save']  					= 'save';
+$lang['delete']  				= 'Delete';
+$lang['save']  					= 'Save';
 $lang['best_photo_size']  		= 'Best photo size';
 $lang['width']  				= 'Width';
 $lang['height']  				= 'Height';
 $lang['slider_form']  			= 'Slider Form';
+$lang['home']					= 'Home';
 
 
-
-$lang['no_slider_or_links']		= 'There are currently no latest slider or links.';
+$lang['no_slider_or_links']		= 'There are currently no slider or links.';
 $lang['error_page_not_found']			= 'The request page could not be found.';
 $lang['error_link_not_found']	= 'The request link could not be found.';
 $lang['message_saved_page']		= 'The page has been saved.';
@@ -53,5 +53,5 @@ $lang['message_saved_slider']	= 'The slider has been saved.';
 $lang['message_saved_link']		= 'The link has been saved.';
 $lang['message_deleted_page']	= 'The page has been deleted.';
 $lang['message_deleted_link']	= 'The link has been deleted.';
-$lang['confirm_delete']			= 'Are you sure you want to delete this slider?';
+$lang['confirm_delete_slider']			= 'Are you sure you want to delete this slider?';
 

@@ -17,6 +17,15 @@ class Secure extends Front_Controller {
 		show_404();
 	}
 	
+	/*---------------------------------------------------------------------------------------------------------
+	 | Function to generate card numbers
+	|----------------------------------------------------------------------------------------------------------*/
+	function generate_card_number()
+	{
+		$last_card = $this->Customer_model->get_last_id() + 1;		
+		return $last_card;
+	}
+	
 	function login($ajax = false)
 	{
 		//find out if they're already logged in, if they are redirect them to the my account page
@@ -179,6 +188,7 @@ class Secure extends Front_Controller {
 			$save['company']			= '-';
 			$save['active']				= $this->config->item('new_customer_status');
 			$save['email_subscribe']	= intval((bool)$this->input->post('email_subscribe'));
+			$save['card']				= $this->generate_card_number();
 			
 			$save['password']			= $this->input->post('password');
 			//$save['password']			= 'fd8fca90ed05d83e24bda699b7169f69bbf23e5a';

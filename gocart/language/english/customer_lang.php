@@ -9,6 +9,7 @@ $lang['customer_form']				= 'Customer Form';
 $lang['firstname']					= 'First Name';
 $lang['lastname']					= 'Last Name';
 $lang['name']						= 'Name';
+$lang['card']						= 'Card';
 $lang['email']						= 'Email';
 $lang['phone']						= 'Phone';
 $lang['contact']					= 'Contact';
@@ -47,7 +48,7 @@ $lang['message_saved_address']		= 'The address has been saved.';
 $lang['message_customer_deleted']	= 'The customer has been deleted.';
 $lang['message_address_deleted']	= 'The address has been deleted.';
 $lang['customer_details']			= 'Customer details';
-
+$lang['home']						= 'Home';
 
 
 $lang['error_not_found']			= 'The requested customer could not be found.';

@@ -14,6 +14,7 @@
 <link type="text/css" href="<?php echo base_url('assets/js/plugins/gritter/jquery.gritter.css');?>" rel="stylesheet" />
 <link type="text/css" href="<?php echo base_url('assets/css/animate.css');?>" rel="stylesheet" />
 <link type="text/css" href="<?php echo base_url('assets/css/style.css');?>" rel="stylesheet" />
+<link type="text/css" href="<?php echo base_url('assets/css/print.css');?>" rel="stylesheet" />
 
 <link type="text/css" href="<?php echo base_url('assets/css/plugins/datapicker/datepicker3.css');?>" rel="stylesheet" />
 <link type="text/css" href="<?php echo base_url('assets/css/plugins/summernote/summernote.css');?>" rel="stylesheet" />
@@ -28,7 +29,7 @@
 
 <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav" id="side-menu">
+            <ul class="nav no-print" id="side-menu">
                 <li class="nav-header">
                     <!--div class="dropdown profile-element"> <span>
                             <img alt="image" class="img-circle" src="<?php echo base_url('assets/img/profile_small.jpg')?>" />
@@ -88,7 +89,28 @@
                 </li>
                 
                 <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'vouchers') ? 'class="active"' : ''; ?>>
-                    <a href="<?php echo $admin_url;?>vouchers"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_vouchers') ?></span></a>
+                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label"><?php echo lang('common_vouchers');?></span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="<?php echo $admin_url;?>vouchers"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_vouchers') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
+                        <li><a href="<?php echo $admin_url;?>vouchers/form"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_voucher_form') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
+                        <li><a href="<?php echo $admin_url;?>vouchers/process_voucher"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_process_vouchers') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                        
+                    </ul>
+                </li>
+                
+                <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'branch') ? 'class="active"' : ''; ?>>
+                    <a href="<?php echo $admin_url?>branch"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_branch') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
+                </li>
+                
+                <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'admin') ? 'class="active"' : ''; ?>>
+                    <a href="<?php echo $admin_url;?>admin"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_administrators') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
+                </li>
+                
+                <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'coupons') ? 'class="active"' : ''; ?>>
+                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label"><?php echo lang('common_coupons');?></span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="<?php echo $admin_url;?>coupons"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_coupons') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
+                        <li><a href="<?php echo $admin_url;?>coupons/process_coupon"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_process_coupons') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                        
+                    </ul>
                 </li>
                                                        
             </ul>
@@ -227,7 +249,22 @@
 <div class="wrapper wrapper-content">
      
 
+<div class="row wrapper border-bottom white-bg page-heading toast-bottom-full-width">
+                <div class="col-lg-10">
+                    <h2><?php echo $page_title ?></h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="<?php echo $admin_url?>"><?php echo lang('home')?></a>
+                        </li>                        
+                        <li class="active">
+                            <strong><?php echo $page_title ?></strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
 
+                </div>
+</div>
     <?php
     //lets have the flashdata overright "$message" if it exists
     if($this->session->flashdata('message'))

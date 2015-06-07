@@ -21,6 +21,6 @@ $lang['recent_orders']				= 'Recent Orders';
 $lang['recent_customers']			= 'Recent Customers';
 $lang['view_all_orders']			= 'View All Orders';
 $lang['view_all_customers']			= 'View All Customers';
-
+$lang['home']						= 'Home';
 $lang['no_shipping_module_installed']	= 'There is no shipping module currently installed. This could stop customers from checking out properly.';
 $lang['no_payment_module_installed']	= 'There is no payment module currently installed. This could stop customers from checking out properly.';

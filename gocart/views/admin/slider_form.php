@@ -79,7 +79,7 @@
 				
 				<div class="tab-pane" id="image_tab">
 					<div class="form-group">
-					<label class="col-sm-4 control-label"><?php echo lang('best_photo_size')?>: <b><?php echo lang('width')?>: 640px, <?php echo lang('height')?>: 500px </b></label>
+					<label class="col-sm-4 control-label"><?php echo lang('best_photo_size')?>: <b><?php echo lang('width')?>: 720px, <?php echo lang('height')?>: 340px </b></label>
 					</div>
 					
 					<div class="form-group">
@@ -88,7 +88,7 @@
 					
 					
 					<?php if($id && $image != ''):?>
-						<div style="text-align:center; padding:5px; border:1px solid #ccc;"><img src="<?php echo base_url('uploads/'.$image);?>" width="100%" alt="current"/><br/><?php echo lang('current_file');?></div>
+						<div style="text-align:center; padding:5px; border:1px solid #ccc;"><img src="<?php echo base_url($image);?>" width="100%" alt="current"/><br/><?php echo lang('current_file');?></div>
 					<?php endif;?>			
 					
 				</div>

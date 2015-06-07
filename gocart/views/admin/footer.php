@@ -1,6 +1,6 @@
     <hr/>
     
-    <div class="footer">
+    <div class="footer no-print">
             
             <div>
                 <strong>Copyright</strong> Red Merchant &copy; 2015                                
@@ -55,7 +55,10 @@ $('#summernote').summernote({
 });
 });
 
-    
+$('form').submit(function() {
+	$('.btn').attr('disabled', true).addClass('disabled');
+});
+
 $('#enable_date .input-group.date').datepicker({
 	format: 'mm-dd-yyyy',
     todayBtn: "linked",

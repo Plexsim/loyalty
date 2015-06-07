@@ -32,6 +32,9 @@ function areyousure()
 			<th><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/name/');?>/<?php echo ($field == 'name')?$by:'';?>"><?php echo lang('name');?>
 				<?php if($field == 'name'){ echo ($by == 'ASC')?'<i class="fa fa-sort-asc"></i>':'<i class="fa fa-sort-desc"></i>';} ?> </a></th>						
 			
+			<th><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/card/');?>/<?php echo ($field == 'card')?$by:'';?>"><?php echo lang('card');?>
+				<?php if($field == 'card'){ echo ($by == 'ASC')?'<i class="fa fa-sort-asc"></i>':'<i class="fa fa-sort-desc"></i>';} ?> </a></th>
+			
 			<th><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/phone/');?>/<?php echo ($field == 'phone')?$by:'';?>"><?php echo lang('phone');?>
 				<?php if($field == 'phone'){ echo ($by == 'ASC')?'<i class="fa fa-sort-asc"></i>':'<i class="fa fa-sort-desc"></i>';} ?></a></th>
 			
@@ -53,7 +56,8 @@ function areyousure()
 <?php foreach ($customers as $customer):?>
 		<tr>
 			<?php /*<td style="width:16px;"><?php echo  $customer->id; ?></td>*/?>
-			<td><?php echo  $customer->name; ?></td>	
+			<td><?php echo  $customer->name; ?></td>
+			<td><?php echo  $customer->card; ?></td>	
 			<td><a href="tel:<?php echo  $customer->phone;?>"><?php echo  $customer->phone; ?></a></td>
 			<td><a href="mailto:<?php echo  $customer->email;?>"><?php echo  $customer->email; ?></a></td>
 			<td>

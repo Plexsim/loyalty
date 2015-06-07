@@ -28,6 +28,7 @@ $lang['content']				= 'Content';
 $lang['top_level']				= 'Top Level';
 $lang['follow_link']			= 'Follow Link';
 $lang['go_to_page']				= 'Go to Page';
+$lang['home']						= 'Home';
 
 $lang['no_pages_or_links']		= 'There are currently no pages or links.';
 $lang['error_page_not_found']	= 'The request page could not be found.';

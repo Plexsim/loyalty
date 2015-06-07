@@ -44,13 +44,7 @@
 									echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
 								  </div>
 								  
-								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('company_details');?></label>
-									<?php
-									$data	= array('name'=>'company_details', 'value'=>set_value('company_details', $company_details), 'class'=>'form-control');
-									echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
-								  </div>
-                                  
-                                  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('website');?></label>
+								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('website');?></label>
 									<?php
 									$data	= array('name'=>'website', 'value'=>set_value('website', $website), 'class'=>'form-control');
 									echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
@@ -67,6 +61,14 @@
 									$data	= array('name'=>'ssm', 'value'=>set_value('ssm', $ssm), 'class'=>'form-control');
 									echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
 								  </div>
+								  
+								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('company_details');?></label>																		
+									<textarea class="input-block-level" id="summernote" name="company_details" rows="5">
+		                        		<?php echo set_value('company_details', $company_details) ?>
+		                        	</textarea>																		
+								  </div>
+                                  
+                                  
 								  
                                   <div class="hr-line-dashed"></div>
                                                                                               

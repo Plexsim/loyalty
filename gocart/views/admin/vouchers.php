@@ -21,7 +21,7 @@ function areyousure()
 		</tr>
 	</thead>
 	<tbody>
-	<?php echo (count($vouchers) < 1)?'<tr><td style="text-align:center;" colspan="3">'.lang('no_vouchers').'</td></tr>':''?>
+	<?php echo (count($vouchers) < 1)?'<tr><td style="text-align:center;" colspan="4">'.lang('no_vouchers').'</td></tr>':''?>
 <?php foreach ($vouchers as $voucher):?>
 		<tr>
 			<td><?php echo  $voucher->code; ?></td>

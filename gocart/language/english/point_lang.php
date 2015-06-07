@@ -1,25 +1,25 @@
 <?php
 /******************************************
 US English
-Admin Credit Language
+Admin Point Language
 ******************************************/
 
-$lang['credits']					= 'Credits';
-$lang['view_credit']				= 'View Credit';
+$lang['points']					= 'Points';
+$lang['view_point']				= 'View Point';
 $lang['notes']						= 'Notes';
 $lang['status']						= 'Status';
 $lang['giftcard_is_active']			= 'Gift Card is Active';
 $lang['activate']					= 'Activate';
-$lang['credit']						= 'Credit';
+$lang['point']						= 'Point';
 $lang['bill_to']					= 'Bill To';
 $lang['ship_to']					= 'Ship To';
-$lang['credited_on']				= 'Credited On';
+$lang['pointed_on']				= 'Pointed On';
 $lang['from'	]					= 'From';
 $lang['to']							= 'To';
 $lang['term']						= 'Search Term';
 $lang['xml_export']					= 'XML Export';
-$lang['credit_details']				= 'Credit Details';
-$lang['topup_credit_form']			= 'Topup Credit Form';
+$lang['point_details']				= 'Point Details';
+$lang['topup_point_form']			= 'Topup Point Form';
 $lang['card']						= 'Member Card No';
 $lang['created']					= 'Created';
 $lang['customer_id']				= 'Customer ID';
@@ -27,7 +27,7 @@ $lang['in']							= 'In';
 $lang['out']						= 'Out';
 $lang['point']						= 'Point';
 $lang['depoint']					= 'Depoint';
-
+$lang['home']						= 'Home';
 
 $lang['customer_cost']				= 'Customer Cost';
 $lang['customer_topup_value']		= 'Customer Topup Value';
@@ -41,11 +41,11 @@ $lang['consume_date']				= 'Consume Date';
 
 
 
-$lang['no_credits']					= 'There are currently no credits.';
-$lang['message_credit_updated']		= 'The credit has been updated.';
-$lang['message_credits_deleted']		= 'The selected credits have been deleted';
-$lang['error_no_credits_selected']	= 'You did not select any credits to delete';
-$lang['confirm_delete_credit']		= 'Are you sure you want to delete the selected credits?';
+$lang['no_points']					= 'There are currently no points.';
+$lang['message_point_updated']		= 'The point has been updated.';
+$lang['message_points_deleted']		= 'The selected points have been deleted';
+$lang['error_no_points_selected']	= 'You did not select any points to delete';
+$lang['confirm_delete_point']		= 'Are you sure you want to delete the selected points?';
 $lang['sent_notification_message']	= 'Email notification has been sent!';
 
 $lang['send_email_notification']	= 'Send Email Notification';
@@ -53,7 +53,7 @@ $lang['packing_slip']				= 'Packing Slip';
 $lang['account_info']				= 'Account Info';
 $lang['billing_address']			= 'Billing Address';
 $lang['shipping_address']			= 'Shipping Address';
-$lang['credit_details']				= 'Credit Details';
+$lang['point_details']				= 'Point Details';
 $lang['payment_method']				= 'Payment Method';
 $lang['shipping_details']			= 'Shipping Details';
 $lang['shipping_notes']				= 'Shipping Notes';
@@ -61,7 +61,7 @@ $lang['referral']					= 'Referral';
 $lang['is_gift']					= 'This is a gift.';
 $lang['gift_note']					= 'Gift Note';
 $lang['admin_notes']				= 'Admin Notes';
-$lang['update_credit']				= 'Update Credit';
+$lang['update_point']				= 'Update Point';
 $lang['name']						= 'Name';
 $lang['description']				= 'Description';
 $lang['price']						= 'Price';

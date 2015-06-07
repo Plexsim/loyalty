@@ -46,6 +46,7 @@ $lang['message_saved_company']		= 'The company has been saved.';
 $lang['message_company_deleted']	= 'The company has been deleted.';
 $lang['message_address_deleted']	= 'The address has been deleted.';
 $lang['customer_details']			= 'Company details';
+$lang['home']						= 'Home';
 
 
 

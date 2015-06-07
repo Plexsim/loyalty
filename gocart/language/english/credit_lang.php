@@ -33,6 +33,8 @@ $lang['topup_date']					= 'Topup Date';
 $lang['consume_form']				= 'Consume Form';
 $lang['consume_amount']				= 'Consume Amount';
 $lang['consume_date']				= 'Consume Date';
+$lang['print_receipt']				= 'Print Receipt';
+$lang['home']						= 'Home';
 
 
 
@@ -88,5 +90,9 @@ $lang['bill_to_address']			= 'Bill To Address';
 $lang['saving']						= 'Saving';
 
 $lang['error_card_in_use']			= 'Member Card no exist';
+$lang['receipt']					= 'Receipt';
+$lang['back_to_listing']			= 'Back To Listing';
+$lang['payment']					= 'Payment Type';
+
 
 

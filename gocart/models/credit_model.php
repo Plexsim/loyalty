@@ -108,7 +108,7 @@ Class Credit_model extends CI_Model
 	
 	function get_credit($id)
 	{
-		$this->db->select(' credit.*, customers.id as customer_id, customers.name as customer_name ');
+		$this->db->select(' credit.*, customers.id as customer_id, customers.name as customer_name, customers.card as customer_card ');
 		$this->db->join('customers', 'customers.id = credit.customer_id');
 		$res = $this->db->where('credit.id', $id)->get('credit');
 		return $res->row_array();

@@ -20,4 +20,7 @@ $lang['message_user_saved']		= 'The administrator has been saved!';
 $lang['message_user_deleted']	= 'The administrator has been deleted.';
 $lang['error_username_taken']	= 'The requested username is already in use.';
 $lang['information']			= 'Information';
+$lang['branch']					= 'Branch';
 $lang['confirm_delete']			= 'Are you sure you want to delete this administrator?';
+$lang['home']					= 'Home';
+

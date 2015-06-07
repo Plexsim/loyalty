@@ -17,7 +17,7 @@ class Card extends Admin_Controller
 		
 	function index()
 	{
-		$data['themes_title']	= lang('card');
+		$data['page_title']	= lang('card');
 		$data['activemenu'] 		= $this->activemenu;
 		$setting = $this->Settings_model->get_settings('gocart');
 		$data['image_card'] = $setting['image_card'];

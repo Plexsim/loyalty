@@ -11,6 +11,8 @@ class Vouchers extends Admin_Controller {
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Voucher_model');
 		$this->load->model('Product_model');
+		$this->load->model('Customer_model');
+		
 		$this->lang->load('voucher');
 	}
 	
@@ -147,16 +149,22 @@ class Vouchers extends Admin_Controller {
 		$today_date 	= date("Ymd");
 		//die(print_r($_POST));
 
-		$this->load->helper(array('form', 'date'));
-		$config['upload_path']		= 'uploads/voucher/'.$today_date.'/';
+		$this->load->helper(array('form', 'date', 'url'));
+		
+		$folderName = 'uploads/voucher/'.$today_date.'/';
+		$config['upload_path']		= $folderName;		
+		if (!is_dir($folderName)) {
+			mkdir($folderName, 0777, TRUE);
+			//mkdir('./uploads/coupon/' . $today_date.'/thumbs', 0777, TRUE);
+		}				
 		
 		$config['allowed_types']	= 'gif|jpg|png';
 		$config['max_size']			= $this->config->item('size_limit');
 		$config['encrypt_name']		= true;
 		$this->load->library('upload', $config);
 		$this->load->library('form_validation');
-		$this->load->helper('url');
-		$this->load->helper('form');
+		
+	
 		
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -313,7 +321,7 @@ class Vouchers extends Admin_Controller {
 						//$file = 'uploads/'.$data['image'];
 						//$config['upload_path'] = FCPATH . 'uploads/';						 						
 						
-						$file = 'uploads/voucher/'.$today_date.'/'.$data['image'];												
+						$file = $folderName.$data['image'];												
 							
 						//delete the existing file if needed
 						if(file_exists($file))
@@ -336,14 +344,14 @@ class Vouchers extends Admin_Controller {
 			
 			if($uploaded)
 			{
-				if (!is_dir('uploads/voucher/'.$today_date.'/')) {
-					mkdir('./uploads/voucher/' . $today_date, 0777, TRUE);
+				if (!is_dir($folderName)) {
+					mkdir($folderName, 0777, TRUE);
 					//mkdir('./uploads/voucher/' . $today_date.'/thumbs', 0777, TRUE);
 				}
 								
 				$image			= $this->upload->data();
 															
-				$save['image']  = 'uploads/voucher/'.$today_date.'/'.$image['file_name'];
+				$save['image']  = $folderName.$image['file_name'];
 				//$save['image']	= $image['file_name'];
 			}
 			
@@ -387,6 +395,43 @@ class Vouchers extends Admin_Controller {
 		}
 	}
 	
+	//this is a callback to make sure that 2 vouchers don't have the same code
+	function check_voucher($str)
+	{
+		$voucher = $this->Voucher_model->get_voucher_by_code($str);
+		if ($voucher)
+		{
+			
+			$is_valid = $this->Voucher_model->is_valid($voucher);
+			
+			if($is_valid){
+				return TRUE;
+			}else{
+				$this->form_validation->set_message('check_voucher', lang('error_voucher'));
+				return FALSE;
+			}									
+		}
+		else
+		{
+			$this->form_validation->set_message('check_voucher', lang('error_not_found'));
+			return FALSE;
+		}
+	}
+	
+	function check_card($str)
+	{
+		$card = $this->Customer_model->check_card($str);
+		if ($card)
+		{			
+			return TRUE;			
+		}
+		else
+		{
+			$this->form_validation->set_message('check_card', lang('error_card_not_found'));
+			return FALSE;
+		}
+	}
+	
 	function delete($id = false)
 	{
 		if ($id)
@@ -413,4 +458,87 @@ class Vouchers extends Admin_Controller {
 			redirect($this->config->item('admin_folder').'/vouchers');
 		}
 	}
+	
+	function process_voucher()
+	{
+		$today_date 	= date("Ymd");
+		//die(print_r($_POST));
+	
+		$this->load->helper(array('form', 'date'));
+		$this->load->library('form_validation');
+		$this->load->helper('url');
+		$this->load->helper('form');
+		
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+	
+		
+		$data['page_title']		= lang('voucher_form');
+	
+		//default values are empty if the product is new
+		$data['id']						= '';
+		$data['code']					= '';
+		$data['card']					= '';		
+	
+		$added = array();
+	
+		$this->form_validation->set_rules('code', 'lang:code', 'trim|required|callback_check_voucher');
+		$this->form_validation->set_rules('card', 'lang:card', 'trim|required|callback_check_card');
+						
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->view($this->config->item('admin_folder').'/voucher_proceed', $data);
+		}
+		else
+		{					
+			$code					= $this->input->post('code');
+			$card					= $this->input->post('card');
+			
+			// We're done
+			$this->session->set_flashdata('message', lang('message_customer_voucher'));				
+			//go back to the product list
+			redirect($this->config->item('admin_folder').'/vouchers/process_voucher_details/'.$code.'/'.$card);
+		}
+	}
+	
+	function process_voucher_details($voucher_code = '', $member_card = '')
+	{
+		$this->load->helper(array('form', 'date', 'url'));
+		
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$save['active']  = $this->input->post('active');
+			$save['voucher_id'] = $this->input->post('voucher_id');
+			$save['customer_id'] = $this->input->post('customer_id');
+			
+			$id = $this->Voucher_model->update_voucher_customer($save);
+			
+			if($id > 0){
+				// We're done
+				$this->session->set_flashdata('message', lang('message_saved_voucher'));
+				//go back to the process voucher form
+				redirect($this->config->item('admin_folder').'/vouchers/process_voucher/');
+			}else{
+				$this->session->set_flashdata('error', lang('error_saved_voucher'));
+				//go back to the process voucher form with error message
+				redirect($this->config->item('admin_folder').'/vouchers/process_voucher/');
+			}
+		}
+		
+		if($voucher_code == '' || $member_card == ''){
+			$this->session->set_flashdata('message', lang('error_not_found'));
+			redirect($this->config->item('admin_folder').'/vouchers/process_voucher');
+		}else{			
+			
+			$voucher = $this->Voucher_model->get_voucher_by_code($voucher_code);
+			$customer = $this->Customer_model->get_customer_by_card($member_card);
+			
+			$data['voucher_id'] = $voucher['id'];
+			$data['customer_id'] = $customer['id'];
+						
+			$data['details'] = $this->Voucher_model->my_voucher_details($voucher['id'], $customer['id']);
+						
+			$this->view(config_item('admin_folder').'/voucher_proceed_details', $data);						
+		}
+	}
+	
+	
 }

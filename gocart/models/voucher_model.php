@@ -166,6 +166,21 @@ class Voucher_model extends CI_Model
 		}
 	}
 	
+	function check_voucher($code=false)
+	{
+		$this->db->where('code', $code);
+		$count = $this->db->count_all_results('vouchers');
+	
+		if ($count > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	// add product to voucher
 	function add_product($voucher_id, $prod_id, $seq=NULL)
 	{
@@ -251,9 +266,12 @@ class Voucher_model extends CI_Model
 	}
 	
 	// update voucher
-	function update_voucher_csutomer($id, $data)
+	function update_voucher_customer($data)
 	{
-		$this->db->where('id', $id)->update('customer_voucher', $data);
+		$this->db->where('voucher_id', $data['voucher_id']);
+		$this->db->where('customer_id', $data['customer_id']);		
+		$this->db->update('customer_voucher', $data);
+		return $this->db->affected_rows();
 	}
 	
 	function my_voucher($customer_id)
@@ -262,6 +280,16 @@ class Voucher_model extends CI_Model
 		//$this->db->join("customers", "customers.id=customer_voucher.customer_id");
 		$this->db->where('customer_id', $customer_id);
 		return $this->db->get('customer_voucher')->result();
+	}
+	
+	function my_voucher_details($voucher_id, $customer_id)
+	{
+		$this->db->select('*, customer_voucher.active as use_status ');
+		$this->db->join("vouchers", "vouchers.id=customer_voucher.voucher_id");
+		//$this->db->join("customers", "customers.id=customer_voucher.customer_id");
+		$this->db->where('customer_id', $customer_id);
+		$this->db->where('voucher_id', $voucher_id);
+		return $this->db->get('customer_voucher')->row_array();
 	}
 	
 }	

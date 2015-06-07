@@ -4,6 +4,8 @@ class Admin extends Admin_Controller
 	//these are used when editing, adding or deleting an admin
 	var $admin_id		= false;
 	var $current_admin	= false;
+	protected $activemenu 	= 'admin';
+	
 	function __construct()
 	{
 		parent::__construct();
@@ -11,6 +13,7 @@ class Admin extends Admin_Controller
 		
 		//load the admin language file in
 		$this->lang->load('admin');
+		$this->load->model(array('Branch_model'));
 		
 		$this->current_admin	= $this->session->userdata('admin');
 	}
@@ -42,6 +45,14 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
+		
+		$branches = $this->Branch_model->get_branch_list();
+		foreach($branches as $branch)
+		{
+			$branch_list[$branch['id']] = $branch['name'];
+		}
+		$data['branches'] = $branch_list;
+
 		$data['page_title']		= lang('admin_form');
 		
 		//default values are empty if the customer is new
@@ -51,6 +62,7 @@ class Admin extends Admin_Controller
 		$data['email']		= '';
 		$data['username']	= '';
 		$data['access']		= '';
+		$data['branch_id']  = '';
 		
 		if ($id)
 		{	
@@ -69,6 +81,7 @@ class Admin extends Admin_Controller
 			$data['email']		= $admin->email;
 			$data['username']	= $admin->username;
 			$data['access']		= $admin->access;
+			$data['branch_id']	= $admin->branch_id;			
 		}
 		
 		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|max_length[32]');
@@ -76,6 +89,8 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]');
 		$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
 		$this->form_validation->set_rules('access', 'lang:access', 'trim|required');
+		$this->form_validation->set_rules('branch_id', 'lang:branch', 'trim|required');
+		
 		
 		//if this is a new account require a password, or if they have entered either a password or a password confirmation
 		if ($this->input->post('password') != '' || $this->input->post('confirm') != '' || !$id)
@@ -96,6 +111,8 @@ class Admin extends Admin_Controller
 			$save['email']		= $this->input->post('email');
 			$save['username']	= $this->input->post('username');
 			$save['access']		= $this->input->post('access');
+			$save['branch_id']	= $this->input->post('branch_id');
+			
 			
 			if ($this->input->post('password') != '' || !$id)
 			{

@@ -15,6 +15,15 @@ class Customers extends Admin_Controller {
 		$this->lang->load('customer');
 	}
 	
+	/*---------------------------------------------------------------------------------------------------------
+	 | Function to generate card numbers
+	|----------------------------------------------------------------------------------------------------------*/
+	function generate_card_number()
+	{
+		$last_card = $this->Customer_model->get_last_id() + 1;
+		return $last_card;
+	}
+	
 	function index($field='lastname', $by='ASC', $page=0)
 	{
 		//we're going to use flash data and redirect() after form submissions to stop people from refreshing and duplicating submissions
@@ -157,7 +166,7 @@ class Customers extends Admin_Controller {
 			$save['company']	= $this->input->post('company');
 			$save['active']		= $this->input->post('active');
 			$save['email_subscribe'] = $this->input->post('email_subscribe');
-
+			$save['card']		= $this->generate_card_number();
 			
 			if ($this->input->post('password') != '' || !$id)
 			{

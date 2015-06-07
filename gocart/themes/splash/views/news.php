@@ -12,6 +12,7 @@
 					<?php echo $page_title?>
 				</h2>
 
+				<?php echo (count($latest_news) < 1)?'<p>'.lang('no_news').'</p>':''?>
 				<?php foreach($latest_news as $new):?>
 				
 				<div class="toogle_wrap radius8">

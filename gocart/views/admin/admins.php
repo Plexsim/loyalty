@@ -6,10 +6,14 @@ function areyousure()
 </script>
 
 <div style="text-align:right;">
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/admin/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_admin');?></a>
+	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/admin/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_admin');?></a>
 </div>
 
-<table class="table table-striped">
+<div class="row">
+	<div class="col-sm-12">
+		<div class="ibox">
+ 			<div class="ibox-content">
+<table class="table table-striped table-hover">
 	<thead>
 		<tr>
 			<th><?php echo lang('firstname');?></th>
@@ -30,7 +34,7 @@ function areyousure()
 			<td><?php echo $admin->access; ?></td>
 			<td>
 				<div class="btn-group" style="float:right;">
-					<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/admin/form/'.$admin->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>	
+					<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/admin/form/'.$admin->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>	
 					<?php
 					$current_admin	= $this->session->userdata('admin');
 					$margin			= 30;
@@ -43,3 +47,4 @@ function areyousure()
 <?php endforeach; ?>
 	</tbody>
 </table>
+</div></div></div></div>

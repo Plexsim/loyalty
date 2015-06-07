@@ -18,7 +18,7 @@ class Latest_News extends Admin_Controller
 		
 	function index()
 	{
-		$data['latest_news_title']	= lang('latest_news');
+		$data['page_title']	= lang('latest_news');
 		$data['latest_news']		= $this->latest_news_model->get_list();		
 		$data['activemenu'] 		= $this->activemenu;
 		
@@ -33,8 +33,13 @@ class Latest_News extends Admin_Controller
 		$data['activemenu'] 		= $this->activemenu;
 		$this->load->helper('url');
 		$this->load->helper('form');
+		$today_date 	= date("Ymd");
 						
-		$config['upload_path']		= 'uploads';
+		$folderName = 'uploads/slider/'.$today_date.'/';
+		$config['upload_path']		= $folderName;
+		if (!is_dir($folderName)) {
+			mkdir($folderName, 0777, TRUE);
+		}
 		$config['allowed_types']	= 'gif|jpg|png';
 		$config['max_size']			= $this->config->item('size_limit');
 		$config['encrypt_name']		= true;
@@ -53,7 +58,7 @@ class Latest_News extends Admin_Controller
 		$data['image']		= '';
 		$data['status']		= '';
 		
-		$data['latest_news_title']	= lang('latest_new_form');
+		$data['page_title']	= lang('latest_new_form');
 		$data['latest_news']		= $this->latest_news_model->get_list();
 		
 		if($id)
@@ -124,7 +129,7 @@ class Latest_News extends Admin_Controller
 				{
 					if($data['image'] != '')
 					{
-						$file = 'uploads/'.$data['image'];
+						$file = $folderName.$data['image'];
 			
 						//delete the existing file if needed
 						if(file_exists($file))
@@ -148,7 +153,7 @@ class Latest_News extends Admin_Controller
 			if($uploaded)
 			{
 				$image			= $this->upload->data();
-				$save['image']	= $image['file_name'];
+				$save['image']	= $folderName.$image['file_name'];
 			}
 			
 			
@@ -179,7 +184,7 @@ class Latest_News extends Admin_Controller
 		$data['parent_id']	= 0;
 
 		
-		$data['latest_news_title']	= lang('link_form');
+		$data['page_title']	= lang('link_form');
 		$data['latest_news']		= $this->latest_news_model->get_list();
 		if($id)
 		{

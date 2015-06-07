@@ -12,29 +12,27 @@
 					<?php echo $page_title?>
 				</h2>
 
+				<?php echo (count($coupons) < 1)?'<p>'.lang('no_coupons').'</p>':''?>
+				<?php foreach ($coupons as $coupon):?>
+				
 				<div class="portfolio_item radius8">
 					<div class="portfolio_image">
-						<a rel="gallery-1" href="<?php echo theme_img('cckbbq.jpg')?>"
-							class="swipebox" title="Webdesign work"><img
-							src="<?php echo theme_img('cckbbq.jpg')?>" alt="" title="" border="0" /> </a>
-						
+						<a rel="gallery-1" href="<?php echo base_url($coupon->image)?>"
+							class="swipebox" title="<?php echo $coupon->name?>"><img
+							src="<?php echo base_url($coupon->image)?>" alt="" title="" border="0" /> </a>
 												
 						
 					</div>
 					<div class="portfolio_details">
-						<h4>Collection Requirements</h4>
-						<p> Maximum 1 Piece, You have Received 1 Piece</p>
-						<p>Term and Conditions</p>
-						<p>This Voucher is valid at "Jewel ove Wholesale" outlet in Malaysia.</p>
-						<p>Voucher cannot be exchange for cash.</p>
-						<p>Must Present voucher upon ordering.</p>
-						<p>Not valid with any other promotions, offers and discount</p>
-						<p>Valid until December 2015</p>	
-						<a rel="gallery-2" href="<?php echo theme_img('cckbbq.jpg')?>"
+						<p><?php echo $coupon->name ?>( <?php echo $coupon->code ?> )</p>
+						<p><?php echo $coupon->desc ?></p>						
+						<a rel="gallery-2" href="<?php echo base_url($coupon->image)?>"
 							class="swipebox view_details" title="Webdesign work">view details</a>
 					</div>
 				</div>
 				
+				<?php endforeach; ?>
+											
 
 		
 

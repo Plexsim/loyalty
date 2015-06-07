@@ -1,10 +1,4 @@
 
-<script type="text/javascript">
-function areyousure()
-{
-	return confirm('<?php echo lang('confirm_delete_address');?>');
-}
-</script>
 
 <a class="btn btn-white btn-bitbucket" style="float:right;"href="<?php echo site_url($this->config->item('admin_folder').'/company/company_form/');?>"><i class="fa fa-plus-sign"></i> <?php echo lang('add_new_company');?></a>
 
@@ -56,6 +50,6 @@ function areyousure()
 <script>
 function areyousure()
 {
-	return confirm('<?php echo lang('confirm_delete');?>');
+	return confirm('<?php echo lang('confirm_delete_company');?>');
 }
 </script>

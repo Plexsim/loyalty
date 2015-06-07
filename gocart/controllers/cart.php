@@ -8,7 +8,7 @@ class Cart extends Front_Controller {
 	{
 		parent::__construct();
 			
-		$this->load->model(array('point_model','credit_model','admin_model','Slider_model','Company_model','latest_news_model','Settings_model','Voucher_model'));	
+		$this->load->model(array('point_model','credit_model','admin_model','Slider_model','Company_model','latest_news_model','Settings_model','Voucher_model', 'Coupon_model'));	
 			
 		$this->customer = $this->go_cart->customer();
 	}
@@ -882,7 +882,12 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'My Card';
 		$data['seo_title']	= 'My Card';
 		$setting = $this->Settings_model->get_settings('gocart');
-		$data['image_card'] = $setting['image_card'];
+		
+		if($setting['image_card'] != ''){
+			$data['image_card'] = $setting['image_card'];
+		}else{
+			$data['image_card'] = 'assets/img/no_image.png';
+		}		
 		
 		$this->view('my_card', $data);
 	}
@@ -893,7 +898,15 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'Member Center';
 		$data['seo_title']	= 'Member Center';
 		$setting = $this->Settings_model->get_settings('gocart');
-		$data['image_card'] = $setting['image_card'];
+		
+		
+		if($setting['image_card'] != ''){
+			$data['image_card'] = $setting['image_card'];
+		}else{
+			$data['image_card'] = 'assets/img/no_image.png';
+		}
+		
+		
 		
 		$data['customer_points'] = $this->point_model->get_point_amt($this->customer['id']);
 		$data['customer_credits'] = $this->credit_model->get_total_credit_consume($this->customer['id']);
@@ -1193,6 +1206,8 @@ class Cart extends Front_Controller {
 		$data['seo_title']	= 'Membership Promotion';
 		$data['customer_id'] = $this->customer['id'];
 		$data['vouchers']	= $this->Voucher_model->get_vouchers();
+		$data['coupons']	= $this->Coupon_model->get_coupons();
+		
 		
 		$this->view('membership_promotion', $data);
 	}
@@ -1222,6 +1237,8 @@ class Cart extends Front_Controller {
 	{
 		$data['page_title']	= 'My Coupons';
 		$data['seo_title']	= 'My Coupons';
+		
+		$data['coupons'] = $this->Coupon_model->my_coupon($this->customer['id']);
 	
 		$this->view('my_coupons', $data);
 	}
@@ -1263,4 +1280,31 @@ class Cart extends Front_Controller {
 		//echo $result; 
 	}
 	
+	/*---------------------------------------------------------------------------------------------------------
+	 | Function to add coupon into customers
+	|----------------------------------------------------------------------------------------------------------*/
+	function add_coupon()
+	{
+		$data = array();
+		$coupon_id = ($this->input->post('coupon_id')) ? $this->input->post('coupon_id') : 0;
+		$customer_id = ($this->input->post('customer_id')) ? $this->input->post('customer_id') : 0;
+		//$coupon_id = 2;
+		//$customer_id = 3;
+	
+		//check table first
+		$exist = $this->Coupon_model->check_coupon_customer($coupon_id, $customer_id);
+	
+		if(!$exist){
+			$save['coupon_id'] = $coupon_id;
+			$save['customer_id'] = $customer_id;
+			$save['active'] = 0; //enable
+				
+			$result 	= $this->Coupon_model->add_coupon_customer($save);
+		}else{
+			$result		= 'GOT';
+		}
+	
+		echo $result;
+		//echo $result;
+	}
 }

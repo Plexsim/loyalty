@@ -34,6 +34,7 @@ class Point extends Admin_Controller {
 	
 	function index($sort_by='created',$sort_order='desc', $code=0, $page=0, $rows=15)
 	{		
+		$data['activemenu'] 		= $this->activemenu;
 		//if they submitted an export form do the export
 		if($this->input->post('submit') == 'export')
 		{
@@ -86,27 +87,27 @@ class Point extends Admin_Controller {
 		$config['per_page']			= $rows;
 		$config['uri_segment']		= 7;
 		$config['first_link']		= 'First';
-		$config['first_tag_open']	= '<li>';
-		$config['first_tag_close']	= '</li>';
+		$config['first_tag_open']	= '';
+		$config['first_tag_close']	= '';
 		$config['last_link']		= 'Last';
-		$config['last_tag_open']	= '<li>';
-		$config['last_tag_close']	= '</li>';
+		$config['last_tag_open']	= '';
+		$config['last_tag_close']	= '';
 
-		$config['full_tag_open']	= '<div class="pagination"><ul>';
-		$config['full_tag_close']	= '</ul></div>';
-		$config['cur_tag_open']		= '<li class="active"><a href="#">';
-		$config['cur_tag_close']	= '</a></li>';
+		$config['full_tag_open']	= '<div class="btn-group">';
+		$config['full_tag_close']	= '</div>';
+		$config['cur_tag_open']		= '<a class="btn btn-white active" href="#">';
+		$config['cur_tag_close']	= '</a>';
 		
-		$config['num_tag_open']		= '<li>';
-		$config['num_tag_close']	= '</li>';
+		$config['num_tag_open']		= '';
+		$config['num_tag_close']	= '';
 		
 		$config['prev_link']		= '&laquo;';
-		$config['prev_tag_open']	= '<li>';
-		$config['prev_tag_close']	= '</li>';
+		$config['prev_tag_open']	= '';
+		$config['prev_tag_close']	= '';
 
 		$config['next_link']		= '&raquo;';
-		$config['next_tag_open']	= '<li>';
-		$config['next_tag_close']	= '</li>';
+		$config['next_tag_open']	= '';
+		$config['next_tag_close']	= '';
 		
 		$this->pagination->initialize($config);
 	

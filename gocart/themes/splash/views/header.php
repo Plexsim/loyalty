@@ -31,6 +31,8 @@
 <?php echo theme_css('swipebox.css', true);?>
 <?php echo theme_css('font-awesome.min.css', true);?>
 
+<?php echo theme_css('jquery-ui.css', true);?>
+
 
 
 <!--google lato font family-->

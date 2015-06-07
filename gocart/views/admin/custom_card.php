@@ -23,7 +23,7 @@
 				</p>
 				
 				<p>
-					<?php echo lang('best_photo_size')?> <b><?php echo lang('width')?>: 371px, <?php echo lang('height')?>: 113px </b>
+					<?php echo lang('best_photo_size')?> <b><?php echo lang('width')?>: 750px, <?php echo lang('height')?>: 340px </b>
 				</p>
 				<!-- The fileinput-button span is used to style the file input field as button -->
 			    <span class="btn btn-success fileinput-button">
@@ -47,7 +47,7 @@
 			        </div>
 			        <div class="panel-body">
 			            <ul>
-			            	<li><?php echo lang('best_photo_size')?> <b><?php echo lang('width')?>: 371px, <?php echo lang('height')?>: 113px </b></li> 
+			            	<li><?php echo lang('best_photo_size')?> <b><?php echo lang('width')?>: 750px, <?php echo lang('height')?>: 340px </b></li> 
 			            	<li><?php echo lang('max_file_size')?> <strong>5 MB</strong>.</li>
 			                <li><?php echo lang('only_image_files')?>(<strong>JPG, GIF, PNG</strong>) <?php echo lang('allowed_in_background_image')?>.</li>
 			                <li><?php echo lang('files_from_desktop')?></li>	                

@@ -21,12 +21,14 @@ class Credit extends Admin_Controller {
 	function check_card($str)
 	{
 		$customer	= $this->Customer_model->get_customer_by_card($str);
+		
 		if ($customer)
 		{
 			return TRUE;
 		}
 		else
 		{
+			//$this->form_validation->set_message('check_card', '2222');
 			$this->form_validation->set_message('check_card', lang('error_card_in_use'));
 			return FALSE;			
 		}
@@ -85,29 +87,30 @@ class Credit extends Admin_Controller {
 		$config['base_url']			= site_url($this->config->item('admin_folder').'/credit/index/'.$sort_by.'/'.$sort_order.'/'.$code.'/');
 		$config['total_rows']		= $data['total'];
 		$config['per_page']			= $rows;
-		$config['uri_segment']		= 7;
-		$config['first_link']		= 'First';
-		$config['first_tag_open']	= '<li>';
-		$config['first_tag_close']	= '</li>';
-		$config['last_link']		= 'Last';
-		$config['last_tag_open']	= '<li>';
-		$config['last_tag_close']	= '</li>';
-
-		$config['full_tag_open']	= '<div class="pagination"><ul>';
-		$config['full_tag_close']	= '</ul></div>';
-		$config['cur_tag_open']		= '<li class="active"><a href="#">';
-		$config['cur_tag_close']	= '</a></li>';
+		$config['uri_segment']		= 7;		
 		
-		$config['num_tag_open']		= '<li>';
-		$config['num_tag_close']	= '</li>';
+		$config['first_link']		= 'First';
+		$config['first_tag_open']	= '';
+		$config['first_tag_close']	= '';
+		$config['last_link']		= 'Last';
+		$config['last_tag_open']	= '';
+		$config['last_tag_close']	= '';
+
+		$config['full_tag_open']	= '<div class="btn-group">';
+		$config['full_tag_close']	= '</div>';
+		$config['cur_tag_open']		= '<a class="btn btn-white active" href="#">';
+		$config['cur_tag_close']	= '</a>';
+		
+		$config['num_tag_open']		= '';
+		$config['num_tag_close']	= '';
 		
 		$config['prev_link']		= '&laquo;';
-		$config['prev_tag_open']	= '<li>';
-		$config['prev_tag_close']	= '</li>';
+		$config['prev_tag_open']	= '';
+		$config['prev_tag_close']	= '';
 
 		$config['next_link']		= '&raquo;';
-		$config['next_tag_open']	= '<li>';
-		$config['next_tag_close']	= '</li>';
+		$config['next_tag_open']	= '';
+		$config['next_tag_close']	= '';
 		
 		$this->pagination->initialize($config);
 	
@@ -237,12 +240,23 @@ class Credit extends Admin_Controller {
     		//$save['status']				= 1;
     		//$save['active']				= $this->input->post('active');
     			
-    		$this->Credit_model->save_credit($save);
+    		$last_id = $this->Credit_model->save_credit($save);
     			
     		$this->session->set_flashdata('message', lang('message_saved_customer'));
     			
+    		//go to credit info
+    		redirect($this->config->item('admin_folder').'/credit/topup_credit_info/'.$last_id);
+    	}
+    }
+    
+    function topup_credit_info($id = false)
+    {
+    	if($id){    		
+    		$data['credit'] = $this->Credit_model->get_credit($id);    		
+    		$this->view($this->config->item('admin_folder').'/topup_credit_info', $data);
+    	}else{
     		//go back to the credit
-    		redirect($this->config->item('admin_folder').'/credit');
+    		redirect($this->config->item('admin_folder').'/credit/');
     	}
     }
     
@@ -308,7 +322,7 @@ class Credit extends Admin_Controller {
     		$card = $this->input->post('card');
     		$customer		= $this->Customer_model->get_customer_by_card($card);
     		$payment				= $this->input->post('payment');
-    		
+    		$last_id = '';
     		
     		if($payment == 'Credit')
     		{    			    			
@@ -319,7 +333,7 @@ class Credit extends Admin_Controller {
     			$save['created']			= format_ymd_malaysia($this->input->post('consume_date'));
     			$save['staff_id']			= $this->current_admin['id'];
     			//$save['branch'] = $staff_branch;    			
-    			$id = $this->Credit_model->save_credit($save);
+    			$last_id = $this->Credit_model->save_credit($save);
     		}
     		else{
     			$save['id'] = '';
@@ -331,7 +345,7 @@ class Credit extends Admin_Controller {
     			//$save['status'] = 1; //enable
     			$save['remark'] =  $this->input->post('remark');
     		
-    			$id = $this->Point_model->save_point($save);
+    			$last_id = $this->Point_model->save_point($save);
     		}
     		
     		//$save['status']				= 1;
@@ -340,7 +354,24 @@ class Credit extends Admin_Controller {
     		$this->session->set_flashdata('message', lang('message_saved_customer'));
     		 
     		//go back to the credit
-    		redirect($this->config->item('admin_folder').'/credit');
+    		//redirect($this->config->item('admin_folder').'/credit');
+    		redirect($this->config->item('admin_folder').'/credit/consume_info/'.$last_id.'/'.$payment);
+    	}
+    }
+    
+    function consume_info($id = false, $payment_type = false)
+    {    	
+    	if($id && $payment_type){
+    		if($payment_type == 'Credit'){
+    			$data['credit'] = $this->Credit_model->get_credit($id);
+    		}else{
+    			$data['point'] = $this->Point_model->get_point($id);
+    		}
+    		
+    		$this->view($this->config->item('admin_folder').'/consume_info', $data);
+    	}else{
+    		//go back to the credit
+    		redirect($this->config->item('admin_folder').'/credit/');
     	}
     }
     

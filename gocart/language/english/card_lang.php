@@ -1,15 +1,16 @@
 <?php
 /******************************************
 US English
-Admin theme Language
+Admin card Language
 ******************************************/
 
 $lang['link_information']		= 'Link Information';
-$lang['add_new_theme']	= 'Add New theme';
+$lang['add_new_card']	= 'Add New Card';
 $lang['add_new_link']			= 'Add New Link';
-$lang['themes']		= 'Themes';
-$lang['theme']		= 'Theme';
-$lang['theme_type']		= 'Theme Type';
+$lang['card']		= 'Cards';
+$lang['card']		= 'Card';
+$lang['card_type']		= 'Card Type';
+$lang['home']					= 'Home';
 
 $lang['address']		= 'Address';
 $lang['contact']		= 'Contact';
@@ -22,7 +23,7 @@ $lang['state']		= 'State';
 $lang['news']					= 'News';
 $lang['attributes']				= 'Attributes';
 $lang['seo']					= 'SEO';
-$lang['theme_form']	= 'Event Form';
+$lang['card_form']	= 'Event Form';
 $lang['link_form']				= 'Link Form';
 $lang['title']					= 'Title';
 $lang['caption']				= 'Caption';
@@ -81,7 +82,7 @@ $lang['brands']				= 'Brands';
 
 
 
-$lang['no_theme_or_links']		= 'There are currently no theme or links.';
+$lang['no_card_or_links']		= 'There are currently no card or links.';
 $lang['error_page_not_found']			= 'The request page could not be found.';
 $lang['error_link_not_found']	= 'The request link could not be found.';
 $lang['message_saved_page']		= 'The page has been saved.';
@@ -89,10 +90,10 @@ $lang['message_saved_link']		= 'The link has been saved.';
 $lang['message_deleted_page']	= 'The page has been deleted.';
 $lang['message_deleted_link']	= 'The link has been deleted.';
 $lang['confirm_delete']			= 'Are you sure you want to delete this page/link?';
-$lang['message_bulk_update']		= 'Your themes have been updated.';
-$lang['message_saved_theme']		= 'The theme has been saved.';
+$lang['message_bulk_update']		= 'Your card have been updated.';
+$lang['message_saved_card']		= 'The card has been saved.';
 $lang['message_saved_email']		= 'The email has been saved.';
 
 
-$lang['message_deleted_theme']		= 'The theme has been deleted.';
+$lang['message_deleted_card']		= 'The card has been deleted.';
 

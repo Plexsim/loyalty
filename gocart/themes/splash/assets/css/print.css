@@ -14,8 +14,6 @@
 	.pages_container{
 		page-break-inside: avoid;
 		margin:0; background-color:#ffffff; padding:20px 2.5%; border:1px #ffffff solid; width:90%;
-		
-		
 	}
 
 	.no-print, .no-print *

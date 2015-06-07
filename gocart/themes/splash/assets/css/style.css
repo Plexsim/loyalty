@@ -465,3 +465,19 @@ img{width:100%;height:auto;}
   background-position: 0 -26px
 }
 
+div.loading {
+    background: url("../img/loading.gif") no-repeat scroll center center transparent;
+    display: none;
+    font: 16px Tahoma,Geneva,sans-serif;
+    height: 100px;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    overflow: auto;
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    width: 100px;
+    z-index: 2;
+}

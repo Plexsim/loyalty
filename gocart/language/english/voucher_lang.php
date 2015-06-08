@@ -19,6 +19,7 @@ $lang['reduction_target']		= 'Reduction Target';
 $lang['reduction_type']			= 'Reduction Type';
 $lang['reduction_amount']		= 'Reduction Amount';
 $lang['point_consume']			= 'Point Consume';
+$lang['credit_consume']			= 'Credit Consume';
 $lang['start_date']				= 'Start Date (UTC)';
 $lang['end_date']				= 'End Date (UTC)';
 $lang['message_customer_voucher']	= 'The voucher and customer details has been found!';

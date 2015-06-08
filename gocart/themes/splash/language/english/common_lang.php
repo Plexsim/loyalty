@@ -32,6 +32,9 @@ $lang['download_link']			= 'Click here to access your downloads!';
 $lang['catalog']				= 'Catalog';
 $lang['account']				= 'Account';
 $lang['close']					= 'Close';
+$lang['customer_id']			= 'Customer Id';
+
+
 
 $lang['empty_cart']				= 'Your cart is empty';
 $lang['single_item']			= 'There is %d item in your cart';
@@ -295,7 +298,10 @@ $lang['vouchers']							= 'Vouchers';
 
 //loyalty error messages
 $lang['not_staff_error_message']			= 'Invalid staff username and password. Please re-login again or ask adminstrative to process';
+$lang['invalid_point_balance']				= 'Point balance not enough';
+$lang['invalid_credit_balance']				= 'Credit balance not enough';
 $lang['return_to_topup_credit']				= 'Return to Topup Credit Form';
 $lang['return_to_consumption']				= 'Return to Consumption Form';
+$lang['confirm_add_coupon']					= 'Are you sure you want get this coupon?';
 
 

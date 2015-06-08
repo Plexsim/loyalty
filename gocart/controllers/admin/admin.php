@@ -47,6 +47,7 @@ class Admin extends Admin_Controller
 		
 		
 		$branches = $this->Branch_model->get_branch_list();
+		$branch_list = array();
 		foreach($branches as $branch)
 		{
 			$branch_list[$branch['id']] = $branch['name'];

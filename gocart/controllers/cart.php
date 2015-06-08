@@ -54,6 +54,37 @@ class Cart extends Front_Controller {
 		}	
 	}
 	
+	public function check_credit($value)
+	{		
+		$customer_id			= $this->input->post('customer_id');
+		$payment				= $this->input->post('payment');
+				
+		$balance = 0;
+		if($payment == 'Credit'){
+			$credit_balance = $this->credit_model->get_credit_amt($customer_id);
+			$balance = $credit_balance['credit_amt'];
+		}else{
+			$point_balance = $this->point_model->get_point_amt($customer_id);
+			$balance = $point_balance['point_amt'];
+		}
+		
+		
+		if($value > $balance)
+		{
+			if($payment == 'Credit'){
+				$this->form_validation->set_message('check_credit', lang('invalid_credit_balance'));
+			}else{
+				$this->form_validation->set_message('check_credit', lang('invalid_point_balance'));
+			}			
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+		
+	}
+	
 	function index()
 	{
 		//make sure they're logged in
@@ -964,7 +995,9 @@ class Cart extends Front_Controller {
 		$data['customer'] = $this->Customer_model->get_customer_by_id($customer_id);
 		
 		if ($submitted){		
-			$this->form_validation->set_rules('staff_branch', 'lang:staff_branch', 'required|max_length[100]');
+			//$this->form_validation->set_rules('staff_branch', 'lang:staff_branch', 'required|max_length[100]');
+			$this->form_validation->set_rules('staff_branch', 'lang:staff_branch');
+			$this->form_validation->set_rules('customer_id', 'lang:customer_id');			
 			$this->form_validation->set_rules('staff_username', 'lang:staff_username', 'trim|required|max_length[100]');
 			$this->form_validation->set_rules('staff_password', 'lang:staff_password', 'trim|required|min_length[6]|callback_staff_login[staff_username]');			
 			$this->form_validation->set_rules('customer_cost', 'lang:customer_cost', 'required|numeric');
@@ -975,11 +1008,11 @@ class Cart extends Front_Controller {
 			//string compare
 			if ($this->form_validation->run() == TRUE)
 			{
-				$staff_branch	  		= $this->input->post('staff_branch');
+				//$staff_branch	  		= $this->input->post('staff_branch');
 				$staff_username	  		= $this->input->post('staff_username');
 				$staff_password	  		= $this->input->post('staff_password');
 				
-				$admin = $this->admin_model->get_admin($staff_username,$staff_password);	
+				$admin = $this->admin_model->get_admin($staff_username,$staff_password);
 
 				$customer_id			= $this->input->post('customer_id');
 				$customer_cost			= $this->input->post('customer_cost');				
@@ -992,7 +1025,7 @@ class Cart extends Front_Controller {
 				$save['in']   = $customer_topup_value;
 				$save['created'] = date("Y-m-d H:i:s");
 				$save['staff_id'] = $admin['id'];
-				$save['branch'] = $staff_branch;
+				//$save['branch'] = $staff_branch;
 				$save['status'] = 1; //enable
 				$save['remark'] = $topup_remark;
 																
@@ -1044,7 +1077,9 @@ class Cart extends Front_Controller {
 	{
 		$data['page_title']	= 'Top Up Credit Info';
 		$data['seo_title']	= 'Top Up Credit Info';
-		$data['credit_info'] = $this->credit_model->get_credit($credit_id);
+		$data['credit_info'] = $this->credit_model->get_credit($credit_id);		
+		$data['admin'] = $this->admin_model->get_admin_by_id($data['credit_info']['staff_id']);
+		
 		$this->view('top_up_credit_info', $data);
 	}
 	
@@ -1072,7 +1107,7 @@ class Cart extends Front_Controller {
 		$this->view('consumption_qrcode', $data);
 	}
 	
-	function consumption($string_passing_value,$customer_id = NULL)
+	function consumption($string_passing_value,$customer_id = NULL, $voucher_id = '')
 	{				
 		$data['page_title']	= 'Consumption';
 		$data['seo_title']	= 'Consumption';
@@ -1087,40 +1122,58 @@ class Cart extends Front_Controller {
 		$data['customer_id'] = $customer_id;				
 		//$data['customer'] = $this->customer;
 		$data['customer'] = $this->Customer_model->get_customer_by_id($customer_id);
+		if($voucher_id){
+			$data['voucher_id'] = $voucher_id;
+		}else{
+			$data['voucher_id'] = '';
+		}
+		
+		$vouchers = $this->Voucher_model->get_vouchers();
+		
+		foreach($vouchers as $voucher)
+		{			
+			$voucher_list[$voucher->id] = $voucher->name;
+		}
+		$data['vouchers'] = $voucher_list;
 		
 		if ($submitted){
-			$this->form_validation->set_rules('staff_branch', 'lang:staff_branch', 'required|max_length[100]');
+			//$this->form_validation->set_rules('staff_branch', 'lang:staff_branch', 'required|max_length[100]');
+			$this->form_validation->set_rules('staff_branch', 'lang:staff_branch');
 			$this->form_validation->set_rules('staff_username', 'lang:staff_username', 'trim|required|max_length[100]');
 			$this->form_validation->set_rules('staff_password', 'lang:staff_password', 'trim|required|min_length[6]|callback_staff_login[staff_username]');
 			
 			$this->form_validation->set_rules('payment', 'lang:payment', 'required');
-			$this->form_validation->set_rules('consume_amount', 'lang:consume_amount', 'required|numeric');
-			$this->form_validation->set_rules('topup_remark', 'lang:remark');
+			$this->form_validation->set_rules('consume_amount', 'lang:consume_amount', 'required|numeric|callback_check_credit');
+			$this->form_validation->set_rules('remark', 'lang:remark');
 				
 			//original is: if ($this->form_validation->run() == TRUE && strcmp(strtoupper($userCaptcha),strtoupper($word)) == 0)
 			//string compare
 			if ($this->form_validation->run() == TRUE)
 			{
-				$staff_branch	  		= $this->input->post('staff_branch');
+				//$staff_branch	  		= $this->input->post('staff_branch');
 				$staff_username	  		= $this->input->post('staff_username');
 				$staff_password	  		= $this->input->post('staff_password');
 	
 				$admin = $this->admin_model->get_admin($staff_username,$staff_password);
-	
+				$staff_branch = $admin['branch_id'];
+				
+				
 				$customer_id			= $this->input->post('customer_id');
 				$consume_amount			= $this->input->post('consume_amount');
+				$voucher_id				= $this->input->post('voucher_id');
 				$remark					= $this->input->post('remark');
 				$payment				= $this->input->post('payment');
 					
 				
-				if($payment == 'credit')
+				if($payment == 'Credit')
 				{
 					$save['id'] = '';
 					$save['customer_id'] = $customer_id;
 					$save['out'] 		= $consume_amount;
 					$save['created'] = date("Y-m-d H:i:s");
 					$save['staff_id'] = $admin['id'];
-					$save['branch'] = $staff_branch;
+					//$save['branch'] = $staff_branch;
+					$save['voucher_id'] = $voucher_id;
 					//$save['status'] = 1; //enable
 					$save['remark'] = $remark;
 					
@@ -1132,14 +1185,26 @@ class Cart extends Front_Controller {
 					$save['depoint'] 	= $consume_amount;
 					$save['created'] = date("Y-m-d H:i:s");
 					$save['staff_id'] = $admin['id'];
-					$save['branch'] = $staff_branch;
+					//$save['branch'] = $staff_branch;
+					$save['voucher_id'] = $voucher_id;
 					//$save['status'] = 1; //enable
 					$save['remark'] = $remark;
 						
 					$id = $this->point_model->save_point($save);
 				}
 				
+				//check if voucher customer has this voucher then update
+				$save_voucher['voucher_id'] = $voucher_id;
+				$save_voucher['customer_id'] = $customer_id;
+				$is_exist = $this->Voucher_model->check_voucher_customer($voucher_id, $customer_id);
 				
+				if($is_exist){
+					$voucher_details = $this->Voucher_model->my_voucher_details($voucher_id, $customer_id);
+					$save_voucher['qty'] = $voucher_details['qty'] + 1;
+					$this->Voucher_model->update_voucher_customer($save_voucher);
+				}else{
+					$this->Voucher_model->add_voucher_customer($save_voucher);
+				}
 	
 				//$this->session->set_flashdata('message', 'Hi '. $name. '. Thank you! We will response you as soon as possible.');
 				redirect('cart/consumption_info/'.$id.'/'.$payment);
@@ -1188,14 +1253,16 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'Consumption Info';
 		$data['seo_title']	= 'Consumption Info';
 		
-		if($payment == 'credit')
+		if($payment == 'Credit')
 		{
-			$data['info'] = $this->credit_model->get_credit($id);
+			$data['info'] = $this->credit_model->get_credit($id);			
 		}
 		else
 		{
 			$data['info'] = $this->point_model->get_point($id);
 		}
+		
+		$data['admin'] = $this->admin_model->get_admin_by_id($data['info']['staff_id']);
 				
 		$this->view('consumption_info', $data);
 	}
@@ -1205,6 +1272,7 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'Membership Promotion';
 		$data['seo_title']	= 'Membership Promotion';
 		$data['customer_id'] = $this->customer['id'];
+		$data['encrypt']  	= random_string('alnum', 16);
 		$data['vouchers']	= $this->Voucher_model->get_vouchers();
 		$data['coupons']	= $this->Coupon_model->get_coupons();
 		
@@ -1281,6 +1349,35 @@ class Cart extends Front_Controller {
 	}
 	
 	/*---------------------------------------------------------------------------------------------------------
+	 | Function to retrieve voucher point or credit to customers automatically
+	|----------------------------------------------------------------------------------------------------------*/
+	function retrieve_voucher_value()
+	{
+		$data = array();
+		$coupon_id = ($this->input->post('voucher_id')) ? $this->input->post('voucher_id') : 0;
+		$payment = ($this->input->post('payment')) ? $this->input->post('payment') : '';
+		//$coupon_id = 1;
+		//$payment = 'Point';
+		
+		//check table first
+		$vouchers = $this->Voucher_model->get_voucher($coupon_id);	
+		
+		
+		$value = 0;
+		if($vouchers){
+			if($payment == 'Credit'){
+				$value = $vouchers->credit_consume;
+			}else{
+				$value = $vouchers->point_consume;
+			}
+		}else{
+			$value		= 0;
+		}
+	
+		echo $value;		
+	}
+	
+	/*---------------------------------------------------------------------------------------------------------
 	 | Function to add coupon into customers
 	|----------------------------------------------------------------------------------------------------------*/
 	function add_coupon()
@@ -1307,4 +1404,6 @@ class Cart extends Front_Controller {
 		echo $result;
 		//echo $result;
 	}
+	
+	
 }

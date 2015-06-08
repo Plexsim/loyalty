@@ -186,6 +186,7 @@ class Vouchers extends Admin_Controller {
 		$data['reduction_type']			= '';
 		$data['reduction_amount']		= '';
 		$data['point_consume']			= '';	
+		$data['credit_consume']			= '';
 		$data['image']					= '';
 		$data['desc']					= '';
 		
@@ -219,6 +220,7 @@ class Vouchers extends Admin_Controller {
 			$data['reduction_type']			= $voucher->reduction_type;
 			$data['reduction_amount']		= $voucher->reduction_amount;
 			$data['point_consume']			= $voucher->point_consume;
+			$data['credit_consume']			= $voucher->credit_consume;			
 			$data['image']					= $voucher->image;
 			$data['desc']					= $voucher->desc;
 			
@@ -234,6 +236,7 @@ class Vouchers extends Admin_Controller {
 		$this->form_validation->set_rules('reduction_type', 'lang:reduction_type', 'trim');
 		$this->form_validation->set_rules('reduction_amount', 'lang:reduction_amount', 'trim|numeric');
 		$this->form_validation->set_rules('point_consume', 'lang:point_consume', 'trim|numeric');
+		$this->form_validation->set_rules('credit_consume', 'lang:credit_consume', 'trim|numeric');
 		$this->form_validation->set_rules('image', 'lang:image', 'trim');
 		$this->form_validation->set_rules('desc', 'lang:desc', 'trim');
 		
@@ -297,6 +300,7 @@ class Vouchers extends Admin_Controller {
 			$save['reduction_type']			= $this->input->post('reduction_type');
 			$save['reduction_amount']		= $this->input->post('reduction_amount');
 			$save['point_consume']			= $this->input->post('point_consume');
+			$save['credit_consume']			= $this->input->post('credit_consume');
 			$save['desc']					= $this->input->post('desc');
 			
 

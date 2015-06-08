@@ -54,8 +54,9 @@
 										src="<?php echo base_url($voucher->image)?>" alt="" title="" border="0" /> </a>
 															
 									<div class="controls">
-											<input type="button" value="<?php echo lang('click_button');?>" name="click_button" href="javascript: void(0);" onclick="javascript: add_voucher('<?php echo $voucher->id ?>', '<?php echo $customer_id ?>');"  class="form_submit radius4 red red_borderbottom"/>
-									</div>																								
+											
+											<input type="button" value="<?php echo lang('click_button');?>" name="click_button" onclick="javascript:go_consumption('<?php echo $encrypt ?>', '<?php echo $customer_id ?>', '<?php echo $voucher->id ?>')" class="form_submit radius4 red red_borderbottom"/>
+									</div>
 								</div>
 								<div class="portfolio_details">
 									<p><?php echo $voucher->name ?>( <?php echo $voucher->code ?> )</p>
@@ -109,22 +110,27 @@ function add_voucher(voucherID, customerID)
 }
 function add_coupon(couponID, customerID)
 {
-	$('.loading').fadeIn('slow');
+	if (confirm('<?php echo lang('confirm_add_coupon')?>')) {
+		$('.loading').fadeIn('slow');
 		
-	$.post("<?php echo site_url('cart/add_coupon'); ?>", {
-		coupon_id : couponID,
-		customer_id : customerID,		
-		},
-		function(data) {
-		    $('.loading').fadeOut('slow');	
-			console.log(data);
+		$.post("<?php echo site_url('cart/add_coupon'); ?>", {
+			coupon_id : couponID,
+			customer_id : customerID,		
+			},
+			function(data) {
+			    $('.loading').fadeOut('slow');	
+				console.log(data);
 
-		    	   
-		    if(data == 1){
-		    	alert('Added Successful');
-		    }else{
-		    	alert('You have got it!');
-		    }	 		    
-		});		
+			    	   
+			    if(data == 1){
+			    	alert('Added Successful');
+			    }else{
+			    	alert('You have got it!');
+			    }	 		    
+			});		
+	}
+
+	
+	
 }
 </script>

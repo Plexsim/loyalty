@@ -81,7 +81,13 @@
 							<?php
 							$data	= array('name'=>'point_consume', 'id'=>'point_consume', 'value'=>set_value('point_consume', $point_consume), 'class'=>'form-control');
 							echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
-						 </div>		 
+						 </div>
+						
+						 <div class="form-group"><label class="col-sm-2 control-label" for="credit_consume"><?php echo lang('credit_consume');?></label>
+							<?php
+							$data	= array('name'=>'credit_consume', 'id'=>'credit_consume', 'value'=>set_value('credit_consume', $credit_consume), 'class'=>'form-control');
+							echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
+						 </div>
 						
 						 <div class="form-group"><label class="col-sm-2 control-label" for="desc"><?php echo lang('desc');?></label>
 														

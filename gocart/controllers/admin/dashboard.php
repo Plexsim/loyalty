@@ -39,5 +39,11 @@ class Dashboard extends Admin_Controller {
 		
 		$this->view($this->config->item('admin_folder').'/dashboard', $data);
 	}
+	
+	function textarea()
+	{	
+		$data['page_title']	=  lang('dashboard');
+		$this->view($this->config->item('admin_folder').'/textarea', $data);
+	}
 
 }

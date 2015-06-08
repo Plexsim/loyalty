@@ -12,12 +12,12 @@
 		            <?php $this->load->view('error_message'); ?>   
 		             		             
 		             <!-- This is Branch retrieve from Database -->
-		             <div class="control-group">
+		             <!--div class="control-group">
 							 <label class="control-label" for="staff_branch"><?php echo lang('staff_branch');?></label>
 				             <div class="controls">
 								<input type="text" name="staff_branch" value="<?php echo set_value('staff_branch') ?>" class="form_input radius4 required"/>							
 							 </div>
-		             </div>
+		             </div-->
 		             
 		             <div class="control-group">
 		             	 <label class="control-label" for="staff_username"><?php echo lang('staff_username');?></label>
@@ -44,14 +44,23 @@
 						 </div>
 					 </div>
 					
+					
+					<div class="control-group">
+		             	 <label class="control-label" for="customer_name"><?php echo lang('products');?></label>            	
+		            	<div class="controls">
+							<?php echo form_dropdown('voucher_id', $vouchers, set_value('voucher_id',$voucher_id), 'id="voucher_id" class="form_input radius4 required" onChange="select_voucher();"'); ?>
+						 </div>
+					 </div>
+					 					 					 
+					
 					<div class="control-group">
 		             	 <label class="control-label" for="payment"><?php echo lang('payment');?></label>            	
 		            	<div class="controls">
 							<?php
-							$options = array(	'Credit'	=> 'credit',
-												'Point'	=> 'point'
+							$options = array(	'Credit'	=> 'Credit',
+												'Point'	=> 'Point'
 							                );
-							echo form_dropdown('payment', $options, set_value('payment'), 'class="form_input radius4 required"');
+							echo form_dropdown('payment', $options, set_value('payment'), 'id="payment" class="form_input radius4 required" onChange="select_voucher();"');
 							?>							
 						 </div>
 					 </div>
@@ -60,7 +69,7 @@
 					 <div class="control-group">
 		             	 <label class="control-label" for="consume_amount"><?php echo lang('consume_amount');?></label>            	
 		            	<div class="controls">
-							<input type="text" name="consume_amount" value="<?php echo set_value('consume_amount') ?>" class="form_input radius4 required"/>							
+							<input type="text" name="consume_amount" id="consume_amount" value="<?php echo set_value('consume_amount') ?>" class="form_input radius4 required" readonly/>							
 						 </div>
 					 </div>
 					 

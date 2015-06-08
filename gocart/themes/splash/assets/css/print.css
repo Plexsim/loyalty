@@ -4,7 +4,17 @@
 
 /* Printing Query
 /*-----------------------------------------------------------------------------------*/
+
+@page
+{
+	    size: 2.18in 1.18in;
+	    size: portrait;
+	    margin: 0;
+}
+
 @media print {	
+	
+	
 	body {
 		font-family: Georgia, serif;
 		background: none;
@@ -29,4 +39,5 @@
     .navbar{
     	display: none !important;
     }
+    
 }

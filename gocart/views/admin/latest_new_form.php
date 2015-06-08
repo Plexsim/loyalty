@@ -45,8 +45,8 @@
                             <?php echo $content ?>
                         </div-->
                         
-                        <textarea class="input-block-level" id="summernote" name="content" rows="5">
-                        	<?php echo $content ?>
+                        <textarea class="input-block-level" id="summernote" name="content" rows="5">                        	
+                        	<?php echo set_value('content', $content) ?>
                         </textarea>
 					
                    

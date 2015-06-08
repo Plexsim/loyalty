@@ -142,12 +142,13 @@ class Latest_News extends Admin_Controller
 			}
 			else
 			{
-				if(!$uploaded)
+				// temporary no need upload file
+				/* if(!$uploaded)
 				{
 					$data['error']	= $this->upload->display_errors();
 					$this->view(config_item('admin_folder').'/latest_new_form', $data);
 					return; //end script here if there is an error
-				}
+				} */
 			}
 				
 			if($uploaded)

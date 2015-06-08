@@ -12,12 +12,12 @@
 		            <?php $this->load->view('error_message'); ?>   
 		             		             
 		             <!-- This is Branch retrieve from Database -->
-		             <div class="control-group">
+		             <!--div class="control-group">
 							 <label class="control-label" for="staff_branch"><?php echo lang('staff_branch');?></label>
 				             <div class="controls">
 								<input type="text" name="staff_branch" value="<?php echo set_value('staff_branch') ?>" class="form_input radius4 required"/>							
 							 </div>
-		             </div>
+		             </div-->
 		             
 		             <div class="control-group">
 		             	 <label class="control-label" for="staff_username"><?php echo lang('staff_username');?></label>

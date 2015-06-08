@@ -106,6 +106,7 @@ class Voucher_model extends CI_Model
 	// get vouchers list, sorted by start_date (default), end_date
 	function get_vouchers($sort=NULL) 
 	{
+		$this->db->where('active', 1);
 		if($sort=='end_date')
 		{
 			$this->db->order_by('end_date');
@@ -114,6 +115,7 @@ class Voucher_model extends CI_Model
 		{
 			$this->db->order_by('start_date');
 		}
+		
 		return $this->db->get('vouchers')->result();
 	}
 	
@@ -256,6 +258,7 @@ class Voucher_model extends CI_Model
 			return false;
 		}
 	}
+	
 	
 	// add voucher, returns id
 	function add_voucher_customer($data)

@@ -328,30 +328,34 @@ if ( ! function_exists('form_dropdown'))
 
 		$form = '<select name="'.$name.'"'.$extra.$multiple.">\n";
 
-		foreach ($options as $key => $val)
+		if (is_array($options) || is_object($options))
 		{
-			$key = (string) $key;
-
-			if (is_array($val) && ! empty($val))
+			foreach ($options as $key => $val)
 			{
-				$form .= '<optgroup label="'.$key.'">'."\n";
-
-				foreach ($val as $optgroup_key => $optgroup_val)
+				$key = (string) $key;
+			
+				if (is_array($val) && ! empty($val))
 				{
-					$sel = (in_array($optgroup_key, $selected)) ? ' selected="selected"' : '';
-
-					$form .= '<option value="'.$optgroup_key.'"'.$sel.'>'.(string) $optgroup_val."</option>\n";
+					$form .= '<optgroup label="'.$key.'">'."\n";
+			
+					foreach ($val as $optgroup_key => $optgroup_val)
+					{
+						$sel = (in_array($optgroup_key, $selected)) ? ' selected="selected"' : '';
+			
+						$form .= '<option value="'.$optgroup_key.'"'.$sel.'>'.(string) $optgroup_val."</option>\n";
+					}
+			
+					$form .= '</optgroup>'."\n";
 				}
-
-				$form .= '</optgroup>'."\n";
-			}
-			else
-			{
-				$sel = (in_array($key, $selected)) ? ' selected="selected"' : '';
-
-				$form .= '<option value="'.$key.'"'.$sel.'>'.(string) $val."</option>\n";
-			}
+				else
+				{
+					$sel = (in_array($key, $selected)) ? ' selected="selected"' : '';
+			
+					$form .= '<option value="'.$key.'"'.$sel.'>'.(string) $val."</option>\n";
+				}
+			}	
 		}
+		
 
 		$form .= '</select>';
 

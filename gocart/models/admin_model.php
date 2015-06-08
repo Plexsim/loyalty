@@ -66,5 +66,16 @@ Class Admin_model extends CI_Model
     	$admin   = $result->row_array();    
     	return $admin;
     }
+    
+    function get_admin_by_id($id)
+    {
+    	$this->db->select('*, branch.name as branch_name');
+    	$this->db->join("branch", "branch.id=admin.branch_id");
+    	$this->db->where('admin.id', $id);
+    	$this->db->limit(1);
+    	$result = $this->db->get('admin');
+    	$admin   = $result->row_array();
+    	return $admin;
+    }
         
 }

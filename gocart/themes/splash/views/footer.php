@@ -120,7 +120,9 @@
 <script>
 	$(function() {
     	$( "#tabs" ).tabs();
+    	select_voucher();
   	});
+
   
 	$(".toggle_container").show();
 	$(".toggle_container_point").hide();
@@ -170,6 +172,35 @@
 		$(".toggle_container_point").hide("slow");			
 		
 	} );	
+
+	//function to add in voucher to users
+	function select_voucher()
+	{
+		$('.loading').fadeIn('slow');
+		//console.log('voucherID: ' + voucherID + 'customerID: ' + customerID);
+		voucherID = $('#voucher_id').val();
+		payment = $('#payment').val();
+
+		console.log("VoucherID: "+voucherID);
+		console.log("Payment: "+payment);
+					
+		$.post("<?php echo site_url('cart/retrieve_voucher_value'); ?>", {
+			voucher_id : voucherID,
+			payment : payment,		
+			},
+			function(data) {
+				console.log(data);
+			    $('.loading').fadeOut('slow');		   		   
+			    $('#consume_amount').val(data);	    	 		    
+			});		
+	}
+
+	function go_consumption(encrypt, customer_id, voucher_id)
+	{
+		url = "<?php echo site_url('cart/consumption')?>";
+		//console.log(url + "/" + encrypt + "/" + customer_id + "/" + voucher_id);
+		window.location = url + "/" + encrypt + "/" + customer_id + "/" + voucher_id;
+	}
 
 </script>
         

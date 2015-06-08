@@ -16,8 +16,7 @@
 				<div id="tabs">
 					  <ul>
 					    <li><a href="#tabs-1"><?php echo lang('coupons') ?></a></li>
-					    <li><a href="#tabs-2"><?php echo lang('vouchers')?></a></li>
-					    
+					    <li><a href="#tabs-2"><?php echo lang('vouchers')?></a></li>					    
 					  </ul>
 					  <div id="tabs-1">
 					    <?php echo (count($coupons) < 1)?'<p>'.lang('no_coupons').'</p>':''?>

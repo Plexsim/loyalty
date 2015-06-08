@@ -1,6 +1,6 @@
 
 
-<div class="btn-group pull-right">
+<div style="text-align:right;">
 	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/latest_news/form'); ?>"><i class="fa fa-plus-sign"></i> <?php echo lang('add_new_latest_news');?></a>	
 </div>
 

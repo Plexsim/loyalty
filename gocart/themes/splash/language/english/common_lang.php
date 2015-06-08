@@ -62,7 +62,7 @@ $lang['form_search']			= 'Search';
 $lang['form_view']				= 'View';
 $lang['form_save']				= 'Save';
 $lang['form_from']				= 'From';
-$lang['form_to']				= 'to';
+$lang['form_to']				= 'To';
 
 $lang['step_1']					= 'Step 1';
 $lang['step_2']					= 'Step 2';
@@ -291,7 +291,8 @@ $lang['no_companies']						= 'No Company Details Yet';
 
 $lang['coupons']							= 'Coupons';
 $lang['vouchers']							= 'Vouchers';
-
+$lang['unused']								= 'Unused';
+$lang['used']								= 'Used';
 
 
 

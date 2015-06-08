@@ -4,7 +4,7 @@ function areyousure()
 	return confirm('<?php echo lang('confirm_delete_customer');?>');
 }
 </script>
-<div class="btn-group pull-right">
+<div style="text-align:right;">
 	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/export_xml');?>"><i class="fa fa-download"></i> <?php echo lang('xml_download');?></a>
 	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/get_subscriber_list');?>"><i class="fa fa-download"></i> <?php echo lang('subscriber_download');?></a>
 	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/form'); ?>"><i class="fa fa-plus-circle"></i> <?php echo lang('add_new_customer');?></a>

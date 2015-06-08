@@ -5,7 +5,9 @@ function areyousure()
 }
 </script>
 
-	<a class="btn btn-white btn-bitbucket" style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_coupon');?></a>
+<div style="text-align:right;">
+	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_coupon');?></a>
+</div>
 
 <div class="row">
 		<div class="col-sm-12">

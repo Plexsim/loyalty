@@ -36,6 +36,8 @@
 
 	}
 	
+	$admin_url = site_url($this->config->item('admin_folder')).'/';
+	
 if ($term):?>
 
 <div class="alert alert-info">
@@ -94,13 +96,20 @@ if ($term):?>
 
     <tbody>
 	<?php echo (count($credits) < 1)?'<tr><td style="text-align:center;" colspan="8">'.lang('no_credits') .'</td></tr>':''?>
-    <?php foreach($credits as $credit): ?>
-	<tr>
+    <?php foreach($credits as $credit): 
+    	$info_url = '';
+    	if($credit->in > 0):
+    		$info_url = $admin_url.'credit/topup_credit_info/'.$credit->id;
+    	elseif($credit->out > 0):
+    		$info_url = $admin_url.'credit/consume_info/'.$credit->id.'/Credit';
+    	endif;
+    ?>
+	<tr onclick="document.location = '<?php echo $info_url?>';">
 		<td style="white-space:nowrap"><?php echo date('d/m/y h:i a', strtotime($credit->created)); ?></td>
 		<td style="white-space:nowrap"><?php echo $credit->customer_id ?></td>
 		<!--td style="white-space:nowrap"><?php echo $credit->card ?></td-->
 		<td style="white-space:nowrap"><?php echo $credit->in ?></td>
-		<td style="white-space:nowrap"><?php echo $credit->out ?></td>				
+		<td style="white-space:nowrap"><?php echo $credit->out ?></td>						
 	</tr>
     <?php endforeach; ?>
     </tbody>

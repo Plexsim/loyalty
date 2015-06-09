@@ -23,6 +23,23 @@ class Coupons extends Admin_Controller {
 		$this->view($this->config->item('admin_folder').'/coupons', $data);
 	}
 	
+	function check_qty_used()
+	{
+		$coupon_id = $this->input->post('coupon_id');
+		$customer_id = $this->input->post('customer_id');
+		$used = $this->input->post('used');
+	
+		$details = $this->Coupon_model->my_coupon_details($coupon_id, $customer_id);
+	
+		if($details['used'] + $used > $details['qty'])
+		{
+			$this->form_validation->set_message('check_qty_used', lang('invalid_used_qty'));
+			return FALSE;
+		}else {
+			return TRUE;
+		}
+	}
+	
 	
 	function form($id = false)
 	{
@@ -341,6 +358,7 @@ class Coupons extends Admin_Controller {
 	
 	function process_coupon()
 	{
+		$data['page_title']		= lang('process_coupon');
 		$today_date 	= date("Ymd");
 		//die(print_r($_POST));
 	
@@ -351,17 +369,23 @@ class Coupons extends Admin_Controller {
 	
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 	
-	
-		$data['page_title']		= lang('coupon_form');
-	
 		//default values are empty if the product is new
 		$data['id']						= '';
-		$data['code']					= '';
+		//$data['code']					= '';
+		$data['coupon_id']				= '';
 		$data['card']					= '';
+		
+		$coupons = $this->Coupon_model->get_coupons();
+		foreach($coupons as $coupon)
+		{
+			$coupon_list[$coupon->id] = $coupon->name;
+		}
+		$data['coupons'] = $coupon_list;
 	
 		$added = array();
 	
-		$this->form_validation->set_rules('code', 'lang:code', 'trim|required|callback_check_coupon');
+		//$this->form_validation->set_rules('code', 'lang:code', 'trim|required|callback_check_coupon');
+		$this->form_validation->set_rules('coupon_id', 'lang:products');
 		$this->form_validation->set_rules('card', 'lang:card', 'trim|required|callback_check_card');
 	
 		if ($this->form_validation->run() == FALSE)
@@ -370,51 +394,73 @@ class Coupons extends Admin_Controller {
 		}
 		else
 		{
-			$code					= $this->input->post('code');
-			$card					= $this->input->post('card');
+			//$code					= $this->input->post('code');
+			$coupon_id				= $this->input->post('coupon_id');
+			$card					= $this->input->post('card');						
 				
 			// We're done
 			$this->session->set_flashdata('message', lang('message_customer_coupon'));
 			//go back to the product list
-			redirect($this->config->item('admin_folder').'/coupons/process_coupon_details/'.$code.'/'.$card);
+			redirect($this->config->item('admin_folder').'/coupons/process_coupon_details/'.$coupon_id.'/'.$card);
 		}
 	}
 	
-	function process_coupon_details($coupon_code = '', $member_card = '')
-	{
+	function process_coupon_details($coupon_id = '', $member_card = '')
+	{		
+		$data['page_title']		= lang('process_coupon');
 		$this->load->helper(array('form', 'date', 'url'));
-	
+		$this->load->library('form_validation');
+			
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$save['active']  = $this->input->post('active');
-			$save['coupon_id'] = $this->input->post('coupon_id');
-			$save['customer_id'] = $this->input->post('customer_id');
-				
-			$id = $this->Voucher_model->update_coupon_customer($save);
-				
-			if($id > 0){
-				// We're done
-				$this->session->set_flashdata('message', lang('message_saved_coupon'));
-				//go back to the process coupon form
-				redirect($this->config->item('admin_folder').'/coupons/process_coupon/');
-			}else{
-				$this->session->set_flashdata('error', lang('error_saved_coupon'));
-				//go back to the process coupon form with error message
-				redirect($this->config->item('admin_folder').'/coupons/process_coupon/');
+
+			$this->form_validation->set_rules( 'used', lang('use_qty'), 'trim|required|numeric|callback_check_qty_used' );
+			
+			if ($this->form_validation->run() == FALSE)
+			{
+				$coupon_id = $this->input->post('coupon_id');
+				$member_card = $this->input->post('customer_card');
 			}
+			else
+			{
+				$save['active']  = $this->input->post('active');
+				$used  			= $this->input->post('used');
+				$save['coupon_id'] = $this->input->post('coupon_id');
+				$save['customer_id'] = $this->input->post('customer_id');
+				
+				$details = $this->Coupon_model->my_coupon_details($save['coupon_id'], $save['customer_id']);
+				
+				$save['used'] = $details['used'] + $used;
+					
+				$id = $this->Coupon_model->update_coupon_customer($save);
+					
+				if($id > 0){
+					// We're done
+					$this->session->set_flashdata('message', lang('message_saved_coupon'));
+					//go back to the process coupon form
+					redirect($this->config->item('admin_folder').'/coupons/process_coupon/');
+				}else{
+					$this->session->set_flashdata('error', lang('error_saved_coupon'));
+					//go back to the process coupon form with error message
+					redirect($this->config->item('admin_folder').'/coupons/process_coupon/');
+				}
+			}
+			
+			
 		}
 	
-		if($coupon_code == '' || $member_card == ''){
+		if($coupon_id == '' || $member_card == ''){
 			$this->session->set_flashdata('message', lang('error_not_found'));
 			redirect($this->config->item('admin_folder').'/coupons/process_coupon');
 		}else{
 				
-			$coupon = $this->Voucher_model->get_coupon_by_code($coupon_code);
+			$coupon = $this->Coupon_model->get_coupon($coupon_id);
 			$customer = $this->Customer_model->get_customer_by_card($member_card);
 				
-			$data['coupon_id'] = $coupon['id'];
+			$data['coupon_id'] = $coupon->id;
 			$data['customer_id'] = $customer['id'];
+			$data['customer'] = $customer;
 	
-			$data['details'] = $this->Voucher_model->my_coupon_details($coupon['id'], $customer['id']);
+			$data['details'] = $this->Coupon_model->my_coupon_details($coupon->id, $customer['id']);
 	
 			$this->view(config_item('admin_folder').'/coupon_proceed_details', $data);
 		}

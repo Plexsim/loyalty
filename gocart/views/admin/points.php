@@ -35,7 +35,7 @@
 		echo '<a href="'.$return.'">'.lang($lang).$icon.'</a>';
 
 	}
-	
+	$admin_url = site_url($this->config->item('admin_folder')).'/';
 if ($term):?>
 
 <div class="alert alert-info">
@@ -97,8 +97,16 @@ if ($term):?>
 
     <tbody>
 	<?php echo (count($points) < 1)?'<tr><td style="text-align:center;" colspan="8">'.lang('no_points') .'</td></tr>':''?>
-    <?php foreach($points as $point): ?>
-	<tr>
+    <?php foreach($points as $point): 
+		    $info_url = '';
+		    if($point->point > 0):
+		    	//future
+		    	$info_url = $admin_url.'point/topup_point_info/'.$point->id;
+		    elseif($point->depoint > 0):
+		    	$info_url = $admin_url.'credit/consume_info/'.$point->id.'/Point';
+		    endif;
+    ?>
+	<tr onclick="document.location = '<?php echo $info_url?>';">
 		<!--td><input name="point[]" type="checkbox" value="<?php echo $point->id; ?>" class="gc_check"/></td-->
 		<td style="white-space:nowrap"><?php echo date('d/m/y h:i a', strtotime($point->created)); ?></td>
 		<td style="white-space:nowrap"><?php echo $point->customer_id ?></td>

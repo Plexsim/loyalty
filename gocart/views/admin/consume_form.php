@@ -24,19 +24,27 @@
 								  <div class="hr-line-dashed"></div>
 								  
 								  <div class="form-group">
+					             	 <label class="col-sm-2 control-label" for="products"><?php echo lang('products');?></label>            	
+					            	<div class="controls">
+										<?php echo '<div class="col-sm-10">'.form_dropdown('voucher_id', $vouchers, set_value('voucher_id',$voucher_id), 'id="voucher_id" class="form-control m-b" onChange="select_voucher();"').'</div>';; ?>
+									 </div>
+								 </div>
+								  
+								  
+								  <div class="form-group">
 					             	 <label class="col-sm-2 control-label" for="payment"><?php echo lang('payment');?></label>            	
 										<?php
 										$options = array(	'Credit'	=> 'credit',
 															'Point'	=> 'point'
 										                );
-										echo '<div class="col-sm-10">'.form_dropdown('payment', $options, set_value('payment'), 'class="form-control m-b"').'</div>';
+										echo '<div class="col-sm-10">'.form_dropdown('payment', $options, set_value('payment'), 'id="payment" class="form-control m-b" onChange="select_voucher();"').'</div>';
 										?>							
 								 </div>	
 								 													  								
 								  
 								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('consume_amount');?></label>
 									<?php
-									$data	= array('name'=>'consume_amount', 'value'=>set_value('consume_amount', $out), 'class'=>'form-control');
+									$data	= array('name'=>'consume_amount', 'value'=>set_value('consume_amount', $out), 'class'=>'form-control', 'id'=> 'consume_amount', 'readonly'=>true);
 									echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
 								  </div>								  
 								  								                   
@@ -67,7 +75,7 @@
 								<div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
                                         <!--button class="btn btn-white" type="submit">Cancel</button-->
-                                        <input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>">
+                                        <input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>" onclick="return areyousure();">
                                     </div>
                                 </div>
 								
@@ -79,5 +87,10 @@
                 </div>
             </div>
 
-
+<script type="text/javascript">
+function areyousure()
+{
+	return confirm('<?php echo lang('confirm_consume');?>');
+}
+</script>
 	

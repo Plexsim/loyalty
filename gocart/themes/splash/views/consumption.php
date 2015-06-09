@@ -46,7 +46,7 @@
 					
 					
 					<div class="control-group">
-		             	 <label class="control-label" for="customer_name"><?php echo lang('products');?></label>            	
+		             	 <label class="control-label" for="products"><?php echo lang('products');?></label>            	
 		            	<div class="controls">
 							<?php echo form_dropdown('voucher_id', $vouchers, set_value('voucher_id',$voucher_id), 'id="voucher_id" class="form_input radius4 required" onChange="select_voucher();"'); ?>
 						 </div>
@@ -75,7 +75,7 @@
 					 
 					 
 					 <div class="control-group">
-		             	 <label class="control-label" for="customer_topup_value"><?php echo lang('remark');?></label>            	
+		             	 <label class="control-label" for="remark"><?php echo lang('remark');?></label>            	
 		            	 <div class="controls">
 							<textarea name="remark" class="form_input radius4" id="remark"><?php echo set_value('remark') ?></textarea>
 						 </div>

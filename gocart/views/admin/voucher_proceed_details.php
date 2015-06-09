@@ -12,21 +12,36 @@
                                                
                         <?php if(isset($details) && !empty($details)):?>
                         <?php echo form_open($this->config->item('admin_folder').'/vouchers/process_voucher_details', 'class="form-horizontal"'); ?>
+                        		
+                       		
                         						
                         <div class="form-group">
-			             	 <label class="col-sm-2 control-label" for="code"><?php echo lang('code');?>  </label>
+			             	 <label class="col-sm-2 control-label" for="code"><?php echo lang('voucher_code');?>  </label>
 			             	 <label class="col-sm-1 control-label"> : </label>
 			             	 <label class="col-sm-2 control-label"> <?php echo $details['code'];?> </label>
 						</div>	
 						 
 						<div class="form-group">
-			             	 <label class="col-sm-2 control-label" for="name"><?php echo lang('name');?> </label>
+			             	 <label class="col-sm-2 control-label" for="name"><?php echo lang('voucher_name');?> </label>
 			             	 <label class="col-sm-1 control-label"> : </label>
 			             	 <label class="col-sm-2 control-label"> <?php echo $details['name'];?> </label>
 						</div>	
+						
+						<div class="form-group">
+			             	 <label class="col-sm-2 control-label" for="name"><?php echo lang('customer_name');?> </label>
+			             	 <label class="col-sm-1 control-label"> : </label>
+			             	 <label class="col-sm-2 control-label"> <?php echo $customer['name'];?> </label>
+						</div>	
+						
+						<div class="form-group">
+			             	 <label class="col-sm-2 control-label" for="name"><?php echo lang('customer_card');?> </label>
+			             	 <label class="col-sm-1 control-label"> : </label>
+			             	 <label class="col-sm-2 control-label"> <?php echo $customer['card'];?> </label>
+						</div>	
+						
                         
                                                 
-                         <div class="form-group">
+                         <!--div class="form-group">
 			             	 <label class="col-sm-2 control-label" for="active"><?php echo lang('status');?></label>    
 			             	 <label class="col-sm-1 control-label"> : </label>        	
 								<?php
@@ -38,9 +53,20 @@
 								
 								echo '<div class="col-sm-2">'.form_dropdown('active', $options, set_value('active', $details['use_status']), 'class="form-control m-b"').'</div>';
 								?>							
-						 </div>	
+						 </div-->	
+						 
+						 <div class="form-group">
+						 	<label class="col-sm-2 control-label"><?php echo lang('use_qty');?></label>
+						 	<label class="col-sm-1 control-label"> : </label>     
+							<?php
+							$data	= array('name'=>'used', 'value'=>set_value('used'), 'class'=>'form-control');
+							echo '<div class="col-sm-1">'.form_input($data).'</div>'; ?>
+						  </div>
+						 
+						 
 						 
 						 <input type="hidden" name="customer_id" value="<?php echo $customer_id?>">
+						 <input type="hidden" name="customer_card" value="<?php echo $customer['card']?>">
 						 <input type="hidden" name="voucher_id" value="<?php echo $voucher_id?>">
 
 						 <div class="hr-line-dashed"></div>

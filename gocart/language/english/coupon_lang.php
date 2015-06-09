@@ -56,6 +56,12 @@ $lang['customer_coupon_details']= 'Process Customer Coupon Details';
 $lang['card']					= 'Member Card';
 $lang['next']					= 'Next';
 $lang['status']					= 'Status';
+$lang['process_coupon']			= 'Process Coupon';
+$lang['customer_name']			= 'Customer Name';
+$lang['customer_card']			= 'Customer Card';
+$lang['use_qty']				= 'Use Quantity';
+
+$lang['invalid_used_qty']		= 'Invalid because Used exceed Quantity';
 
 
 $lang['best_photo_size']  		= 'Best photo size';

@@ -1145,6 +1145,8 @@ class Cart extends Front_Controller {
 			$this->form_validation->set_rules('payment', 'lang:payment', 'required');
 			$this->form_validation->set_rules('consume_amount', 'lang:consume_amount', 'required|numeric|callback_check_credit');
 			$this->form_validation->set_rules('remark', 'lang:remark');
+			$this->form_validation->set_rules('voucher_id', 'lang:products');
+			
 				
 			//original is: if ($this->form_validation->run() == TRUE && strcmp(strtoupper($userCaptcha),strtoupper($word)) == 0)
 			//string compare

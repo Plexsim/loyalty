@@ -11,11 +11,19 @@
 
                         <?php echo form_open($this->config->item('admin_folder').'/vouchers/process_voucher/'.$id, 'class="form-horizontal"'); ?>
                         
-                         <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('voucher_code');?></label>
+                         <!--div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('voucher_code');?></label>
 							<?php
 							$data	= array('name'=>'code', 'value'=>set_value('code', $code), 'class'=>'form-control');
 							echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
-						  </div>
+						  </div-->
+						  
+						  <div class="form-group">
+			             	 <label class="col-sm-2 control-label" for="voucher_name"><?php echo lang('voucher_name');?></label>            	
+			            	<div class="controls">
+								<?php echo '<div class="col-sm-10">'.form_dropdown('voucher_id', $vouchers, set_value('voucher_id',$voucher_id), 'id="voucher_id" class="form-control m-b"').'</div>';; ?>
+							 </div>
+						 </div>
+						  
 						  
 						  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('card');?></label>
 							<?php

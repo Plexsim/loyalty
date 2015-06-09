@@ -13,7 +13,7 @@
 	             	             	             
             	 <h3 class="no-print"><?php echo lang('topup_credit_info')?> </h3>
             	 <blockquote><span><b><?php echo lang('top_up_date');?> : </b></span> <span><?php echo $info['created']?></span></blockquote>
-            	 <blockquote><span><b><?php echo lang('staff_branch');?> : </b></span> <span><?php echo $admin['branch_name']?></span></blockquote>
+            	 <blockquote><span><b><?php echo lang('staff_branch');?> : </b></span> <span><?php echo (isset($admin['branch_name']) && !empty($admin['branch_name'])) ? $admin['branch_name'] : '-'?></span></blockquote>
             	 <!--blockquote><span><b><?php echo lang('staff_name');?> : </b></span> <span><?php echo $info['staff_id']?></span></blockquote-->
             	 <blockquote><span><b><?php echo lang('customer_name');?> : </b></span> <span><?php echo $info['customer_name']?></span></blockquote>
             	 

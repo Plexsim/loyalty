@@ -41,7 +41,7 @@
 						<?php 
 								endif;
 							endforeach; 	
-							if($count_unused == 0)
+							if(count($coupons) >= 1 && $count_unused == 0)
 								echo '<p>'. lang('no_coupons') .'</p>';
 						?>													
 					  </div>
@@ -70,7 +70,7 @@
 									endif;
 								endforeach;						
 								
-								if($count_used == 0)
+								if(count($coupons) >= 1 && $count_used == 0)
 									echo '<p>'. lang('no_coupons') .'</p>';
 						?>		
 					  </div>					  

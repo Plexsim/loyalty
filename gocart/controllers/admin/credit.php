@@ -9,12 +9,75 @@ class Credit extends Admin_Controller {
 	{		
 		parent::__construct();		
 		
-		$this->load->model(array('Credit_model', 'Search_model', 'Point_model'));
+		$this->load->model(array('Credit_model', 'Search_model', 'Point_model', 'Voucher_model'));
 		//$this->load->model('location_model');
 		$this->load->helper(array('formatting'));
 		$this->lang->load('credit');
 		
 		$this->current_admin	= $this->session->userdata('admin');
+	}
+	
+	/*---------------------------------------------------------------------------------------------------------
+	 | Function to retrieve voucher point or credit to customers automatically
+	|----------------------------------------------------------------------------------------------------------*/
+	function retrieve_voucher_value()
+	{
+		$data = array();
+		$coupon_id = ($this->input->post('voucher_id')) ? $this->input->post('voucher_id') : 0;
+		$payment = ($this->input->post('payment')) ? $this->input->post('payment') : '';
+		//$coupon_id = 1;
+		//$payment = 'Point';
+	
+		//check table first
+		$vouchers = $this->Voucher_model->get_voucher($coupon_id);
+	
+	
+		$value = 0;
+		if($vouchers){
+			if($payment == 'Credit'){
+				$value = $vouchers->credit_consume;
+			}else{
+				$value = $vouchers->point_consume;
+			}
+		}else{
+			$value		= 0;
+		}
+	
+		echo $value;
+	}
+	
+	public function check_credit($value)
+	{
+		//$customer_id			= $this->input->post('customer_id');
+		$card 					= $this->input->post('card');
+		$payment				= $this->input->post('payment');
+				
+		$customer		= $this->Customer_model->get_customer_by_card($card);
+			
+		$balance = 0;
+		if($payment == 'Credit'){
+			$credit_balance = $this->Credit_model->get_credit_amt($customer['id']);
+			$balance = $credit_balance['credit_amt'];
+		}else{
+			$point_balance = $this->Point_model->get_point_amt($customer['id']);
+			$balance = $point_balance['point_amt'];
+		}
+	
+	
+		if($value > $balance)
+		{
+			if($payment == 'Credit'){
+				$this->form_validation->set_message('check_credit', lang('invalid_credit_balance'));
+			}else{
+				$this->form_validation->set_message('check_credit', lang('invalid_point_balance'));
+			}
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	
 	}
 	
 	//this is a callback to make sure that customers are not sharing an email address
@@ -251,6 +314,8 @@ class Credit extends Admin_Controller {
     
     function topup_credit_info($id = false)
     {
+    	$data['page_title']		= lang('topup_credit_info');
+    	
     	if($id){    		
     		$data['credit'] = $this->Credit_model->get_credit($id);    		
     		$this->view($this->config->item('admin_folder').'/topup_credit_info', $data);
@@ -279,6 +344,16 @@ class Credit extends Admin_Controller {
     	$data['remark']				= '';
     	$data['options']			= '';
     	$data['active']				= false;
+    	$data['voucher_id'] = '';
+    	
+    	
+    	$vouchers = $this->Voucher_model->get_vouchers();
+    	
+    	foreach($vouchers as $voucher)
+    	{
+    		$voucher_list[$voucher->id] = $voucher->name;
+    	}
+    	$data['vouchers'] = $voucher_list;
     	 
     	$customer = '';
     	if ($id)
@@ -308,10 +383,11 @@ class Credit extends Admin_Controller {
     	 
     	$this->form_validation->set_rules('card', 'lang:card', 'trim|required|max_length[255]|callback_check_card');
     	$this->form_validation->set_rules('consume_date', 'lang:consume_date', 'trim|required');
-    	$this->form_validation->set_rules('consume_amount', 'lang:consume_amount', 'trim|required|numeric');
+    	$this->form_validation->set_rules('consume_amount', 'lang:consume_amount', 'trim|required|numeric|callback_check_credit');
     	
     	$this->form_validation->set_rules('remark', 'lang:remark', 'trim|required');
     	$this->form_validation->set_rules('payment', 'lang:payment', 'required');
+    	$this->form_validation->set_rules('voucher_id', 'lang:products');
     
     	if ($this->form_validation->run() == FALSE)
     	{
@@ -321,6 +397,10 @@ class Credit extends Admin_Controller {
     	{
     		$card = $this->input->post('card');
     		$customer		= $this->Customer_model->get_customer_by_card($card);
+    		$payment				= $this->input->post('payment');    		
+    		$consume_amount			= $this->input->post('consume_amount');
+    		$voucher_id				= $this->input->post('voucher_id');
+    		$remark					= $this->input->post('remark');
     		$payment				= $this->input->post('payment');
     		$last_id = '';
     		
@@ -328,24 +408,39 @@ class Credit extends Admin_Controller {
     		{    			    			
     			$save['id']					= $id;
     			$save['customer_id']		= $customer['id'];
-    			$save['out']				= $this->input->post('consume_amount');
-    			$save['remark']				= $this->input->post('remark');
+    			$save['out']				= $consume_amount;
+    			$save['remark']				= $remark;
     			$save['created']			= format_ymd_malaysia($this->input->post('consume_date'));
     			$save['staff_id']			= $this->current_admin['id'];
+    			$save['voucher_id']			= $voucher_id;
     			//$save['branch'] = $staff_branch;    			
     			$last_id = $this->Credit_model->save_credit($save);
     		}
     		else{
     			$save['id'] = '';
     			$save['customer_id'] =  $customer['id'];
-    			$save['depoint'] 	= $this->input->post('consume_amount');
+    			$save['depoint'] 	= $consume_amount;
     			$save['created'] = format_ymd_malaysia($this->input->post('consume_date'));
     			$save['staff_id'] = $this->current_admin['id'];
     			//$save['branch'] = $staff_branch;
     			//$save['status'] = 1; //enable
-    			$save['remark'] =  $this->input->post('remark');
+    			$save['remark'] =  $remark;
+    			$save['voucher_id']			= $voucher_id;
     		
     			$last_id = $this->Point_model->save_point($save);
+    		}
+    		
+    		//check if voucher customer has this voucher then update
+    		$save_voucher['voucher_id'] = $voucher_id;
+    		$save_voucher['customer_id'] = $customer['id'];
+    		$is_exist = $this->Voucher_model->check_voucher_customer($voucher_id, $customer['id']);
+    		
+    		if($is_exist){
+    			$voucher_details = $this->Voucher_model->my_voucher_details($voucher_id, $customer['id']);
+    			$save_voucher['qty'] = $voucher_details['qty'] + 1;
+    			$this->Voucher_model->update_voucher_customer($save_voucher);
+    		}else{
+    			$this->Voucher_model->add_voucher_customer($save_voucher);
     		}
     		
     		//$save['status']				= 1;
@@ -361,6 +456,8 @@ class Credit extends Admin_Controller {
     
     function consume_info($id = false, $payment_type = false)
     {    	
+    	$data['page_title']		= lang('consume_info');
+    	
     	if($id && $payment_type){
     		if($payment_type == 'Credit'){
     			$data['credit'] = $this->Credit_model->get_credit($id);

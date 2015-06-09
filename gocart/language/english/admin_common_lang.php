@@ -50,6 +50,9 @@ $lang['common_check_point'] = 'Check Point';
 $lang['common_add'] = 'Add';
 $lang['common_vouchers'] = 'Vouchers';
 $lang['common_voucher_form'] = 'Add Voucher';
+$lang['common_coupon_form'] = 'Add Coupon';
+
+
 
 $lang['common_process_vouchers'] = 'Process Vouchers';
 $lang['common_branch'] = 'Branch';

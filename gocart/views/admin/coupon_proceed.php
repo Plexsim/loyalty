@@ -11,11 +11,18 @@
 
                         <?php echo form_open($this->config->item('admin_folder').'/coupons/process_coupon/'.$id, 'class="form-horizontal"'); ?>
                         
-                         <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('coupon_code');?></label>
+                          <!--div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('coupon_code');?></label>
 							<?php
 							$data	= array('name'=>'code', 'value'=>set_value('code', $code), 'class'=>'form-control');
 							echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
-						  </div>
+						  </div-->
+						  
+						 <div class="form-group">
+			             	<label class="col-sm-2 control-label" for="coupon_name"><?php echo lang('coupon_name');?></label>            	
+			            	<div class="controls">
+								<?php echo '<div class="col-sm-10">'.form_dropdown('coupon_id', $coupons, set_value('coupon_id',$coupon_id), 'id="coupon_id" class="form-control m-b"').'</div>';; ?>
+							 </div>
+						 </div>						  
 						  
 						  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('card');?></label>
 							<?php

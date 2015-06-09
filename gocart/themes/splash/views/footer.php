@@ -180,17 +180,13 @@
 		//console.log('voucherID: ' + voucherID + 'customerID: ' + customerID);
 		voucherID = $('#voucher_id').val();
 		payment = $('#payment').val();
-
-		console.log("VoucherID: "+voucherID);
-		console.log("Payment: "+payment);
 					
 		$.post("<?php echo site_url('cart/retrieve_voucher_value'); ?>", {
 			voucher_id : voucherID,
 			payment : payment,		
 			},
 			function(data) {
-				console.log(data);
-			    $('.loading').fadeOut('slow');		   		   
+				$('.loading').fadeOut('slow');		   		   
 			    $('#consume_amount').val(data);	    	 		    
 			});		
 	}

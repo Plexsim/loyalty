@@ -2,14 +2,14 @@
 	$info = '';	
 	$payment_type = '';
 	$consume_amt = 0;
-	if($credit){
+	if(isset($credit)){
 		$info = $credit;
 		$payment_type = 'Credit';
 		$consume_amt = $credit['out'];
 	}else{
 		$info = $point;
 		$payment_type = 'Point';
-		$consume_amt = $credit['depoint'];
+		$consume_amt = $point['depoint'];
 	}
 ?>
 

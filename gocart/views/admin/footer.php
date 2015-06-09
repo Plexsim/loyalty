@@ -52,6 +52,7 @@
 
 //$('.summernote').summernote();
 $(document).ready(function(){
+select_voucher();
 $('#summernote').summernote({
         height: 500
 });
@@ -179,6 +180,24 @@ function show_animation()
 function hide_animation()
 {
 	$('#saving_container').fadeOut();
+}
+
+//function to add in voucher to users
+function select_voucher()
+{
+	$('.loading').fadeIn('slow');
+	//console.log('voucherID: ' + voucherID + 'customerID: ' + customerID);
+	voucherID = $('#voucher_id').val();
+	payment = $('#payment').val();	
+				
+	$.post("<?php echo site_url($this->config->item('admin_folder').'/credit/retrieve_voucher_value'); ?>", {
+		voucher_id : voucherID,
+		payment : payment,		
+		},
+		function(data) {			
+		    $('.loading').fadeOut('slow');		   		   
+		    $('#consume_amount').val(data);	    	 		    
+		});		
 }
 
 </script>

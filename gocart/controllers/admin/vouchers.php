@@ -24,6 +24,23 @@ class Vouchers extends Admin_Controller {
 		$this->view($this->config->item('admin_folder').'/vouchers', $data);
 	}
 	
+	function check_qty_used()
+	{
+		$voucher_id = $this->input->post('voucher_id');
+		$customer_id = $this->input->post('customer_id');
+		$used = $this->input->post('used');
+				
+		$details = $this->Voucher_model->my_voucher_details($voucher_id, $customer_id);				
+		
+		if($details['used'] + $used > $details['qty'])
+		{			
+			$this->form_validation->set_message('check_qty_used', lang('invalid_used_qty'));			
+			return FALSE;
+		}else {
+			return TRUE;
+		}
+	}
+	
 	function upload_card() {
     	 
     	$today_date 	= date("Ymd");
@@ -465,6 +482,7 @@ class Vouchers extends Admin_Controller {
 	
 	function process_voucher()
 	{
+		$data['page_title']		= lang('process_voucher');
 		$today_date 	= date("Ymd");
 		//die(print_r($_POST));
 	
@@ -474,18 +492,23 @@ class Vouchers extends Admin_Controller {
 		$this->load->helper('form');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-	
-		
-		$data['page_title']		= lang('voucher_form');
-	
+			
 		//default values are empty if the product is new
 		$data['id']						= '';
-		$data['code']					= '';
-		$data['card']					= '';		
+		$data['voucher_id']				= '';
+		$data['card']					= '';	
+
+		$vouchers = $this->Voucher_model->get_vouchers();		 
+		foreach($vouchers as $voucher)
+		{
+			$voucher_list[$voucher->id] = $voucher->name;
+		}
+		$data['vouchers'] = $voucher_list;
+		
 	
 		$added = array();
 	
-		$this->form_validation->set_rules('code', 'lang:code', 'trim|required|callback_check_voucher');
+		$this->form_validation->set_rules('voucher_id', 'lang:products');
 		$this->form_validation->set_rules('card', 'lang:card', 'trim|required|callback_check_card');
 						
 		if ($this->form_validation->run() == FALSE)
@@ -494,51 +517,74 @@ class Vouchers extends Admin_Controller {
 		}
 		else
 		{					
-			$code					= $this->input->post('code');
+			$voucher_id					= $this->input->post('voucher_id');
 			$card					= $this->input->post('card');
 			
 			// We're done
 			$this->session->set_flashdata('message', lang('message_customer_voucher'));				
 			//go back to the product list
-			redirect($this->config->item('admin_folder').'/vouchers/process_voucher_details/'.$code.'/'.$card);
+			redirect($this->config->item('admin_folder').'/vouchers/process_voucher_details/'.$voucher_id.'/'.$card);
 		}
 	}
 	
-	function process_voucher_details($voucher_code = '', $member_card = '')
+	function process_voucher_details($voucher_id = '', $member_card = '')
 	{
+		$data['page_title']		= lang('process_voucher');
 		$this->load->helper(array('form', 'date', 'url'));
+		$this->load->library('form_validation');
+		
 		
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$save['active']  = $this->input->post('active');
-			$save['voucher_id'] = $this->input->post('voucher_id');
-			$save['customer_id'] = $this->input->post('customer_id');
-			
-			$id = $this->Voucher_model->update_voucher_customer($save);
-			
-			if($id > 0){
-				// We're done
-				$this->session->set_flashdata('message', lang('message_saved_voucher'));
-				//go back to the process voucher form
-				redirect($this->config->item('admin_folder').'/vouchers/process_voucher/');
-			}else{
-				$this->session->set_flashdata('error', lang('error_saved_voucher'));
-				//go back to the process voucher form with error message
-				redirect($this->config->item('admin_folder').'/vouchers/process_voucher/');
+									
+			$this->form_validation->set_rules( 'used', lang('use_qty'), 'trim|required|numeric|callback_check_qty_used' );
+								
+			if ($this->form_validation->run() == FALSE)
+			{				
+				$voucher_id = $this->input->post('voucher_id');
+				$member_card = $this->input->post('customer_card');
+				
 			}
+			else 
+			{
+				$save['active']  = $this->input->post('active');
+				$used  			= $this->input->post('used');
+				$save['voucher_id'] = $this->input->post('voucher_id');
+				$save['customer_id'] = $this->input->post('customer_id');
+					
+				$details = $this->Voucher_model->my_voucher_details($save['voucher_id'], $save['customer_id']);
+									
+				$save['used'] = $details['used'] + $used;
+					
+				$id = $this->Voucher_model->update_voucher_customer($save);
+					
+				if($id > 0){
+					// We're done
+					$this->session->set_flashdata('message', lang('message_saved_voucher'));
+					//go back to the process voucher form
+					redirect($this->config->item('admin_folder').'/vouchers/process_voucher/');
+				}else{
+					$this->session->set_flashdata('error', lang('error_saved_voucher'));
+					//go back to the process voucher form with error message
+					redirect($this->config->item('admin_folder').'/vouchers/process_voucher/');
+				}
+			}
+			
 		}
 		
-		if($voucher_code == '' || $member_card == ''){
+		if($voucher_id == '' || $member_card == ''){
 			$this->session->set_flashdata('message', lang('error_not_found'));
 			redirect($this->config->item('admin_folder').'/vouchers/process_voucher');
 		}else{			
 			
-			$voucher = $this->Voucher_model->get_voucher_by_code($voucher_code);
+			$voucher = $this->Voucher_model->get_voucher($voucher_id);
 			$customer = $this->Customer_model->get_customer_by_card($member_card);
 			
-			$data['voucher_id'] = $voucher['id'];
+			$data['voucher_id'] = $voucher->id;
 			$data['customer_id'] = $customer['id'];
+			$data['customer'] = $customer;
+			
 						
-			$data['details'] = $this->Voucher_model->my_voucher_details($voucher['id'], $customer['id']);
+			$data['details'] = $this->Voucher_model->my_voucher_details($voucher->id, $customer['id']);
 						
 			$this->view(config_item('admin_folder').'/voucher_proceed_details', $data);						
 		}

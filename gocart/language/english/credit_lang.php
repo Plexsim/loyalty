@@ -20,6 +20,7 @@ $lang['term']						= 'Search Term';
 $lang['xml_export']					= 'XML Export';
 $lang['credit_details']				= 'Credit Details';
 $lang['topup_credit_form']			= 'Topup Credit Form';
+$lang['topup_credit_info']			= 'Topup Credit Info';
 $lang['card']						= 'Member Card No';
 $lang['created']					= 'Created';
 $lang['customer_id']				= 'Customer ID';
@@ -31,10 +32,12 @@ $lang['remark']						= 'Remark';
 $lang['active']						= 'Active';
 $lang['topup_date']					= 'Topup Date';
 $lang['consume_form']				= 'Consume Form';
+$lang['consume_info']				= 'Consume Info';
 $lang['consume_amount']				= 'Consume Amount';
 $lang['consume_date']				= 'Consume Date';
 $lang['print_receipt']				= 'Print Receipt';
 $lang['home']						= 'Home';
+$lang['products']					= 'Products';
 
 
 
@@ -45,6 +48,11 @@ $lang['message_credits_deleted']		= 'The selected credits have been deleted';
 $lang['error_no_credits_selected']	= 'You did not select any credits to delete';
 $lang['confirm_delete_credit']		= 'Are you sure you want to delete the selected credits?';
 $lang['sent_notification_message']	= 'Email notification has been sent!';
+$lang['invalid_point_balance']				= 'Point balance not enough';
+$lang['invalid_credit_balance']				= 'Credit balance not enough';
+$lang['confirm_consume']				= 'Are you sure you want to consume for this customer?';
+
+
 
 $lang['send_email_notification']	= 'Send Email Notification';
 $lang['packing_slip']				= 'Packing Slip';

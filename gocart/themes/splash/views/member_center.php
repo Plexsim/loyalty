@@ -10,10 +10,12 @@
 				</h2>
 
 				<p>								
-				<div class="label_instruction">
+				<div class="member_card_label">
 					<img src="<?php echo base_url($image_card)?>" alt="member-card" class="image-card" style="width:450px; height:auto" />
+					<h2><span><?php echo $customer['card']?></span></h2>
 				</div>
 				</p>
+				<center><p>E - Member Card: <?php echo $customer['card']?></p></center>
 				<center><p>E - Member Card, easier carrier and never lost it.</p></center>
 				
 

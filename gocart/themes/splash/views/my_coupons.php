@@ -29,7 +29,12 @@
 							<div class="portfolio_image">
 								<a rel="gallery-1" href="<?php echo base_url($coupon->image)?>"
 									class="swipebox" title="<?php echo $coupon->name?>"><img
-									src="<?php echo base_url($coupon->image)?>" alt="" title="" border="0" /> </a>																						
+									src="<?php echo base_url($coupon->image)?>" alt="" title="" border="0" /> </a>	
+									
+								<div class="controls">
+									<input type="button" value="<?php echo lang('use_button');?>" name="click_button" href="javascript: void(0);" onclick="javascript: process_coupon_qrcode('<?php echo $customer_id ?>', '<?php echo $coupon->id ?>');"  class="form_submit radius4 red red_borderbottom"/>									
+								</div>
+																														
 							</div>
 							<div class="portfolio_details">
 								<p><?php echo $coupon->name ?>( <?php echo $coupon->code ?> )</p>
@@ -61,7 +66,7 @@
 								</div>
 								<div class="portfolio_details">
 									<p><?php echo $coupon->name ?>( <?php echo $coupon->code ?> )</p>
-									<p><?php echo $coupon->desc ?></p>						
+									<p><?php echo $coupon->desc ?></p>
 									<a rel="gallery-2" href="<?php echo base_url($coupon->image)?>"
 										class="swipebox view_details" title="Webdesign work">view details</a>
 								</div>

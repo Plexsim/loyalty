@@ -198,6 +198,63 @@
 		window.location = url + "/" + encrypt + "/" + customer_id + "/" + voucher_id;
 	}
 
+	function process_voucher_qrcode(customer_id, voucher_id)
+	{
+		url = "<?php echo site_url('cart/process_voucher_qrcode')?>";
+		//console.log(url + "/" + encrypt + "/" + customer_id + "/" + voucher_id);
+		window.location = url + "/" + customer_id + "/" + voucher_id;
+	}
+
+	function process_coupon_qrcode(customer_id, coupon_id)
+	{
+		url = "<?php echo site_url('cart/process_coupon_qrcode')?>";		
+		//console.log(url + "/" + encrypt + "/" + customer_id + "/" + voucher_id);
+		window.location = url + "/" + customer_id + "/" + coupon_id;
+	}
+	
+	//function to add in voucher to users
+	function add_voucher(voucherID, customerID)
+	{
+		$('.loading').fadeIn('slow');
+		//console.log('voucherID: ' + voucherID + 'customerID: ' + customerID);
+		
+		$.post("<?php echo site_url('cart/add_voucher'); ?>", {
+			voucher_id : voucherID,
+			customer_id : customerID,		
+			},
+			function(data) {
+			    $('.loading').fadeOut('slow');		   
+			    if(data == 1){
+			    	alert('Added Successful');
+			    }else{
+			    	alert('You have got it!');
+			    }	 		    
+			});		
+	}
+	function add_coupon(couponID, customerID)
+	{
+		if (confirm('<?php echo lang('confirm_add_coupon')?>')) {
+			$('.loading').fadeIn('slow');
+			
+			$.post("<?php echo site_url('cart/add_coupon'); ?>", {
+				coupon_id : couponID,
+				customer_id : customerID,		
+				},
+				function(data) {
+				    $('.loading').fadeOut('slow');	
+					console.log(data);
+
+				    	   
+				    if(data == 1){
+				    	alert('Added Successful');
+				    }else{
+				    	alert('You have got it!');
+				    }	 		    
+				});		
+		}
+
+	}	
+
 </script>
         
 <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->

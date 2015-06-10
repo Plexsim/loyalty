@@ -32,7 +32,9 @@
 							class="swipebox" title="<?php echo $voucher->name?>"><img
 							src="<?php echo base_url($voucher->image)?>" alt="" title="" border="0" /> </a>
 												
-						
+						<div class="controls">
+							<input type="button" value="<?php echo lang('use_button');?>" name="click_button" href="javascript: void(0);" onclick="javascript: process_voucher_qrcode('<?php echo $customer_id ?>', '<?php echo $voucher->id ?>');"  class="form_submit radius4 red red_borderbottom"/>
+						</div>	
 					</div>
 					<div class="portfolio_details">
 						<p><?php echo $voucher->name ?>( <?php echo $voucher->code ?> )</p>

@@ -280,6 +280,7 @@ $lang['top_up_date']						= 'Top Up Date';
 $lang['payment']							= 'Payment';
 $lang['total_consume']						= 'Total Consume';
 $lang['click_button']						= 'Get it';
+$lang['use_button']							= 'Use it';
 $lang['in']									= 'In';
 $lang['out']								= 'Out';
 $lang['consume_amount']						= 'Consume amount';
@@ -293,6 +294,18 @@ $lang['coupons']							= 'Coupons';
 $lang['vouchers']							= 'Vouchers';
 $lang['unused']								= 'Unused';
 $lang['used']								= 'Used';
+$lang['used_qty']							= 'Used Qty';
+$lang['card']								= 'Member Card';
+$lang['process_voucher']					= 'Process Voucher';
+$lang['invalid_used_qty']					= 'Invalid because Used exceed Quantity';
+$lang['voucher_name']						= 'Voucher Name';
+$lang['process_voucher_info']				= 'Process Voucher Info';
+$lang['qty_own']							= 'Your own coupon quantity';
+$lang['used_own']							= 'Your own coupon used quantity';
+$lang['coupon_name']						= 'Coupon Name';
+
+
+
 
 
 
@@ -304,5 +317,6 @@ $lang['invalid_credit_balance']				= 'Credit balance not enough';
 $lang['return_to_topup_credit']				= 'Return to Topup Credit Form';
 $lang['return_to_consumption']				= 'Return to Consumption Form';
 $lang['confirm_add_coupon']					= 'Are you sure you want get this coupon?';
+//$lang['message_customer_voucher']			= 'Are you sure you want get this coupon?';
 
 

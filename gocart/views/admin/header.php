@@ -114,6 +114,9 @@
                     <a href="<?php echo $admin_url?>branch"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_branch') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
                 </li>
                 
+                <!--li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'reports') ? 'class="active"' : ''; ?>>
+                    <a href="<?php echo $admin_url?>reports"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_report') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
+                </li-->
                 
                                                        
             </ul>

@@ -85,6 +85,40 @@ class Cart extends Front_Controller {
 		
 	}
 	
+	function check_voucher_qty_used()
+	{
+		$voucher_id = $this->input->post('voucher_id');
+		$customer_id = $this->input->post('customer_id');
+		$used_qty = $this->input->post('used_qty');
+	
+		$details = $this->Voucher_model->my_voucher_details($voucher_id, $customer_id);
+	
+		if($details['used'] + $used_qty > $details['qty'])
+		{
+			$this->form_validation->set_message('check_voucher_qty_used', lang('invalid_used_qty'));
+			return FALSE;
+		}else {
+			return TRUE;
+		}
+	}
+	
+	function check_coupon_qty_used()
+	{
+		$coupon_id = $this->input->post('coupon_id');
+		$customer_id = $this->input->post('customer_id');
+		$used_qty = $this->input->post('used_qty');
+	
+		$details = $this->Coupon_model->my_coupon_details($coupon_id, $customer_id);
+	
+		if($details['used'] + $used_qty > $details['qty'])
+		{
+			$this->form_validation->set_message('check_coupon_qty_used', lang('invalid_used_qty'));
+			return FALSE;
+		}else {
+			return TRUE;
+		}
+	}
+	
 	function index()
 	{
 		//make sure they're logged in
@@ -919,7 +953,7 @@ class Cart extends Front_Controller {
 		}else{
 			$data['image_card'] = 'assets/img/no_image.png';
 		}		
-		
+		$data['customer'] = (array)$this->Customer_model->get_customer($this->customer['id']);
 		$this->view('my_card', $data);
 	}
 	
@@ -935,14 +969,12 @@ class Cart extends Front_Controller {
 			$data['image_card'] = $setting['image_card'];
 		}else{
 			$data['image_card'] = 'assets/img/no_image.png';
-		}
-		
-		
+		}		
 		
 		$data['customer_points'] = $this->point_model->get_point_amt($this->customer['id']);
 		$data['customer_credits'] = $this->credit_model->get_total_credit_consume($this->customer['id']);
 		$data['customer_credits_remain'] = $this->credit_model->get_credit_amt($this->customer['id']);
-		
+		$data['customer'] = (array)$this->Customer_model->get_customer($this->customer['id']);
 		
 		$this->view('member_center', $data);
 	}
@@ -1297,6 +1329,7 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'My Vouchers';
 		$data['seo_title']	= 'My Vouchers';
 		
+		$data['customer_id'] = $this->customer['id'];
 		$data['vouchers'] = $this->Voucher_model->my_voucher($this->customer['id']);	
 		//$data['vouchers'] = $this->Voucher_model->my_voucher(3);
 		
@@ -1308,9 +1341,248 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'My Coupons';
 		$data['seo_title']	= 'My Coupons';
 		
+		$data['customer_id'] = $this->customer['id'];
 		$data['coupons'] = $this->Coupon_model->my_coupon($this->customer['id']);
 	
 		$this->view('my_coupons', $data);
+	}
+	
+	function process_voucher_qrcode($customer_id, $voucher_id)
+	{
+		$data['page_title']	= 'Process Voucer QR Code';
+		$data['seo_title']	= 'Process Voucer QR Code';
+		
+		if($voucher_id == '' || $customer_id == ''){
+			$this->session->set_flashdata('message', lang('error_not_found'));
+			redirect('cart/my_vouchers/');
+		}else{				
+			$this->load->library('ciqrcode');
+			
+			$link = site_url('cart/process_voucher/'.$this->customer['id'].'/'.$voucher_id);
+			
+			$params['data'] = $link;
+			$params['level'] = 'H';
+			$params['size'] = 5;
+			$params['savename'] = FCPATH.'uploads/qrcode/process_voucher_qrcode.png';
+			$this->ciqrcode->generate($params);
+			
+			$data['link'] = $link;
+			$data['qr_code'] = '<img src="'.base_url().'uploads/qrcode/process_voucher_qrcode.png" />';
+			$data['customer'] = (array)$this->Customer_model->get_customer($this->customer['id']);
+			
+			$this->view('process_voucher_qrcode', $data);			
+		}				
+	}
+	
+	function process_voucher($customer_id = NULL, $voucher_id = '')
+	{
+		$data['page_title']		= lang('process_voucher');
+		$today_date 	= date("Ymd");
+		//die(print_r($_POST));
+	
+		$this->load->helper(array('form', 'date'));
+		$this->load->library('form_validation');
+		$this->load->helper('url');
+		$this->load->helper('form');
+		
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');						
+
+		//default values are empty if the product is new
+		$data['id']						= '';
+		$data['customer_id']			= $customer_id;		
+		
+		$data['customer'] = $this->Customer_model->get_customer_by_id($customer_id);
+		if($voucher_id){
+			$data['voucher_id'] = $voucher_id;
+		}else{
+			$data['voucher_id'] = '';
+		}
+		
+		$vouchers = $this->Voucher_model->get_vouchers();
+		foreach($vouchers as $voucher)
+		{
+			$voucher_list[$voucher->id] = $voucher->name;
+		}
+		$data['vouchers'] = $voucher_list;
+		
+		
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				$this->form_validation->set_rules('staff_branch', 'lang:staff_branch');
+				$this->form_validation->set_rules('staff_username', 'lang:staff_username', 'trim|required|max_length[100]');
+				$this->form_validation->set_rules('staff_password', 'lang:staff_password', 'trim|required|min_length[6]|callback_staff_login[staff_username]');
+					
+				$this->form_validation->set_rules('voucher_id', 'lang:products');
+				$this->form_validation->set_rules('used_qty', 'lang:used_qty', 'trim|required|numeric|callback_check_voucher_qty_used');
+			
+				//original is: if ($this->form_validation->run() == TRUE && strcmp(strtoupper($userCaptcha),strtoupper($word)) == 0)
+				//string compare
+				if ($this->form_validation->run() == TRUE)
+				{
+					//$staff_branch	  		= $this->input->post('staff_branch');
+					$staff_username	  		= $this->input->post('staff_username');
+					$staff_password	  		= $this->input->post('staff_password');
+				
+					$admin = $this->admin_model->get_admin($staff_username,$staff_password);
+					//$staff_branch = $admin['branch_id'];
+				
+					$customer_id			= $this->input->post('customer_id');
+					$voucher_id				= $this->input->post('voucher_id');
+					$used_qty				= $this->input->post('used_qty');
+				
+					//check if voucher customer has this voucher then update
+					$save_voucher['voucher_id'] = $voucher_id;
+					$save_voucher['customer_id'] = $customer_id;
+					$is_exist = $this->Voucher_model->check_voucher_customer($voucher_id, $customer_id);
+				
+					if($is_exist){
+						$voucher_details = $this->Voucher_model->my_voucher_details($voucher_id, $customer_id);
+						$save_voucher['used'] = $voucher_details['used'] + $used_qty;
+						$this->Voucher_model->update_voucher_customer($save_voucher);
+					}else{
+						$this->Voucher_model->add_voucher_customer($save_voucher);
+					}
+						
+					// We're done
+					$this->session->set_flashdata('message', lang('message_customer_voucher'));
+					//go back to the product list
+					redirect('cart/process_voucher_details/'.$customer_id.'/'.$voucher_id);									
+				}
+				else{
+					$data['error'] = validation_errors();				
+				}
+		}
+		
+		$this->view('voucher_proceed', $data);
+		
+	}
+	
+	function process_voucher_details($customer_id, $voucher_id)
+	{
+		$data['page_title']		= lang('process_voucher_info');				
+		$data['seo_title']		= lang('process_voucher_info');						
+		$data['voucher'] 		= $this->Voucher_model->my_voucher_details($voucher_id, $customer_id);
+		$data['customer'] 		= $this->Customer_model->get_customer_by_id($customer_id);
+		
+		$this->view('voucher_proceed_info', $data);
+	}
+	
+	function process_coupon_qrcode($customer_id, $coupon_id)
+	{		
+		$data['page_title']	= 'Process Coupon QR Code';
+		$data['seo_title']	= 'Process Coupon QR Code';
+					
+		if($coupon_id == '' || $customer_id == ''){		
+			$this->session->set_flashdata('message', lang('error_not_found'));
+			redirect('cart/my_coupons/');
+		}else{
+			$this->load->library('ciqrcode');
+				
+			$link = site_url('cart/process_coupon/'.$this->customer['id'].'/'.$coupon_id);
+				
+			$params['data'] = $link;
+			$params['level'] = 'H';
+			$params['size'] = 5;
+			$params['savename'] = FCPATH.'uploads/qrcode/process_coupon_qrcode.png';
+			$this->ciqrcode->generate($params);
+				
+			$data['link'] = $link;
+			$data['qr_code'] = '<img src="'.base_url().'uploads/qrcode/process_coupon_qrcode.png" />';
+			$data['customer'] = (array)$this->Customer_model->get_customer($this->customer['id']);
+				
+			$this->view('process_coupon_qrcode', $data);
+		}
+	}
+	
+	function process_coupon($customer_id = NULL, $coupon_id = '')
+	{
+		$data['page_title']		= lang('process_coupon');
+		$today_date 	= date("Ymd");
+		//die(print_r($_POST));
+	
+		$this->load->helper(array('form', 'date'));
+		$this->load->library('form_validation');
+		$this->load->helper('url');
+		$this->load->helper('form');
+	
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+	
+		//default values are empty if the product is new
+		$data['id']						= '';
+		$data['customer_id']			= $customer_id;
+	
+		$data['customer'] = $this->Customer_model->get_customer_by_id($customer_id);
+		if($coupon_id){
+			$data['coupon_id'] = $coupon_id;
+		}else{
+			$data['coupon_id'] = '';
+		}
+	
+		$coupons = $this->Coupon_model->get_coupons();
+		foreach($coupons as $coupon)
+		{
+			$coupon_list[$coupon->id] = $coupon->name;
+		}
+		$data['coupons'] = $coupon_list;
+	
+	
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$this->form_validation->set_rules('staff_branch', 'lang:staff_branch');
+			$this->form_validation->set_rules('staff_username', 'lang:staff_username', 'trim|required|max_length[100]');
+			$this->form_validation->set_rules('staff_password', 'lang:staff_password', 'trim|required|min_length[6]|callback_staff_login[staff_username]');
+				
+			$this->form_validation->set_rules('coupon_id', 'lang:products');
+			$this->form_validation->set_rules('used_qty', 'lang:used_qty', 'trim|required|numeric|callback_check_coupon_qty_used');
+				
+			//original is: if ($this->form_validation->run() == TRUE && strcmp(strtoupper($userCaptcha),strtoupper($word)) == 0)
+			//string compare
+			if ($this->form_validation->run() == TRUE)
+			{
+				//$staff_branch	  		= $this->input->post('staff_branch');
+				$staff_username	  		= $this->input->post('staff_username');
+				$staff_password	  		= $this->input->post('staff_password');
+	
+				$admin = $this->admin_model->get_admin($staff_username,$staff_password);
+				//$staff_branch = $admin['branch_id'];
+	
+				$customer_id			= $this->input->post('customer_id');
+				$coupon_id				= $this->input->post('coupon_id');
+				$used_qty				= $this->input->post('used_qty');
+	
+				//check if coupon customer has this coupon then update
+				$save_coupon['coupon_id'] = $coupon_id;
+				$save_coupon['customer_id'] = $customer_id;
+				$is_exist = $this->Coupon_model->check_coupon_customer($coupon_id, $customer_id);
+	
+				if($is_exist){
+					$coupon_details = $this->Coupon_model->my_coupon_details($coupon_id, $customer_id);
+					$save_coupon['used'] = $coupon_details['used'] + $used_qty;
+					$this->Coupon_model->update_coupon_customer($save_coupon);
+				}else{
+					$this->Coupon_model->add_coupon_customer($save_coupon);
+				}
+	
+				// We're done
+				$this->session->set_flashdata('message', lang('message_customer_coupon'));
+				//go back to the product list
+				redirect('cart/process_coupon_details/'.$customer_id.'/'.$coupon_id);
+			}
+			else{
+				$data['error'] = validation_errors();
+			}
+		}
+	
+		$this->view('coupon_proceed', $data);
+	
+	}
+	
+	function process_coupon_details($customer_id, $coupon_id)
+	{
+		$data['page_title']		= lang('process_coupon_info');
+		$data['seo_title']		= lang('process_coupon_info');
+		$data['coupon'] 		= $this->Coupon_model->my_coupon_details($coupon_id, $customer_id);
+		$data['customer'] 		= $this->Customer_model->get_customer_by_id($customer_id);
+	
+		$this->view('coupon_proceed_info', $data);
 	}
 	
 	function transaction_record()

@@ -4,6 +4,7 @@ class Reports extends Admin_Controller {
 
 	//this is used when editing or adding a customer
 	var $customer_id	= false;	
+	protected $activemenu 	= 'reports';
 
 	function __construct()
 	{		
@@ -20,6 +21,7 @@ class Reports extends Admin_Controller {
 	
 	function index()
 	{
+		$data['activemenu'] = $this->activemenu;
 		$data['page_title']	= lang('reports');
 		$data['years']		= $this->Order_model->get_sales_years();
 		$this->view($this->config->item('admin_folder').'/reports', $data);

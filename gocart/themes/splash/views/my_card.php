@@ -7,10 +7,12 @@
 	             <div class="pages_container">
 	             <h2 class="page_title"><?php echo $page_title?></h2>
 	             <p>
-	                 <div class="label_instruction">
+	                 <div class="member_card_label">
 	                 	<img src="<?php echo base_url($image_card)?>" alt="member-card" class="image-card" style="width:450px; height:auto" />
+	                 	<h2><span><?php echo $customer['card']?></span></h2>
 	                 </div>                       
 	             </p>
+	             <center><p>E - Member Card: <?php echo $customer['card']?></p></center>
 	             <center><p>E - Member Card, easier carrier and never lost it.</p></center>
 	             <p>
 	             	<a href="<?php echo site_url('top_up_credit_qrcode')?>" class="button_12 green green_borderbottom radius4">Top Up</a>  <a href="<?php echo site_url('consumption_qrcode')?>" class="button_12 blue blue_borderbottom radius4">Consumption</a>

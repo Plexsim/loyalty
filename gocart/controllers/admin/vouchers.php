@@ -541,8 +541,7 @@ class Vouchers extends Admin_Controller {
 			if ($this->form_validation->run() == FALSE)
 			{				
 				$voucher_id = $this->input->post('voucher_id');
-				$member_card = $this->input->post('customer_card');
-				
+				$member_card = $this->input->post('customer_card');				
 			}
 			else 
 			{

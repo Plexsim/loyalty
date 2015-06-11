@@ -51,6 +51,7 @@ $lang['common_add'] = 'Add';
 $lang['common_vouchers'] = 'Vouchers';
 $lang['common_voucher_form'] = 'Add Voucher';
 $lang['common_coupon_form'] = 'Add Coupon';
+$lang['common_print_statement'] = 'Print Statement';
 
 
 

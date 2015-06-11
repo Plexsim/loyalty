@@ -1212,6 +1212,21 @@ class Cart extends Front_Controller {
 					$save['remark'] = $remark;
 					
 					$id = $this->credit_model->save_credit($save);
+					
+					//in same time, if credit consume can earn point:					
+					$point_in['id'] = '';
+					$point_in['customer_id'] = $customer_id;
+					$point_in['point'] 	= $consume_amount;
+					$point_in['created'] = date("Y-m-d H:i:s");
+					$point_in['staff_id'] = $admin['id'];
+					//$point_in['branch'] = $staff_branch;
+					$point_in['voucher_id'] = $voucher_id;
+					//$point_in['status'] = 1; //enable
+					$point_in['remark'] = 'Bonus Point from consumption';
+					
+					//
+					$this->point_model->save_point($point_in);
+					
 				}
 				else{
 					$save['id'] = '';
@@ -1286,10 +1301,12 @@ class Cart extends Front_Controller {
 	{
 		$data['page_title']	= 'Consumption Info';
 		$data['seo_title']	= 'Consumption Info';
+		$data['payment'] = $payment;
+		
 		
 		if($payment == 'Credit')
 		{
-			$data['info'] = $this->credit_model->get_credit($id);			
+			$data['info'] = $this->credit_model->get_credit($id);				
 		}
 		else
 		{

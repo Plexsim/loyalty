@@ -3,7 +3,8 @@
 		<h3><?php echo lang('daily_trx');?></h3>
 	</div>
 	<div class="col-sm-7">
-		<form class="form-inline pull-right">
+		
+		<form class="form-inline pull-right"'>
 			
 			<select name="year" id="year" class="form-control m-b">
 				<option value="2015">2015</option>
@@ -28,6 +29,8 @@
 				<option value="12">December</option>
 				
 			</select>
+			
+			<input class="form-control"  type="text" name="card" id="card" placeholder="<?php echo lang('card');?>"/>			
 					
 			<input class="btn btn-primary" type="button" value="<?php echo lang('get_daily_trx');?>" onclick="get_monthly_trx()"/>
 		</form>
@@ -53,7 +56,7 @@ function get_monthly_trx()
 	console.log($('#month').val());
 	
 	
-	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/monthly_trx');?>',{year:$('#year').val(), month:$('#month').val()}, function(data){
+	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/monthly_trx');?>',{year:$('#year').val(), month:$('#month').val(), card:$('#card').val()}, function(data){
 		$('#monthly_trx').html(data);
 		setTimeout('hide_animation()', 500);
 	});

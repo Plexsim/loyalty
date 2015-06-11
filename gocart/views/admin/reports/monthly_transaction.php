@@ -21,7 +21,7 @@
 			<td><?php echo  $credit->created; ?></td>
 			<td><?php echo  $credit->cost; ?></td>
 			<td><?php echo $credit->in; ?></a></td>
-			<td>-</a></td>
+			<td><?php echo $credit->branch_name; ?></td>
 		</tr>
 		<?php endforeach;?>
 		<tr>
@@ -55,7 +55,7 @@
 			<td><?php echo  $credit->created; ?></td>
 			<td><?php echo  $credit->cost; ?></td>
 			<td><?php echo $credit->out; ?></a></td>
-			<td>-</td>
+			<td><?php echo $credit->branch_name; ?></td>
 		</tr>
 		<?php endforeach;?>
 		<tr>
@@ -92,7 +92,7 @@
 			<td><?php echo  $point->created; ?></td>
 			
 			<td><?php echo $point->point; ?></a></td>
-			<td>-</a></td>
+			<td><?php echo $point->branch_name; ?></td>
 		</tr>
 		<?php endforeach;?>
 		<tr>
@@ -126,7 +126,7 @@
 			<td><?php echo  $point->created; ?></td>
 			
 			<td><?php echo $point->depoint; ?></a></td>
-			<td>-</td>
+			<td><?php echo $point->branch_name; ?></td>
 		</tr>
 		<?php endforeach;?>
 		<tr>

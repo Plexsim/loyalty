@@ -136,6 +136,10 @@ Class Credit_model extends CI_Model
 	
 	function get_add_credits_trx($start, $end)
 	{
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->join('admin', 'admin.id = credit.staff_id');
+		$this->db->join('branch', 'admin.branch_id = branch.id');
+		
 		if(!empty($start))
 		{
 			$this->db->where('created >=', format_ymd_malaysia($start));
@@ -156,6 +160,10 @@ Class Credit_model extends CI_Model
 	
 	function get_minus_credits_trx($start, $end)
 	{
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->join('admin', 'admin.id = credit.staff_id');
+		$this->db->join('branch', 'admin.branch_id = branch.id');
+		
 		if(!empty($start))
 		{
 			$this->db->where('created >=', format_ymd_malaysia($start));
@@ -176,6 +184,11 @@ Class Credit_model extends CI_Model
 	
 	function get_add_credits_trx_monthly($year, $month, $customer_id)
 	{
+		
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->join('admin', 'admin.id = credit.staff_id');
+		$this->db->join('branch', 'admin.branch_id = branch.id');
+		
 		if(!empty($year))
 		{
 			$this->db->where('YEAR(created)', (int)$year);						
@@ -202,6 +215,10 @@ Class Credit_model extends CI_Model
 	
 	function get_minus_credits_trx_monthly($year, $month, $customer_id)
 	{
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->join('admin', 'admin.id = credit.staff_id');
+		$this->db->join('branch', 'admin.branch_id = branch.id');
+		
 		if(!empty($year))
 		{
 			$this->db->where('YEAR(created)', (int)$year);						
@@ -221,6 +238,35 @@ Class Credit_model extends CI_Model
 	
 		// just fetch a list of order id's
 		$credits	= $this->db->get('credit')->result();
+	
+		return $credits;
+	}
+	
+	function get_credits_trx($start, $end, $customer_id)
+	{
+	
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->join('admin', 'admin.id = credit.staff_id');
+		$this->db->join('branch', 'admin.branch_id = branch.id');
+	
+		if(!empty($start))
+		{
+			$this->db->where('created >=', $start);
+		}
+	
+		if(!empty($end))
+		{
+			$this->db->where('created <',  $end);
+		}
+	
+		if(!empty($customer_id))
+		{
+			$this->db->where('customer_id', $customer_id);
+		}	
+	
+		// just fetch a list of order id's
+		$credits	= $this->db->get('credit')->result();
+	
 	
 		return $credits;
 	}

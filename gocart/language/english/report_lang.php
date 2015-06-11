@@ -8,6 +8,9 @@ $lang['reports']				= 'Reports';
 $lang['best_sellers']			= 'Best Sellers';
 $lang['monthly_trx']			= 'Monthly Transaction';
 $lang['daily_trx']				= 'Daily Transaction';
+$lang['account_info']			= 'Account Information';
+$lang['print_content']			= 'Print Content';
+
 
 
 $lang['sales']					= 'Sales';
@@ -16,7 +19,8 @@ $lang['home']					= 'Homes';
 $lang['from']					= 'From';
 $lang['to']						= 'To';
 $lang['sku']					= 'SKU';
-$lang['name']					= 'Name';
+$lang['name']					= 'Card Name';
+
 $lang['quantity']				= 'Quantity';
 $lang['date']					= 'Month/Year';
 $lang['january']				= 'January';
@@ -36,9 +40,8 @@ $lang['add_credit_trx']			= 'Add Credit Transaction';
 $lang['deduct_credit_trx']		= 'Deduct Credit Transaction';
 $lang['add_point_trx']			= 'Add Point Transaction';
 $lang['deduct_point_trx']		= 'Deduct Point Transaction';
-
-
-
+$lang['credit_balance']			= 'Credit balance';
+$lang['point_balance']			= 'Point balance';
 
 
 $lang['get_best_sellers']		= 'Get Best Sellers';
@@ -58,10 +61,10 @@ $lang['topup_amount']			= 'Topup Amount';
 $lang['credit']					= 'Credit';
 $lang['branch']					= 'Branch';
 $lang['point']					= 'Point';
-
-
-
-
+$lang['card']					= 'Card No';
+$lang['debit']					= 'Debit';
+$lang['print_statement']		= 'Print Statement';
+$lang['balance']				= 'Balance';
 
 
 $lang['products']				= 'Products';

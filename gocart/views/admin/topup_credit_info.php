@@ -9,7 +9,7 @@
                         
                         <div class="ibox-content">
                         		 
-                        		 	<a href="#" onclick="javascript: print_receipt();" class="btn btn-danger no-print"><?php echo lang('print_receipt')?></a>                       						
+                        		 <a href="#" onclick="javascript: print_receipt();" class="btn btn-danger no-print"><?php echo lang('print_receipt')?></a>                       						
                                  
                                  <form class="form-horizontal">               
                                   <div class="form-group">

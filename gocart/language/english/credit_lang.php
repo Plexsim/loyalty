@@ -38,6 +38,7 @@ $lang['consume_date']				= 'Consume Date';
 $lang['print_receipt']				= 'Print Receipt';
 $lang['home']						= 'Home';
 $lang['products']					= 'Products';
+$lang['print_statement']			= 'Print Statement';
 
 
 

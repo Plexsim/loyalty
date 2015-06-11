@@ -132,6 +132,10 @@ Class Point_model extends CI_Model
 	
 	function get_add_points_trx($start, $end)
 	{
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
+		$this->db->join('admin', 'admin.id = point.staff_id');
+		$this->db->join('branch', 'admin.branch_id = branch.id');
+		
 		if(!empty($start))
 		{
 			$this->db->where('created >=', format_ymd_malaysia($start));
@@ -152,6 +156,10 @@ Class Point_model extends CI_Model
 	
 	function get_minus_points_trx($start, $end)
 	{
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
+		$this->db->join('admin', 'admin.id = point.staff_id');
+		$this->db->join('branch', 'admin.branch_id = branch.id');
+		
 		if(!empty($start))
 		{
 			$this->db->where('created >=', format_ymd_malaysia($start));
@@ -172,6 +180,10 @@ Class Point_model extends CI_Model
 	
 	function get_add_points_trx_monthly($year, $month, $customer_id)
 	{
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
+		$this->db->join('admin', 'admin.id = point.staff_id');
+		$this->db->join('branch', 'admin.branch_id = branch.id');
+		
 		if(!empty($year))
 		{
 			$this->db->where('YEAR(created)', (int)$year);						
@@ -197,6 +209,10 @@ Class Point_model extends CI_Model
 	
 	function get_minus_points_trx_monthly($year, $month, $customer_id)
 	{
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
+		$this->db->join('admin', 'admin.id = point.staff_id');
+		$this->db->join('branch', 'admin.branch_id = branch.id');		
+		
 		if(!empty($year))
 		{
 			$this->db->where('YEAR(created)', (int)$year);						

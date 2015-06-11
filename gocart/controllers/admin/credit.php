@@ -415,6 +415,20 @@ class Credit extends Admin_Controller {
     			$save['voucher_id']			= $voucher_id;
     			//$save['branch'] = $staff_branch;    			
     			$last_id = $this->Credit_model->save_credit($save);
+    			
+    			//in same time, if credit consume can earn point:
+    			$point_in['id'] = '';
+    			$point_in['customer_id'] = $customer['id'];
+    			$point_in['point'] 	= $consume_amount;
+    			$point_in['created'] = format_ymd_malaysia($this->input->post('consume_date'));
+    			$point_in['staff_id'] = $this->current_admin['id'];
+    			//$point_in['branch'] = $staff_branch;
+    			$point_in['voucher_id'] = $voucher_id;
+    			//$point_in['status'] = 1; //enable
+    			$point_in['remark'] = 'Bonus Point from consumption';
+    				
+    			$this->Point_model->save_point($point_in);
+    			
     		}
     		else{
     			$save['id'] = '';

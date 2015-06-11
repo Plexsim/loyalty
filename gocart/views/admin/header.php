@@ -119,7 +119,7 @@
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo $admin_url;?>reports/daily_reports"><i class="fa fa-plus-square-o"></i> <span class="nav-label"><?php echo lang('common_daily_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
                         <li><a href="<?php echo $admin_url;?>reports/monthly_reports"><i class="fa fa-list-ol"></i> <span class="nav-label"><?php echo lang('common_monthly_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
-                                                                                                
+                        <li><a href="<?php echo $admin_url;?>reports/print_reports"><i class="fa fa-list-ol"></i> <span class="nav-label"><?php echo lang('common_print_statement') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                                                                                                
                     </ul>
                 </li>
                 
@@ -260,7 +260,7 @@
 <div class="wrapper wrapper-content">
      
 
-<div class="row wrapper border-bottom white-bg page-heading toast-bottom-full-width">
+<div class="row wrapper border-bottom white-bg page-heading toast-bottom-full-width no-print">
                 <div class="col-lg-10">
                     <h2><?php echo (isset($page_title) && !empty($page_title)) ? $page_title : '-' ?></h2>
                     <ol class="breadcrumb">

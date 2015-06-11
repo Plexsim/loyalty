@@ -45,6 +45,14 @@ class Reports extends Admin_Controller {
 		$this->view($this->config->item('admin_folder').'/monthly_reports', $data);
 	}
 	
+	function print_reports()
+	{
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('print_statement');
+	
+		$this->view($this->config->item('admin_folder').'/print_reports', $data);
+	}
+	
 	function daily_trx()
 	{
 		$data['activemenu'] = $this->activemenu;
@@ -75,13 +83,14 @@ class Reports extends Admin_Controller {
 	 	/* $year	= '2015';
 		$month	= '6';
 		$card	= $this->input->post('card');  */
+		//$customer_id = NULL;
+	
+		$customer = $this->Customer_model->get_customer_by_card($card);
 		$customer_id = NULL;
-		/* $customer = $this->Customer_model->get_customer_by_card($card);
-		$customer_id = NULL;
-		if($customer)
+		if(isset($customer) && !empty($customer))
 		{
 			$customer_id = $customer['id'];
-		} */
+		}		
 		
 		$data['credits_in']		= $this->Credit_model->get_add_credits_trx_monthly($year, $month, $customer_id);					
 		$data['credits_out']	= $this->Credit_model->get_minus_credits_trx_monthly($year, $month, $customer_id);
@@ -89,6 +98,37 @@ class Reports extends Admin_Controller {
 		$data['points_out']		= $this->Point_model->get_minus_points_trx_monthly($year, $month, $customer_id);
 	
 		$this->load->view($this->config->item('admin_folder').'/reports/monthly_transaction', $data);
+	}
+	
+	function print_statement()
+	{
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('print_statement');
+		
+		$this->load->helper('date');		
+		$from_year	= $this->input->post('from_year');
+		$from_month	= $this->input->post('from_month');
+		$start = $from_year.'-'.$from_month.'-01';
+		
+		$to_year	= $this->input->post('to_year');
+		$to_month	= $this->input->post('to_month');
+		$end = $to_year.'-'.$to_month.'-31';
+		
+		$card	= $this->input->post('card');
+	
+		$customer = $this->Customer_model->get_customer_by_card($card);
+		$customer_id = NULL;
+		if(isset($customer) && !empty($customer))
+		{
+			$customer_id = $customer['id'];
+		}
+	
+		$data['customer'] = $customer;
+		$data['credit_balance'] = $this->Credit_model->get_credit_amt($customer_id);
+		$data['point_balance'] = $this->Point_model->get_point_amt($customer_id);
+		$data['credits']		= $this->Credit_model->get_credits_trx($start, $end, $customer_id);
+		
+		$this->load->view($this->config->item('admin_folder').'/reports/print_statement', $data);
 	}
 	
 	function best_sellers()

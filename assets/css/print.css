@@ -4,6 +4,12 @@
 
 /* Printing Query
 /*-----------------------------------------------------------------------------------*/
+@page
+{	   
+	    size: portrait;
+	    margin: 0;
+}
+
 @media print {	
 	body{
 		font-family: Georgia, serif;

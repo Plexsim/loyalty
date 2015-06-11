@@ -36,7 +36,7 @@
                         
                          
 						 
-						 <div class="form-group"><label class="col-sm-2 control-label" for="max_uses"><?php echo lang('max_uses');?></label>
+						 <!--div class="form-group"><label class="col-sm-2 control-label" for="max_uses"><?php echo lang('max_uses');?></label>
 							<?php
 							$data	= array('name'=>'max_uses', 'value'=>set_value('max_uses', $max_uses), 'class'=>'form-control');
 							echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
@@ -46,7 +46,7 @@
 							<?php
 							$data	= array('name'=>'max_product_instances', 'value'=>set_value('max_product_instances', $max_product_instances), 'class'=>'form-control');
 							echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
-						 </div>
+						 </div-->
 						 
 						 <div class="form-group"><label class="col-sm-2 control-label" for="start_date"><?php echo lang('enable_on');?></label>
 							<?php
@@ -60,7 +60,7 @@
 							echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
 						 </div>
 						 
-						 <div class="form-group"><label class="col-sm-2 control-label" for="reduction_type"><?php echo lang('reduction_type');?></label>
+						 <!--div class="form-group"><label class="col-sm-2 control-label" for="reduction_type"><?php echo lang('reduction_type');?></label>
 							
 							<?php	$options = array(
 			                  'percent'  => lang('percentage'),
@@ -75,7 +75,7 @@
 							<?php
 							$data	= array('name'=>'reduction_amount', 'id'=>'reduction_amount', 'value'=>set_value('reduction_amount', $reduction_amount), 'class'=>'form-control');
 							echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
-						 </div>		
+						 </div-->		
 						 
 						 <!--div class="form-group"><label class="col-sm-2 control-label" for="point_consume"><?php echo lang('point_consume');?></label>
 							<?php

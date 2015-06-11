@@ -18,7 +18,7 @@ function areyousure()
 		<tr>
 		  <th><?php echo lang('code');?></th>
 		  <th><?php echo lang('name');?></th>
-		  <th><?php echo lang('usage');?></th>
+		  <!--th><?php echo lang('usage');?></th-->
 		  <th></th>
 		</tr>
 	</thead>
@@ -28,9 +28,9 @@ function areyousure()
 		<tr>
 			<td><?php echo  $voucher->code; ?></td>
 			<td><?php echo  $voucher->name; ?></td>
-			<td>
+			<!--td>
 			  <?php echo  $voucher->num_uses ." / ". $voucher->max_uses; ?>
-			</td>
+			</td-->
 			<td>
 				<div class="btn-group" style="float:right;">
 					<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/vouchers/form/'.$voucher->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>

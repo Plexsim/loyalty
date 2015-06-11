@@ -58,6 +58,9 @@ $lang['common_process_vouchers'] = 'Process Vouchers';
 $lang['common_branch'] = 'Branch';
 $lang['common_process_coupons'] = 'Process Coupons';
 
+$lang['common_monthly_trx'] = 'Monthly Transaction';
+$lang['common_daily_trx'] = 'Daily Transaction';
+
 
 
 

@@ -134,6 +134,7 @@ $('#datepicker2').datepicker({
     autoclose: true
 });
 
+
 function do_search(val)
 {
 	$('#search_term').val($('#'+val).val());

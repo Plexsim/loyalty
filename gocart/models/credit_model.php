@@ -134,5 +134,95 @@ Class Credit_model extends CI_Model
 		return $id;
 	}
 	
+	function get_add_credits_trx($start, $end)
+	{
+		if(!empty($start))
+		{
+			$this->db->where('created >=', format_ymd_malaysia($start));
+		}
+		
+		if(!empty($end))
+		{
+			$this->db->where('created <',  format_ymd_malaysia($end));
+		}
+		
+		$this->db->where('in > 0');
+	
+		// just fetch a list of order id's
+		$credits	= $this->db->get('credit')->result();
+	
+		return $credits;
+	}
+	
+	function get_minus_credits_trx($start, $end)
+	{
+		if(!empty($start))
+		{
+			$this->db->where('created >=', format_ymd_malaysia($start));
+		}
+	
+		if(!empty($end))
+		{
+			$this->db->where('created <',  format_ymd_malaysia($end));
+		}
+	
+		$this->db->where('out > 0');
+	
+		// just fetch a list of order id's
+		$credits	= $this->db->get('credit')->result();
+	
+		return $credits;
+	}
+	
+	function get_add_credits_trx_monthly($year, $month, $customer_id)
+	{
+		if(!empty($year))
+		{
+			$this->db->where('YEAR(created)', (int)$year);						
+		}
+	
+		if(!empty($month))
+		{
+			$this->db->where('MONTH(created)', (int)$month);		
+		}
+		
+		if(!empty($customer_id))
+		{
+			$this->db->where('customer_id', $customer_id);
+		}
+		
+		$this->db->where('in > 0');
+	
+		// just fetch a list of order id's
+		$credits	= $this->db->get('credit')->result();
+		
+	
+		return $credits;
+	}
+	
+	function get_minus_credits_trx_monthly($year, $month, $customer_id)
+	{
+		if(!empty($year))
+		{
+			$this->db->where('YEAR(created)', (int)$year);						
+		}
+	
+		if(!empty($month))
+		{
+			$this->db->where('MONTH(created)', (int)$month);		
+		}
+	
+		if(!empty($customer_id))
+		{
+			$this->db->where('customer_id', $customer_id);
+		}
+	
+		$this->db->where('out > 0');
+	
+		// just fetch a list of order id's
+		$credits	= $this->db->get('credit')->result();
+	
+		return $credits;
+	}
 	
 }

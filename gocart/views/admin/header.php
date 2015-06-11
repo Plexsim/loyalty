@@ -114,9 +114,14 @@
                     <a href="<?php echo $admin_url?>branch"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_branch') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
                 </li>
                 
-                <!--li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'reports') ? 'class="active"' : ''; ?>>
-                    <a href="<?php echo $admin_url?>reports"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_report') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
-                </li-->
+                <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'reports') ? 'class="active"' : ''; ?>>
+                    <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_reports') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="<?php echo $admin_url;?>reports/daily_reports"><i class="fa fa-plus-square-o"></i> <span class="nav-label"><?php echo lang('common_daily_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
+                        <li><a href="<?php echo $admin_url;?>reports/monthly_reports"><i class="fa fa-list-ol"></i> <span class="nav-label"><?php echo lang('common_monthly_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
+                                                                                                
+                    </ul>
+                </li>
                 
                                                        
             </ul>
@@ -257,13 +262,13 @@
 
 <div class="row wrapper border-bottom white-bg page-heading toast-bottom-full-width">
                 <div class="col-lg-10">
-                    <h2><?php echo $page_title ?></h2>
+                    <h2><?php echo (isset($page_title) && !empty($page_title)) ? $page_title : '-' ?></h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="<?php echo $admin_url?>"><?php echo lang('home')?></a>
                         </li>                        
                         <li class="active">
-                            <strong><?php echo $page_title ?></strong>
+                            <strong><?php echo (isset($page_title) && !empty($page_title)) ? $page_title : '-' ?></strong>
                         </li>
                     </ol>
                 </div>

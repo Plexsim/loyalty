@@ -1,13 +1,13 @@
 <div class="row">
-	<div class="span6">
-		<h3><?php echo lang('monthly_trx');?></h3>
+	<div class="col-sm-5">
+		<h3><?php echo lang('daily_trx');?></h3>
 	</div>
-	<div class="span6">
+	<div class="col-sm-7">
 		<form class="form-inline pull-right">
 			<input class="form-control"  type="text" name="start" id="datepicker1" placeholder="<?php echo lang('from');?>"/>			
 			<input class="form-control"  type="text" name="end" id="datepicker2" placeholder="<?php echo lang('to');?>"/>			
 			
-			<input class="btn btn-primary" type="button" value="<?php echo lang('get_monthly_trx');?>" onclick="get_monthly_trx()"/>
+			<input class="btn btn-primary" type="button" value="<?php echo lang('get_daily_trx');?>" onclick="get_daily_trx()"/>
 		</form>
 	</div>
 </div>
@@ -16,27 +16,18 @@
 		<div class="col-sm-12">
 			<div class="ibox">
  				<div class="ibox-content">
-	<div class="span12" id="monthly_trx"></div>
+	<div class="span12" id="daily_trx"></div>
 </div></div></div></div>
 
 
 
 <script type="text/javascript">
 
-function get_monthly_trx()
+function get_daily_trx()
 {
 	show_animation();
-	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/monthly_trx');?>',{start:$('#datepicker1').val(), end:$('#datepicker2').val()}, function(data){
-		$('#monthly_trx').html(data);
-		setTimeout('hide_animation()', 500);
-	});
-}
-
-function get_monthly_sales()
-{
-	show_animation();
-	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/sales');?>',{year:$('#sales_year').val()}, function(data){
-		$('#sales_container').html(data);
+	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/daily_trx');?>',{start:$('#datepicker1').val(), end:$('#datepicker2').val()}, function(data){
+		$('#daily_trx').html(data);
 		setTimeout('hide_animation()', 500);
 	});
 }

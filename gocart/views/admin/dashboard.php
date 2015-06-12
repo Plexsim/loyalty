@@ -3,7 +3,7 @@
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>Manage Branch</h5>
+				<h5><?php echo lang('common_manage_branch')?></h5>
 			</div>
 			<div class="ibox-content">
 				<a href="<?php echo $admin_url?>branch/branch_form" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a> <a
@@ -15,7 +15,7 @@
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>Prepaid</h5>
+				<h5><?php echo lang('common_consumption')?></h5>
 			</div>
 			<div class="ibox-content">
 				<a href="<?php echo $admin_url?>credit/consume_form" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
@@ -51,7 +51,7 @@
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>Manage Redemption</h5>
+				<h5><?php echo lang('common_manage_voucher')?></h5>
 			</div>
 			<div class="ibox-content">
 				<a href="<?php echo $admin_url;?>vouchers/form" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
@@ -63,10 +63,11 @@
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>Gift Redepmtion</h5>
+				<h5><?php echo lang('common_manage_coupon')?></h5>
 			</div>
 			<div class="ibox-content">
-				<a href="#" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
+				<a href="<?php echo $admin_url;?>coupons/form" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
+				<a href="<?php echo $admin_url;?>coupons" class="btn btn-w-m btn-info"><?php echo lang('common_view')?> </a>
 			</div>
 		</div>
 	</div>
@@ -74,7 +75,7 @@
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5><?php echo lang('common_credits')?></h5>
+				<h5><?php echo lang('common_topup_credit')?></h5>
 			</div>
 			<div class="ibox-content">
 				<a href="<?php echo $admin_url?>credit/topup_credit_form" class="btn btn-w-m btn-danger"><?php echo lang('common_add')?></a>
@@ -88,7 +89,7 @@
 				<h5><?php echo lang('common_reports')?></h5>
 			</div>
 			<div class="ibox-content">
-				<a href="#" class="btn btn-w-m btn-info"><?php echo lang('common_view')?></a>
+				<a href="<?php echo $admin_url?>reports/monthly_reports" class="btn btn-w-m btn-info"><?php echo lang('common_view')?></a>
 			</div>
 		</div>
 	</div>

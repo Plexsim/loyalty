@@ -115,11 +115,11 @@
                 </li>
                 
                 <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'reports') ? 'class="active"' : ''; ?>>
-                    <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label"><?php echo lang('common_reports') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
+                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label"><?php echo lang('common_reports') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="<?php echo $admin_url;?>reports/daily_reports"><i class="fa fa-plus-square-o"></i> <span class="nav-label"><?php echo lang('common_daily_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
-                        <li><a href="<?php echo $admin_url;?>reports/monthly_reports"><i class="fa fa-list-ol"></i> <span class="nav-label"><?php echo lang('common_monthly_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
-                        <li><a href="<?php echo $admin_url;?>reports/print_reports"><i class="fa fa-list-ol"></i> <span class="nav-label"><?php echo lang('common_print_statement') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                                                                                                
+                        <li><a href="<?php echo $admin_url;?>reports/daily_reports"><i class="fa fa-bars"></i> <span class="nav-label"><?php echo lang('common_daily_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
+                        <li><a href="<?php echo $admin_url;?>reports/monthly_reports"><i class="fa fa-money"></i> <span class="nav-label"><?php echo lang('common_monthly_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
+                        <li><a href="<?php echo $admin_url;?>reports/print_reports"><i class="fa fa-print"></i> <span class="nav-label"><?php echo lang('common_print_statement') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                                                                                                
                     </ul>
                 </li>
                 

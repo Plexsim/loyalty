@@ -521,7 +521,7 @@ class Vouchers extends Admin_Controller {
 			$card					= $this->input->post('card');
 			
 			// We're done
-			$this->session->set_flashdata('message', lang('message_customer_voucher'));				
+			//$this->session->set_flashdata('message', lang('message_customer_voucher'));				
 			//go back to the product list
 			redirect($this->config->item('admin_folder').'/vouchers/process_voucher_details/'.$voucher_id.'/'.$card);
 		}
@@ -550,12 +550,26 @@ class Vouchers extends Admin_Controller {
 				$save['voucher_id'] = $this->input->post('voucher_id');
 				$save['customer_id'] = $this->input->post('customer_id');
 					
-				$details = $this->Voucher_model->my_voucher_details($save['voucher_id'], $save['customer_id']);
-									
-				$save['used'] = $details['used'] + $used;
+				$is_exist = $this->Voucher_model->check_voucher_customer($save['voucher_id'], $save['customer_id']);
+				
+				if($is_exist){
+					$details = $this->Voucher_model->my_voucher_details($save['voucher_id'], $save['customer_id']);									
+					$save['used'] = $details['used'] + $used;				
+					$id = $this->Voucher_model->update_voucher_customer($save);				
+				}else{
+					// impossible happen here
+					$save['used'] = $used;
+					$this->Voucher_model->add_voucher_customer($save);
+				}
+				
+				//customer voucher log , can know all the using voucher log
+				$log['voucher_id'] = $save['voucher_id'];
+				$log['customer_id'] = $save['customer_id'];
+				$log['used'] = $used;
+				$log['trx_date'] = date('Y-m-d H:i:s');
 					
-				$id = $this->Voucher_model->update_voucher_customer($save);
-					
+				$this->Voucher_model->add_customer_voucher_log($log);
+
 				if($id > 0){
 					// We're done
 					$this->session->set_flashdata('message', lang('message_saved_voucher'));

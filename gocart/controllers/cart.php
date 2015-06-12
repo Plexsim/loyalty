@@ -1456,8 +1456,17 @@ class Cart extends Front_Controller {
 						$save_voucher['used'] = $voucher_details['used'] + $used_qty;
 						$this->Voucher_model->update_voucher_customer($save_voucher);
 					}else{
+						$save_voucher['used'] = $used_qty;
 						$this->Voucher_model->add_voucher_customer($save_voucher);
 					}
+					
+					//customer voucher log , can know all the using voucher log
+					$log['voucher_id'] = $voucher_id;
+					$log['customer_id'] = $customer_id;
+					$log['used'] = $used_qty;
+					$log['trx_date'] = date('Y-m-d H:i:s');
+					
+					$this->Voucher_model->add_customer_voucher_log($log);
 						
 					// We're done
 					$this->session->set_flashdata('message', lang('message_customer_voucher'));
@@ -1575,8 +1584,17 @@ class Cart extends Front_Controller {
 					$save_coupon['used'] = $coupon_details['used'] + $used_qty;
 					$this->Coupon_model->update_coupon_customer($save_coupon);
 				}else{
+					$save_coupon['used'] = $used_qty;
 					$this->Coupon_model->add_coupon_customer($save_coupon);
 				}
+				
+				//customer coupon log , can know all the using coupon log
+				$log['coupon_id'] = $coupon_id;
+				$log['customer_id'] = $customer_id;
+				$log['used'] = $used_qty;
+				$log['trx_date'] = date('Y-m-d H:i:s');
+					
+				$this->Coupon_model->add_customer_coupon_log($log);
 	
 				// We're done
 				$this->session->set_flashdata('message', lang('message_customer_coupon'));

@@ -399,7 +399,7 @@ class Coupons extends Admin_Controller {
 			$card					= $this->input->post('card');						
 				
 			// We're done
-			$this->session->set_flashdata('message', lang('message_customer_coupon'));
+			//$this->session->set_flashdata('message', lang('message_customer_coupon'));
 			//go back to the product list
 			redirect($this->config->item('admin_folder').'/coupons/process_coupon_details/'.$coupon_id.'/'.$card);
 		}
@@ -426,12 +426,26 @@ class Coupons extends Admin_Controller {
 				$used  			= $this->input->post('used');
 				$save['coupon_id'] = $this->input->post('coupon_id');
 				$save['customer_id'] = $this->input->post('customer_id');
+																
+				$is_exist = $this->Coupon_model->check_coupon_customer($save['coupon_id'], $save['customer_id']);
 				
-				$details = $this->Coupon_model->my_coupon_details($save['coupon_id'], $save['customer_id']);
+				if($is_exist){
+					$details = $this->Coupon_model->my_coupon_details($save['coupon_id'], $save['customer_id']);
+					$save['used'] = $details['used'] + $used;
+					$id = $this->Coupon_model->update_coupon_customer($save);
+				}else{
+					// impossible happen here
+					$save['used'] = $used;
+					$this->Coupon_model->add_coupon_customer($save);
+				}
 				
-				$save['used'] = $details['used'] + $used;
+				//customer coupon log , can know all the using coupon log
+				$log['coupon_id'] = $save['coupon_id'];
+				$log['customer_id'] = $save['customer_id'];
+				$log['used'] = $used;
+				$log['trx_date'] = date('Y-m-d H:i:s');
 					
-				$id = $this->Coupon_model->update_coupon_customer($save);
+				$this->Coupon_model->add_customer_coupon_log($log);
 					
 				if($id > 0){
 					// We're done

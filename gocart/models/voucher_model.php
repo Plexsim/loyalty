@@ -268,6 +268,14 @@ class Voucher_model extends CI_Model
 		return $this->db->affected_rows();		
 	}
 	
+	// add coupon, returns id
+	function add_customer_voucher_log($data)
+	{
+		$this->db->insert('customer_voucher_log', $data);
+		//return $this->db->insert_id(); // this is only for auto increment
+		return $this->db->affected_rows();
+	}
+	
 	// update voucher
 	function update_voucher_customer($data)
 	{

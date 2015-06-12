@@ -265,6 +265,14 @@ class Coupon_model extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
+	// add coupon, returns id
+	function add_customer_coupon_log($data)
+	{
+		$this->db->insert('customer_coupon_log', $data);
+		//return $this->db->insert_id(); // this is only for auto increment
+		return $this->db->affected_rows();
+	}
+	
 	// update coupon
 	function update_coupon_customer($data)
 	{

@@ -91,6 +91,7 @@ class Customers extends Admin_Controller {
 		$data['id']					= '';
 		$data['group_id']			= '';
 		$data['name']				= '';
+		$data['card']				= '';		
 		$data['firstname']			= '';
 		$data['lastname']			= '';
 		
@@ -125,6 +126,7 @@ class Customers extends Admin_Controller {
 			$data['id']					= $customer->id;
 			$data['group_id']			= $customer->group_id;
 			$data['name']				= $customer->name;
+			$data['card']				= $customer->card;
 			$data['firstname']			= $customer->firstname;
 			$data['lastname']			= $customer->lastname;
 			$data['email']				= $customer->email;

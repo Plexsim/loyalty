@@ -9,6 +9,14 @@
                                                 
 								<?php echo form_open($this->config->item('admin_folder').'/customers/form/'.$id, 'class="form-horizontal"'); ?>
                                                 
+                                  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('card');?></label>
+									<?php
+									$data	= array('name'=>'card', 'value'=>set_value('card', $card), 'class'=>'form-control', 'readonly'=>true);
+									echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
+																	
+								  </div>
+								  <div class="hr-line-dashed"></div>              
+                                                
 		                          <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('name');?></label>
 									<?php
 									$data	= array('name'=>'name', 'value'=>set_value('name', $name), 'class'=>'form-control');

@@ -101,7 +101,8 @@ if ($term):?>
 		    $info_url = '';
 		    if($point->point > 0):
 		    	//future
-		    	$info_url = $admin_url.'point/topup_point_info/'.$point->id;
+		    	//$info_url = $admin_url.'point/topup_point_info/'.$point->id;
+		    $info_url = "#";
 		    elseif($point->depoint > 0):
 		    	$info_url = $admin_url.'credit/consume_info/'.$point->id.'/Point';
 		    endif;

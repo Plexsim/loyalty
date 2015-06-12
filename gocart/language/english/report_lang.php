@@ -65,6 +65,14 @@ $lang['card']					= 'Card No';
 $lang['debit']					= 'Debit';
 $lang['print_statement']		= 'Print Statement';
 $lang['balance']				= 'Balance';
+$lang['customer_name']			= 'Customer Name';
+$lang['voucher_name']			= 'Voucher Name';
+$lang['voucher_code']			= 'Voucher Code';
+$lang['qty_own']				= 'Quantity Own';
+$lang['qty_used']				= 'Quantity Used';
+$lang['error_card_empty']		= 'Member Card can not empty';
+
+
 
 
 $lang['products']				= 'Products';

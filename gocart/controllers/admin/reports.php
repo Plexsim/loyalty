@@ -16,6 +16,7 @@ class Reports extends Admin_Controller {
 		$this->load->model('Search_model');
 		$this->load->model('Credit_model');
 		$this->load->model('Point_model');
+		$this->load->model('Voucher_model');
 		$this->load->helper(array('formatting'));
 		
 		$this->lang->load('report');
@@ -51,6 +52,23 @@ class Reports extends Admin_Controller {
 		$data['page_title']	= lang('print_statement');
 	
 		$this->view($this->config->item('admin_folder').'/print_reports', $data);
+	}
+	
+	function voucher_reports()
+	{
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('print_statement');
+		$this->load->helper(array('form', 'date'));
+		$data['voucher_id'] = '';
+		$vouchers = $this->Voucher_model->get_vouchers();
+		$voucher_list[0] = 'Please select a voucher';
+		foreach($vouchers as $voucher)
+		{
+			$voucher_list[$voucher->id] = $voucher->name;
+		}
+		$data['vouchers'] = $voucher_list;
+	
+		$this->view($this->config->item('admin_folder').'/voucher_reports', $data);
 	}
 	
 	function daily_trx()
@@ -130,6 +148,31 @@ class Reports extends Admin_Controller {
 		
 		$this->load->view($this->config->item('admin_folder').'/reports/print_statement', $data);
 	}
+	
+	function voucher_listing()
+	{
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('voucher_report');
+	
+		$voucher_id	= $this->input->post('voucher_id');				
+		$member_card	= $this->input->post('customer_card');
+		
+		//$voucher_id	= 1;
+		//$member_card = 3;
+		
+		$customer = $this->Customer_model->get_customer_by_card($member_card);
+		$customer_id = NULL;
+		if(isset($customer) && !empty($customer))
+		{
+			$customer_id = $customer['id'];
+		}
+
+		$data['customer'] = $customer;
+		$data['vouchers'] = $this->Voucher_model->voucher_listing($voucher_id, $customer_id);
+				
+		$this->load->view($this->config->item('admin_folder').'/reports/voucher_listing', $data);
+	}
+	
 	
 	function best_sellers()
 	{

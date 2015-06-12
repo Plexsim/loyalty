@@ -603,5 +603,27 @@ class Vouchers extends Admin_Controller {
 		}
 	}
 	
+	function voucher_report()
+	{
+		$data['page_title']		= lang('voucher_listing');
+		
+		$voucher_id = $this->input->post('voucher_id');
+		$member_card = $this->input->post('customer_card');
+		$submitted = $this->input->post('submmited');
+				
+		if($submitted){
+			$customer = $this->Customer_model->get_customer_by_card($member_card);
+			$customer_id = NULL;
+			if(isset($customer) && !empty($customer))
+			{
+				$customer_id = $customer['id'];
+			}
+			
+			$data['details'] = $this->Voucher_model->my_voucher_details($voucher_id, $customer_id);
+		}
+		
+		$this->view(config_item('admin_folder').'/voucher_report', $data);		
+	}
+	
 	
 }

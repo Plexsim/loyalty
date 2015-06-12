@@ -51,10 +51,6 @@
 function get_monthly_trx()
 {
 	show_animation();
-
-	console.log($('#year').val());
-	console.log($('#month').val());
-	
 	
 	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/monthly_trx');?>',{year:$('#year').val(), month:$('#month').val(), card:$('#card').val()}, function(data){
 		$('#monthly_trx').html(data);

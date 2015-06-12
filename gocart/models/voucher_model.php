@@ -297,10 +297,24 @@ class Voucher_model extends CI_Model
 	{
 		$this->db->select('*, customer_voucher.active as use_status ');
 		$this->db->join("vouchers", "vouchers.id=customer_voucher.voucher_id");
-		//$this->db->join("customers", "customers.id=customer_voucher.customer_id");
-		$this->db->where('customer_id', $customer_id);
-		$this->db->where('voucher_id', $voucher_id);
+		//$this->db->join("customers", "customers.id=customer_voucher.customer_id");		
+		$this->db->where('customer_id', $customer_id);		
+		$this->db->where('voucher_id', $voucher_id);		
 		return $this->db->get('customer_voucher')->row_array();
+	}
+	
+	function voucher_listing($voucher_id, $customer_id)
+	{
+		$this->db->select('*, customers.name as customer_name, vouchers.name as voucher_name ');
+		$this->db->join("vouchers", "vouchers.id=customer_voucher.voucher_id");
+		$this->db->join("customers", "customers.id=customer_voucher.customer_id");
+		if(!empty($customer_id)){
+			$this->db->where('customer_id', $customer_id);
+		}
+		if(!empty($voucher_id)){
+			$this->db->where('voucher_id', $voucher_id);
+		}
+		return $this->db->get('customer_voucher')->result();
 	}
 	
 }	

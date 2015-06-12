@@ -119,7 +119,8 @@
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo $admin_url;?>reports/daily_reports"><i class="fa fa-bars"></i> <span class="nav-label"><?php echo lang('common_daily_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
                         <li><a href="<?php echo $admin_url;?>reports/monthly_reports"><i class="fa fa-money"></i> <span class="nav-label"><?php echo lang('common_monthly_trx') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
-                        <li><a href="<?php echo $admin_url;?>reports/print_reports"><i class="fa fa-print"></i> <span class="nav-label"><?php echo lang('common_print_statement') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                                                                                                
+                        <li><a href="<?php echo $admin_url;?>reports/print_reports"><i class="fa fa-print"></i> <span class="nav-label"><?php echo lang('common_print_statement') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
+                        <li><a href="<?php echo $admin_url;?>reports/voucher_reports"><i class="fa fa-money"></i> <span class="nav-label"><?php echo lang('common_voucher_listing') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                                                                                                
                     </ul>
                 </li>
                 

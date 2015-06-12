@@ -9,7 +9,7 @@
 			<div class="pages_container">
 			
 				
-				<a href="#" onclick="javascript: print_receipt();" class="button_12 orange orange_borderbottom radius4 no-print"><?php echo lang('print_receipt')?></a>
+				<a href="javascript:void(0)" onclick="javascript: print_receipt();" class="button_12 orange orange_borderbottom radius4 no-print"><?php echo lang('print_receipt')?></a>
 	            <div class="clearfix"></div>
 	            <h3 class="print-display"><?php echo $page_title?> </h3>
 												     		             		             	            	            	

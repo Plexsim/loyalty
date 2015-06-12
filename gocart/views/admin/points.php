@@ -114,14 +114,6 @@ if ($term):?>
 		<!--td style="white-space:nowrap"><?php echo $point->card ?></td-->
 		<td style="white-space:nowrap"><?php echo $point->point ?></td>
 		<td style="white-space:nowrap"><?php echo $point->depoint ?></td>		
-		<!--td style="span2">
-			<?php echo form_dropdown('status', $this->config->item('order_statuses'), $point->status, 'id="status_form_'.$point->id.'" class="span2" style="float:left;"'); ?>
-			<button type="button" class="btn" onClick="save_status(<?php echo $point->id; ?>)" style="float:left;margin-left:4px;"><?php echo lang('save');?></button>
-		</td-->
-		<!--td><div class="MainTableNotes"><?php echo format_currency($point->total); ?></div></td-->
-		<!--td>
-			<a class="btn btn-white btn-bitbucket btn-small" style="float:right;"href="<?php echo site_url($this->config->item('admin_folder').'/point/order/'.$point->id);?>"><i class="fa fa-search"></i> <?php echo lang('form_view')?></a>
-		</td-->
 	</tr>
     <?php endforeach; ?>
     </tbody>

@@ -8,9 +8,9 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                     
-                    	<div class="alert alert-info" style="text-align:center;">
+                    	<!--div class="alert alert-info" style="text-align:center;">
 							<strong><?php echo sprintf(lang('times_used'), @$num_uses);?></strong>
-						</div>
+						</div-->
                     
                         <div class="ibox-title">
                             <h5><?php echo lang('coupon_form')?></h5>                            

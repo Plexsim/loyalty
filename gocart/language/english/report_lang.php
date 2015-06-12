@@ -50,6 +50,9 @@ $lang['get_monthly_trx']		= 'Get Monthly Transaction';
 $lang['daily_reports']			= 'Daily Reports';
 $lang['monthly_reports']		= 'Monthly Reports';
 $lang['get_daily_trx']			= 'Get Daily Transaction';
+$lang['coupon_report']			= 'Coupon Report';
+$lang['voucher_report']			= 'Voucher Report';
+
 
 
 
@@ -68,6 +71,8 @@ $lang['balance']				= 'Balance';
 $lang['customer_name']			= 'Customer Name';
 $lang['voucher_name']			= 'Voucher Name';
 $lang['voucher_code']			= 'Voucher Code';
+$lang['coupon_name']			= 'Coupon Name';
+$lang['coupon_code']			= 'Coupon Code';
 $lang['qty_own']				= 'Quantity Own';
 $lang['qty_used']				= 'Quantity Used';
 $lang['error_card_empty']		= 'Member Card can not empty';

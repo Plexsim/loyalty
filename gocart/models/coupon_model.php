@@ -300,4 +300,17 @@ class Coupon_model extends CI_Model
 		return $this->db->get('customer_coupon')->row_array();
 	}
 	
+	function coupon_listing($coupon_id, $customer_id)
+	{
+		$this->db->select('*, customers.name as customer_name, coupons.name as coupon_name ');
+		$this->db->join("coupons", "coupons.id=customer_coupon.coupon_id");
+		$this->db->join("customers", "customers.id=customer_coupon.customer_id");
+		if(!empty($customer_id)){
+			$this->db->where('customer_id', $customer_id);
+		}
+		if(!empty($coupon_id)){
+			$this->db->where('coupon_id', $coupon_id);
+		}
+		return $this->db->get('customer_coupon')->result();
+	}
 }	

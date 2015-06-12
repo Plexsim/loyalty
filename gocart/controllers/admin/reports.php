@@ -17,6 +17,7 @@ class Reports extends Admin_Controller {
 		$this->load->model('Credit_model');
 		$this->load->model('Point_model');
 		$this->load->model('Voucher_model');
+		$this->load->model('Coupon_model');
 		$this->load->helper(array('formatting'));
 		
 		$this->lang->load('report');
@@ -57,7 +58,7 @@ class Reports extends Admin_Controller {
 	function voucher_reports()
 	{
 		$data['activemenu'] = $this->activemenu;
-		$data['page_title']	= lang('print_statement');
+		$data['page_title']	= lang('voucher_report');
 		$this->load->helper(array('form', 'date'));
 		$data['voucher_id'] = '';
 		$vouchers = $this->Voucher_model->get_vouchers();
@@ -69,6 +70,23 @@ class Reports extends Admin_Controller {
 		$data['vouchers'] = $voucher_list;
 	
 		$this->view($this->config->item('admin_folder').'/voucher_reports', $data);
+	}
+	
+	function coupon_reports()
+	{
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('coupon_report');
+		$this->load->helper(array('form', 'date'));
+		$data['coupon_id'] = '';
+		$coupons = $this->Coupon_model->get_coupons();
+		$coupon_list[0] = 'Please select a coupon';
+		foreach($coupons as $coupon)
+		{
+			$coupon_list[$coupon->id] = $coupon->name;
+		}
+		$data['coupons'] = $coupon_list;
+	
+		$this->view($this->config->item('admin_folder').'/coupon_reports', $data);
 	}
 	
 	function daily_trx()
@@ -172,6 +190,31 @@ class Reports extends Admin_Controller {
 				
 		$this->load->view($this->config->item('admin_folder').'/reports/voucher_listing', $data);
 	}
+	
+	function coupon_listing()
+	{
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('coupon_report');
+	
+		$coupon_id	= $this->input->post('coupon_id');
+		$member_card	= $this->input->post('customer_card');
+	
+		//$coupon_id	= 1;
+		//$member_card = 3;
+	
+		$customer = $this->Customer_model->get_customer_by_card($member_card);
+		$customer_id = NULL;
+		if(isset($customer) && !empty($customer))
+		{
+			$customer_id = $customer['id'];
+		}
+	
+		$data['customer'] = $customer;
+		$data['coupons'] = $this->Coupon_model->coupon_listing($coupon_id, $customer_id);
+	
+		$this->load->view($this->config->item('admin_folder').'/reports/coupon_listing', $data);
+	}
+	
 	
 	
 	function best_sellers()

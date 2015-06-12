@@ -1,6 +1,6 @@
 <div class="row">
 <div class="col-sm-12">
-		<h3><?php echo lang('voucher_report');?></h3>
+		<h3><?php echo lang('coupon_report');?></h3>
 </div>
 </div>
 <div class="row no-print">
@@ -12,14 +12,14 @@
 			<input class="form-control"  type="text" name="customer_card" id="customer_card" placeholder="<?php echo lang('card');?>"/>			
 			
 			<div class="form-group">
-             	<!--label class="col-sm-2 control-label" for="voucher_name"><?php echo lang('voucher_name');?></label-->
+             	<!--label class="col-sm-2 control-label" for="coupon_name"><?php echo lang('coupon_name');?></label-->
             	<div class="controls">
-					<?php echo '<div class="col-sm-10">'.form_dropdown('voucher_id', $vouchers, set_value('voucher_id',$voucher_id), 'id="voucher_id" class="form-control m-b"').'</div>';; ?>
+					<?php echo '<div class="col-sm-10">'.form_dropdown('coupon_id', $coupons, set_value('coupon_id',$coupon_id), 'id="coupon_id" class="form-control m-b"').'</div>';; ?>
 				</div>
 			 </div>
 			
 					
-			<input class="btn btn-primary" type="button" value="<?php echo lang('get_daily_trx');?>" onclick="get_voucher_listing()"/>
+			<input class="btn btn-primary" type="button" value="<?php echo lang('get_daily_trx');?>" onclick="get_coupon_listing()"/>
 		</form>
 	</div>
 </div>
@@ -28,23 +28,22 @@
 		<div class="col-sm-12">
 			<div class="ibox">
  				<div class="ibox-content">
-	<div class="span12" id="voucher_listing"></div>
+	<div class="span12" id="coupon_listing"></div>
 </div></div></div></div>
 
 
 
 <script type="text/javascript">
 
-function get_voucher_listing()
+function get_coupon_listing()
 {
 	show_animation();
 
 	
-		$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/voucher_listing');?>',{customer_card:$('#customer_card').val(), voucher_id:$('#voucher_id').val()}, function(data){
-			$('#voucher_listing').html(data);
+		$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/coupon_listing');?>',{customer_card:$('#customer_card').val(), coupon_id:$('#coupon_id').val()}, function(data){
+			$('#coupon_listing').html(data);
 			setTimeout('hide_animation()', 500);
 		});	
-
 
 	
 }

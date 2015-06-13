@@ -159,11 +159,12 @@ class Reports extends Admin_Controller {
 			$customer_id = $customer['id'];
 		}
 	
-		$data['customer'] = $customer;
-		$data['credit_balance'] = $this->Credit_model->get_credit_amt($customer_id);
-		$data['point_balance'] = $this->Point_model->get_point_amt($customer_id);
-		$data['credits']		= $this->Credit_model->get_credits_trx($start, $end, $customer_id);
-		
+		if(!is_null($customer_id)):
+			$data['customer'] = $customer;
+			$data['credit_balance'] = $this->Credit_model->get_credit_amt($customer_id);
+			$data['point_balance'] = $this->Point_model->get_point_amt($customer_id);
+			$data['credits']		= $this->Credit_model->get_credits_trx($start, $end, $customer_id);
+		endif;
 		$this->load->view($this->config->item('admin_folder').'/reports/print_statement', $data);
 	}
 	

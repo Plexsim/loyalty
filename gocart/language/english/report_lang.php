@@ -76,6 +76,7 @@ $lang['coupon_code']			= 'Coupon Code';
 $lang['qty_own']				= 'Quantity Own';
 $lang['qty_used']				= 'Quantity Used';
 $lang['error_card_empty']		= 'Member Card can not empty';
+$lang['no_record_found']		= 'No Record Found';
 
 
 

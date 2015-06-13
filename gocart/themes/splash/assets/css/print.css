@@ -13,12 +13,13 @@
 }
 
 @media print {	
-	
+
 	
 	body {
 		font-family: Georgia, serif;
 		background: none;
-		color: black;		
+		color: black;	
+		font-size: 25pt;	
 	}
 	
 	.pages_container{
@@ -34,6 +35,8 @@
     .print-display, .print-display *
     {
         display: block !important;
+        font-size: 25pt;
+       
     }	
     
     .navbar{

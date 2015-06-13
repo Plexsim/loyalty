@@ -1111,6 +1111,7 @@ class Cart extends Front_Controller {
 		$data['seo_title']	= 'Top Up Credit Info';
 		$data['credit_info'] = $this->credit_model->get_credit($credit_id);		
 		$data['admin'] = $this->admin_model->get_admin_by_id($data['credit_info']['staff_id']);
+		$data['company'] = $this->Company_model->get_company_list();
 		
 		$this->view('top_up_credit_info', $data);
 	}
@@ -1313,6 +1314,8 @@ class Cart extends Front_Controller {
 			$data['info'] = $this->point_model->get_point($id);
 		}
 		
+		
+		$data['company'] = $this->Company_model->get_company_list();
 		$data['admin'] = $this->admin_model->get_admin_by_id($data['info']['staff_id']);
 				
 		$this->view('consumption_info', $data);

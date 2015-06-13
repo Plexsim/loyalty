@@ -33,6 +33,8 @@ $lang['catalog']				= 'Catalog';
 $lang['account']				= 'Account';
 $lang['close']					= 'Close';
 $lang['customer_id']			= 'Customer Id';
+$lang['customer_sign']			= 'Customer Sign';
+$lang['staff_sign']				= 'Staff Sign';
 
 
 

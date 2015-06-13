@@ -25,7 +25,17 @@
 								if($coupon->used < $coupon->qty):
 								$count_unused++;
 						?>						
-						<div class="portfolio_item radius8">
+						<div class="portfolio_item radius8">							
+							<div>
+								<label><?php echo lang('you_got_voucher_qty')?>: <?php echo $coupon->qty ?></label>
+							</div>
+							<div>
+								<label><?php echo lang('you_used_voucher_qty')?>: <?php echo $coupon->used ?></label>
+							</div>		
+							<div>
+								<label><?php echo lang('qty_left')?>: <?php echo $coupon->qty - $coupon->used ?></label>
+							</div>	
+											
 							<div class="portfolio_image">
 								<a rel="gallery-1" href="<?php echo base_url($coupon->image)?>"
 									class="swipebox" title="<?php echo $coupon->name?>"><img
@@ -59,6 +69,15 @@
 						  			$count_used++;
 						  ?>
 							<div class="portfolio_item radius8">
+								<div>
+									<label><?php echo lang('you_got_voucher_qty')?>: <?php echo $coupon->qty ?></label>
+								</div>
+								<div>
+									<label><?php echo lang('you_used_voucher_qty')?>: <?php echo $coupon->used ?></label>
+								</div>	
+								<div>
+									<label><?php echo lang('qty_left')?>: <?php echo $coupon->qty - $coupon->used ?></label>
+								</div>		
 								<div class="portfolio_image">
 									<a rel="gallery-1" href="<?php echo base_url($coupon->image)?>"
 										class="swipebox" title="<?php echo $coupon->name?>"><img

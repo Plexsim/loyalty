@@ -7,14 +7,15 @@
 	             <div class="pages_container">
 	             <h2 class="page_title"><?php echo $page_title?></h2>	             	             
 	             
-	             <a href="javascript: void(0)" onclick="javascript: print_receipt();" class="no-print"><?php echo lang('print_receipt')?></a>
-	             <div class="clearfix"></div>
-	            
-	             <div class="print-display" style="text-align:center;">
+	             <a href="javascript: void(0)" class="no-print" onclick="javascript: print_receipt();"><?php echo lang('print_receipt')?></a>
+	             <div class="clearfix print-display space_between"></div>
+	             <div class="print-display" style="text-align:left;">
 	             <h4><?php echo $company[0]['company_name'] ?></h4>
 	            	<h5><?php echo $company[0]['ssm'] ?></h5>
 	            	<h5><?php echo $company[0]['address'] ?></h5>
-	             	<h3 class="print-display"><?php echo lang('receipt')?> </h3>
+	            	<h5>Tel: <?php echo (!empty($company[0]['phone']) && isset($company[0]['phone'])) ? $company[0]['phone'] : '-'?></h5>
+	            	<div class="clearfix print-display space_between"></div>
+	             	<h2 class="print-display"><b><?php echo lang('receipt')?> </b></h2>
 	             </div>
 	             	             	             
             	 <h3 class="no-print"><?php echo lang('topup_credit_info')?> </h3>

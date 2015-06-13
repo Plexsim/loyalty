@@ -199,8 +199,16 @@ li.table_row{width:100%; float:left; clear:both; line-height:30px;padding:0px; l
 .form label.error{padding:0 0 10px 0; width:100%; text-align:left; font-size:14px;}
 .form_input{padding:3%; width:93%; margin:0 0 5px 0;}
 .form_textarea{padding:3%; width:93%; height:50px; margin:0 0 5px 0;}
-.form_submit{ width:100%;padding:4% 0 4% 0; margin:0; font-weight:normal;text-align:center;
+.form_submit{ width:100%;padding:4% 0 4% 0; margin-bottom:5px; font-weight:normal;text-align:center;
 cursor:pointer; font-size:20px; border-left: none;border-right: none;border-top: none; cursor:pointer;
+}
+
+@media (max-width: 480px) {
+
+	.form_submit{ width:100%;padding:4% 0 4% 0; margin-top: 5px; margin-bottom:5px; font-weight:normal;text-align:center; height: 55px;
+		cursor:pointer; font-size:20px; border-left: none;border-right: none;border-top: none; cursor:pointer;
+	}
+
 }
 
 ul.social{ list-style:none; padding:0px; margin:0px 0 15px 0; width:100%;}
@@ -375,6 +383,21 @@ img{width:100%;height:auto;}
    padding: 10px; 
 }
 
+
+/* For smartphones */
+@media (max-width: 480px) {
+	.member_card_label h2{
+		position: absolute; 
+	    top: 180px; 
+	    right: 0; 
+	    width: 100%;
+	}
+	
+}
+
+
+
+
 #trx_record{
 	font-size:20px;	
 }
@@ -502,5 +525,9 @@ div.loading {
     top: 50%;
     width: 100px;
     z-index: 2;
+}
+
+.space_between{	
+	height: 50px;
 }
 

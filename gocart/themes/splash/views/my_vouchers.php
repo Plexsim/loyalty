@@ -27,6 +27,15 @@
 				?>
 				
 				<div class="portfolio_item radius8">
+					<div>
+						<label><?php echo lang('you_got_voucher_qty')?>: <?php echo $voucher->qty ?></label>
+					</div>
+					<div>
+						<label><?php echo lang('you_used_voucher_qty')?>: <?php echo $voucher->used ?></label>
+					</div>	
+					<div>
+						<label><?php echo lang('qty_left')?>: <?php echo $voucher->qty - $voucher->used ?></label>
+					</div>				
 					<div class="portfolio_image">
 						<a rel="gallery-1" href="<?php echo base_url($voucher->image)?>"
 							class="swipebox" title="<?php echo $voucher->name?>"><img
@@ -62,6 +71,15 @@
 				?>
 				
 				<div class="portfolio_item radius8">
+					<div>
+						<label><?php echo lang('you_got_voucher_qty')?>: <?php echo $voucher->qty ?></label>
+					</div>
+					<div>
+						<label><?php echo lang('you_used_voucher_qty')?>: <?php echo $voucher->used ?></label>
+					</div>	
+					<div>
+						<label><?php echo lang('qty_left')?>: <?php echo $voucher->qty - $voucher->used ?></label>
+					</div>		
 					<div class="portfolio_image">
 						<a rel="gallery-1" href="<?php echo base_url($voucher->image)?>"
 							class="swipebox" title="<?php echo $voucher->name?>"><img

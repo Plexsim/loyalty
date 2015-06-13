@@ -76,6 +76,9 @@
 								<input type="submit" value="<?php echo lang('submit');?>" name="submit" class="form_submit radius4 red red_borderbottom"/>
 							</div>
 					</div>
+					
+					<div style="height:50px;"></div>
+					
 	         	</div>
 	         	</form>
 	    </div>

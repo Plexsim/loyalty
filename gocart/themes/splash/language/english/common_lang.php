@@ -305,6 +305,12 @@ $lang['process_voucher_info']				= 'Process Voucher Info';
 $lang['qty_own']							= 'Your own coupon quantity';
 $lang['used_own']							= 'Your own coupon used quantity';
 $lang['coupon_name']						= 'Coupon Name';
+$lang['you_got_voucher_qty']				= 'Qty you have for this voucher';
+$lang['you_got_coupon_qty']					= 'Qty you have for this coupon';
+$lang['qty_left']							= 'Qty left';
+
+$lang['you_used_voucher_qty']				= 'Qty you have used for this voucher';
+$lang['you_used_coupon_qty']				= 'Qty you have used for this coupon';
 
 
 

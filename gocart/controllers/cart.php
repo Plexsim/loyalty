@@ -1350,7 +1350,8 @@ class Cart extends Front_Controller {
 		$data['seo_title']	= 'My Vouchers';
 		
 		$data['customer_id'] = $this->customer['id'];
-		$data['vouchers'] = $this->Voucher_model->my_voucher($this->customer['id']);	
+		$data['vouchers'] = $this->Voucher_model->my_voucher($this->customer['id']);
+		//$data['voucher_details'] = $this->Voucher_model->voucher_listing(NULL, $this->customer['id']);	
 		//$data['vouchers'] = $this->Voucher_model->my_voucher(3);
 		
 		$this->view('my_vouchers', $data);

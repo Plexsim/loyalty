@@ -65,7 +65,7 @@ opacity: 0.8;}
 
 .toogle_wrap{border:1px #ececec solid;}
 .trigger, .trigger_point,.trigger_company{background:url(../img/toggle.png) no-repeat right;background-position:100% -22px;height:30px;}
-.go_next_page{background:url(../img/toggle.png) no-repeat right;background-position:100% -22px;height:25px;color: #000; margin: -5px 0 -5px 0; font-size: large}
+.go_next_page{background:url(../img/toggle.png) no-repeat right;background-position:100% -22px;height:25px;color: #000; margin: -5px 0 -5px 0; font-size: small}
 .active {background-position:100% 0px; }
 .trigger a, .trigger_point a,.trigger_company a{color: #636363;}
 .trigger a:hover, .trigger a:hover:focus, .trigger_point a:hover, .trigger_point a:hover:focus, .trigger_company a:hover, .trigger_company a:hover:focus{color:#e0535f;}

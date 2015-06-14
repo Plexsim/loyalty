@@ -9,6 +9,9 @@ Class Point_model extends CI_Model
 	
 	function get_points($search=false, $sort_by='', $sort_order='DESC', $limit=0, $offset=0)
 	{
+		$this->db->select('point.*, customers.id as customer_id, customers.name as customer_name, customers.card as customer_card ');
+		$this->db->join('customers', 'customers.id = point.customer_id');
+		
 		if ($search)
 		{
 			
@@ -28,6 +31,18 @@ Class Point_model extends CI_Model
 				//increase by 1 day to make this include the final day
 				//I tried <= but it did not function. Any ideas why?
 				$this->db->where('customer_id',$search->customer_id);
+			}
+			if(!empty($search->customer_card))
+			{
+				//increase by 1 day to make this include the final day
+				//I tried <= but it did not function. Any ideas why?
+				$this->db->where('customers.card',$search->customer_card);
+			}
+			if(!empty($search->customer_name))
+			{
+				//increase by 1 day to make this include the final day
+				//I tried <= but it did not function. Any ideas why?
+				$this->db->where('customers.name',$search->customer_name);
 			}
 			
 			
@@ -104,7 +119,7 @@ Class Point_model extends CI_Model
 
 	function get_point($id)
 	{
-		$this->db->select('point.*, customers.id as customer_id, customers.name as customer_name ');
+		$this->db->select('point.*, customers.id as customer_id, customers.name as customer_name, customers.card as customer_card ');
 		$this->db->join('customers', 'customers.id = point.customer_id');
 		$res = $this->db->where('point.id', $id)->get('point');
 		return $res->row_array();

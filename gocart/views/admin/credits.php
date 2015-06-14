@@ -87,7 +87,9 @@ if ($term):?>
     <thead>
 		<tr>
 			<th><?php echo sort_url('created', 'created', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
-			<th><?php echo sort_url('customer_id', 'customer_id', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<!--th><?php echo sort_url('customer_id', 'customer_id', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th-->
+			<th><?php echo sort_url('customer_card', 'customer_card', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<th><?php echo sort_url('customer_name', 'customer_name', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
 			<!--th><?php echo sort_url('card', 'card', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th-->
 			<th><?php echo sort_url('in', 'in', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
 			<th><?php echo sort_url('out','out', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>			
@@ -105,8 +107,9 @@ if ($term):?>
     	endif;
     ?>
 	<tr onclick="document.location = '<?php echo $info_url?>';">
-		<td style="white-space:nowrap"><?php echo date('d/m/y h:i a', strtotime($credit->created)); ?></td>
-		<td style="white-space:nowrap"><?php echo $credit->customer_id ?></td>
+		<td style="white-space:nowrap"><?php echo date('d-m-y h:i a', strtotime($credit->created)); ?></td>
+		<td style="white-space:nowrap"><?php echo $credit->customer_card ?></td>
+		<td style="white-space:nowrap"><?php echo $credit->customer_name ?></td>
 		<!--td style="white-space:nowrap"><?php echo $credit->card ?></td-->
 		<td style="white-space:nowrap"><?php echo $credit->in ?></td>
 		<td style="white-space:nowrap"><?php echo $credit->out ?></td>						

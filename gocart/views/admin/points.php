@@ -86,7 +86,9 @@ if ($term):?>
 		<tr>
 			<!--th><input type="checkbox" id="gc_check_all" /> <button type="submit" class="btn btn-small btn-danger"><i class="fa fa-trash icon-white"></i></button></th-->
 			<th><?php echo sort_url('created', 'created', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
-			<th><?php echo sort_url('customer_id', 'customer_id', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<!--th><?php echo sort_url('customer_id', 'customer_id', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th-->
+			<th><?php echo sort_url('customer_card', 'customer_card', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<th><?php echo sort_url('customer_name', 'customer_name', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
 			<!--th><?php echo sort_url('card', 'card', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th-->
 			<th><?php echo sort_url('point', 'point', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
 			<th><?php echo sort_url('depoint','depoint', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
@@ -109,8 +111,10 @@ if ($term):?>
     ?>
 	<tr onclick="document.location = '<?php echo $info_url?>';">
 		<!--td><input name="point[]" type="checkbox" value="<?php echo $point->id; ?>" class="gc_check"/></td-->
-		<td style="white-space:nowrap"><?php echo date('d/m/y h:i a', strtotime($point->created)); ?></td>
-		<td style="white-space:nowrap"><?php echo $point->customer_id ?></td>
+		<td style="white-space:nowrap"><?php echo date('d-m-y h:i a', strtotime($point->created)); ?></td>
+		<td style="white-space:nowrap"><?php echo $point->customer_card ?></td>
+		<td style="white-space:nowrap"><?php echo $point->customer_name ?></td>
+		<!--td style="white-space:nowrap"><?php echo $point->customer_id ?></td-->
 		<!--td style="white-space:nowrap"><?php echo $point->card ?></td-->
 		<td style="white-space:nowrap"><?php echo $point->point ?></td>
 		<td style="white-space:nowrap"><?php echo $point->depoint ?></td>		

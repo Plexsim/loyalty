@@ -40,6 +40,9 @@ $lang['home']						= 'Home';
 $lang['products']					= 'Products';
 $lang['print_statement']			= 'Print Statement';
 $lang['branch']						= 'Branch';
+$lang['customer_card']				= 'Member Card No';
+$lang['customer_name']				= 'Customer Name';
+
 
 
 

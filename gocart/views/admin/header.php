@@ -53,7 +53,7 @@
                     </div>
                 </li>
                 <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'dashboard') ? 'class="active"' : ''; ?>>
-                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label"><?php echo lang('common_home');?></span> <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label"><?php echo lang('common_home');?></span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li ><a href="<?php echo $admin_url?>">Overwiew</a></li>                        
                     </ul>
@@ -73,7 +73,7 @@
                 </li>
                 <?php endif;?>
                 <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'credit') ? 'class="active"' : ''; ?>>
-                    <a href="index.html"><i class="fa fa-copyright"></i> <span class="nav-label"><?php echo lang('common_credits');?></span> <span class="fa arrow"></span></a>
+                    <a href="#l"><i class="fa fa-copyright"></i> <span class="nav-label"><?php echo lang('common_credits');?></span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo $admin_url?>credit"><i class="fa fa-list-ol"></i> <span class="nav-label"><?php echo lang('common_credits') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
                         <li><a href="<?php echo $admin_url?>credit/topup_credit_form"><i class="fa fa-plus-square-o"></i> <span class="nav-label"><?php echo lang('common_topup_credit') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
@@ -92,7 +92,7 @@
                 <?php endif;?>
                 
                 <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'vouchers') ? 'class="active"' : ''; ?>>
-                    <a href="index.html"><i class="fa fa-vimeo-square"></i> <span class="nav-label"><?php echo lang('common_vouchers');?></span> <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-vimeo-square"></i> <span class="nav-label"><?php echo lang('common_vouchers');?></span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo $admin_url;?>vouchers"><i class="fa fa-list-ol"></i> <span class="nav-label"><?php echo lang('common_vouchers') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
                         <li><a href="<?php echo $admin_url;?>vouchers/form"><i class="fa fa-plus-square-o"></i> <span class="nav-label"><?php echo lang('common_voucher_form') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
@@ -101,7 +101,7 @@
                 </li>
                 
                 <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'coupons') ? 'class="active"' : ''; ?>>
-                    <a href="index.html"><i class="fa fa-paperclip"></i> <span class="nav-label"><?php echo lang('common_coupons');?></span> <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-paperclip"></i> <span class="nav-label"><?php echo lang('common_coupons');?></span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?php echo $admin_url;?>coupons"><i class="fa fa-list-ol"></i> <span class="nav-label"><?php echo lang('common_coupons') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
                         <li><a href="<?php echo $admin_url;?>coupons/form"><i class="fa fa-plus-square-o"></i> <span class="nav-label"><?php echo lang('common_coupon_form') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                        

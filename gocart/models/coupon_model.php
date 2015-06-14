@@ -104,8 +104,22 @@ class Coupon_model extends CI_Model
 	}
 	
 	// get coupons list, sorted by start_date (default), end_date
-	function get_coupons($sort=NULL) 
+	function get_coupons($sort=NULL, $current_admin=NULL, $is_form=FALSE) 
 	{
+		if($is_form){
+			$this->db->where('coupons.active', 1);
+		}
+				
+		$this->db->select(" branch.name as branch_name ,coupons.* ");
+		$this->db->join("admin", "staff_id=admin.id");
+		$this->db->join("branch", "coupons.branch_id=branch.id");
+		// for merchant || branch can view only own data
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+			$this->db->where('coupons.branch_id', $current_admin['branch']);
+		endif;
+		endif;
+		
 		if($sort=='end_date')
 		{
 			$this->db->order_by('end_date');
@@ -300,7 +314,7 @@ class Coupon_model extends CI_Model
 		return $this->db->get('customer_coupon')->row_array();
 	}
 	
-	function coupon_listing($coupon_id, $customer_id)
+	function coupon_listing($coupon_id, $customer_id, $current_admin = false)
 	{
 		$this->db->select('*, customers.name as customer_name, coupons.name as coupon_name ');
 		$this->db->join("coupons", "coupons.id=customer_coupon.coupon_id");
@@ -311,6 +325,13 @@ class Coupon_model extends CI_Model
 		if(!empty($coupon_id)){
 			$this->db->where('coupon_id', $coupon_id);
 		}
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('coupons.branch_id', $current_admin['branch']);
+			endif;
+		endif;
+		
 		return $this->db->get('customer_coupon')->result();
 	}
 }	

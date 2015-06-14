@@ -21,6 +21,7 @@ function areyousure()
 			<th><?php echo lang('email');?></th>
 			<th><?php echo lang('username');?></th>
 			<th><?php echo lang('access');?></th>
+			<th><?php echo lang('branch');?></th>
 			<th></th>
 		</tr>
 	</thead>
@@ -32,6 +33,7 @@ function areyousure()
 			<td><a href="mailto:<?php echo $admin->email;?>"><?php echo $admin->email; ?></a></td>
 			<td><?php echo $admin->username; ?></td>
 			<td><?php echo $admin->access; ?></td>
+			<th><?php echo (!empty($admin->branch_name) && isset($admin->branch_name)) ? $admin->branch_name : lang('no_branch') ; ?></th>
 			<td>
 				<div class="btn-group" style="float:right;">
 					<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/admin/form/'.$admin->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>	

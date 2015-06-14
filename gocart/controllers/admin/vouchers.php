@@ -3,23 +3,28 @@
 class Vouchers extends Admin_Controller {	
 	
 	var $voucher_id;
+	var $current_admin	= false;
 	
 	function __construct()
 	{		
 		parent::__construct();
         
-		$this->auth->check_access('Admin', true);
+		//$this->auth->check_access('Admin', true);
 		$this->load->model('Voucher_model');
 		$this->load->model('Product_model');
 		$this->load->model('Customer_model');
+		$this->load->model('Branch_model');		
 		
 		$this->lang->load('voucher');
+		$this->current_admin	= $this->session->userdata('admin');
 	}
 	
 	function index()
 	{
 		$data['page_title']	= lang('vouchers');
-		$data['vouchers']	= $this->Voucher_model->get_vouchers();
+		//filter access and branch out automatically
+		$data['vouchers']	= $this->Voucher_model->get_vouchers(NULL, $this->current_admin);		
+		//$data['vouchers']	= $this->Voucher_model->get_vouchers();
 		
 		$this->view($this->config->item('admin_folder').'/vouchers', $data);
 	}
@@ -181,8 +186,13 @@ class Vouchers extends Admin_Controller {
 		$this->load->library('upload', $config);
 		$this->load->library('form_validation');
 		
-	
-		
+		$branches = $this->Branch_model->get_branch_list($this->current_admin, TRUE);
+		$branch_list = array();		
+		foreach($branches as $branch)
+		{
+			$branch_list[$branch['id']] = $branch['name'];
+		}
+		$data['branches'] = $branch_list;		
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
@@ -206,6 +216,7 @@ class Vouchers extends Admin_Controller {
 		$data['credit_consume']			= '';
 		$data['image']					= '';
 		$data['desc']					= '';
+		$data['branch_id']  			= '';
 		
 		$added = array();
 		
@@ -240,11 +251,18 @@ class Vouchers extends Admin_Controller {
 			$data['credit_consume']			= $voucher->credit_consume;			
 			$data['image']					= $voucher->image;
 			$data['desc']					= $voucher->desc;
+			$data['branch_id']				= $voucher->branch_id;
 			
 			$added = $this->Voucher_model->get_product_ids($id);
 		}
 		
-		$this->form_validation->set_rules('code', 'lang:code', 'trim|required|callback_check_code');
+		//Checking for super admin
+		if($this->current_admin['branch'] == 0):
+			$this->form_validation->set_rules('branch_id', 'lang:branch', 'trim|required');
+		endif;		
+		
+		$this->form_validation->set_rules('code', 'lang:code', 'trim|required|callback_check_code');	
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required');
 		$this->form_validation->set_rules('max_uses', 'lang:max_uses', 'trim|numeric');
 		$this->form_validation->set_rules('max_product_instances', 'lang:limit_per_order', 'trim|numeric');
 		$this->form_validation->set_rules('whole_order_voucher', 'lang:whole_order_discount');
@@ -319,6 +337,15 @@ class Vouchers extends Admin_Controller {
 			$save['point_consume']			= $this->input->post('point_consume');
 			$save['credit_consume']			= $this->input->post('credit_consume');
 			$save['desc']					= $this->input->post('desc');
+			$save['staff_id']				= $this->current_admin['id'];
+			$save['created_date']			= date('Y-m-d H:i:s');
+						
+			//Checking for super admin
+			if($this->current_admin['branch'] == 0):
+				$save['branch_id']					= $this->input->post('branch_id');
+			else:
+				$save['branch_id']					= $this->current_admin['branch'];
+			endif;			
 			
 
 			if($save['start_date']=='')
@@ -498,7 +525,8 @@ class Vouchers extends Admin_Controller {
 		$data['voucher_id']				= '';
 		$data['card']					= '';	
 
-		$vouchers = $this->Voucher_model->get_vouchers();		 
+		
+		$vouchers	= $this->Voucher_model->get_vouchers(NULL, $this->current_admin, TRUE);
 		foreach($vouchers as $voucher)
 		{
 			$voucher_list[$voucher->id] = $voucher->name;
@@ -567,6 +595,7 @@ class Vouchers extends Admin_Controller {
 				$log['customer_id'] = $save['customer_id'];
 				$log['used'] = $used;
 				$log['trx_date'] = date('Y-m-d H:i:s');
+				$log['staff_id'] = $this->current_admin['id'];
 					
 				$this->Voucher_model->add_customer_voucher_log($log);
 

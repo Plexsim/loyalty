@@ -134,7 +134,7 @@ Class Credit_model extends CI_Model
 		return $id;
 	}
 	
-	function get_add_credits_trx($start, $end)
+	function get_add_credits_trx($start, $end, $current_admin = false)
 	{
 		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
 		$this->db->join('admin', 'admin.id = credit.staff_id');
@@ -151,6 +151,12 @@ Class Credit_model extends CI_Model
 		}
 		
 		$this->db->where('in > 0');
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('credit.branch_id', $current_admin['branch']);
+			endif;
+		endif;
 	
 		// just fetch a list of order id's
 		$credits	= $this->db->get('credit')->result();
@@ -158,7 +164,7 @@ Class Credit_model extends CI_Model
 		return $credits;
 	}
 	
-	function get_minus_credits_trx($start, $end)
+	function get_minus_credits_trx($start, $end, $current_admin = false)
 	{
 		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
 		$this->db->join('admin', 'admin.id = credit.staff_id');
@@ -175,6 +181,12 @@ Class Credit_model extends CI_Model
 		}
 	
 		$this->db->where('out > 0');
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('credit.branch_id', $current_admin['branch']);
+			endif;
+		endif;
 	
 		// just fetch a list of order id's
 		$credits	= $this->db->get('credit')->result();
@@ -182,7 +194,7 @@ Class Credit_model extends CI_Model
 		return $credits;
 	}
 	
-	function get_add_credits_trx_monthly($year, $month, $customer_id)
+	function get_add_credits_trx_monthly($year, $month, $customer_id, $current_admin = false)
 	{
 		
 		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
@@ -205,6 +217,12 @@ Class Credit_model extends CI_Model
 		}
 		
 		$this->db->where('in > 0');
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('credit.branch_id', $current_admin['branch']);
+			endif;
+		endif;
 	
 		// just fetch a list of order id's
 		$credits	= $this->db->get('credit')->result();
@@ -213,7 +231,7 @@ Class Credit_model extends CI_Model
 		return $credits;
 	}
 	
-	function get_minus_credits_trx_monthly($year, $month, $customer_id)
+	function get_minus_credits_trx_monthly($year, $month, $customer_id, $current_admin = false)
 	{
 		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
 		$this->db->join('admin', 'admin.id = credit.staff_id');
@@ -235,6 +253,12 @@ Class Credit_model extends CI_Model
 		}
 	
 		$this->db->where('out > 0');
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('credit.branch_id', $current_admin['branch']);
+			endif;
+		endif;
 	
 		// just fetch a list of order id's
 		$credits	= $this->db->get('credit')->result();

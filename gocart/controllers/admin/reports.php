@@ -5,6 +5,7 @@ class Reports extends Admin_Controller {
 	//this is used when editing or adding a customer
 	var $customer_id	= false;	
 	protected $activemenu 	= 'reports';
+	var $current_admin	= false;
 
 	function __construct()
 	{		
@@ -21,6 +22,7 @@ class Reports extends Admin_Controller {
 		$this->load->helper(array('formatting'));
 		
 		$this->lang->load('report');
+		$this->current_admin	= $this->session->userdata('admin');
 	}
 	
 	function index()
@@ -96,10 +98,10 @@ class Reports extends Admin_Controller {
 		$this->load->helper('date');
 		$start	= $this->input->post('start');
 		$end	= $this->input->post('end');
-		$data['credits_in']		= $this->Credit_model->get_add_credits_trx($start, $end);
-		$data['credits_out']	= $this->Credit_model->get_minus_credits_trx($start, $end);
-		$data['points_in']		= $this->Point_model->get_add_points_trx($start, $end);
-		$data['points_out']	= $this->Point_model->get_minus_points_trx($start, $end);
+		$data['credits_in']		= $this->Credit_model->get_add_credits_trx($start, $end, $this->current_admin);
+		$data['credits_out']	= $this->Credit_model->get_minus_credits_trx($start, $end, $this->current_admin);
+		$data['points_in']		= $this->Point_model->get_add_points_trx($start, $end, $this->current_admin);
+		$data['points_out']	= $this->Point_model->get_minus_points_trx($start, $end, $this->current_admin);
 						
 		$this->load->view($this->config->item('admin_folder').'/reports/daily_transaction', $data);
 	}
@@ -128,10 +130,10 @@ class Reports extends Admin_Controller {
 			$customer_id = $customer['id'];
 		}		
 		
-		$data['credits_in']		= $this->Credit_model->get_add_credits_trx_monthly($year, $month, $customer_id);					
-		$data['credits_out']	= $this->Credit_model->get_minus_credits_trx_monthly($year, $month, $customer_id);
-		$data['points_in']		= $this->Point_model->get_add_points_trx_monthly($year, $month, $customer_id);
-		$data['points_out']		= $this->Point_model->get_minus_points_trx_monthly($year, $month, $customer_id);
+		$data['credits_in']		= $this->Credit_model->get_add_credits_trx_monthly($year, $month, $customer_id, $this->current_admin);					
+		$data['credits_out']	= $this->Credit_model->get_minus_credits_trx_monthly($year, $month, $customer_id, $this->current_admin);
+		$data['points_in']		= $this->Point_model->get_add_points_trx_monthly($year, $month, $customer_id, $this->current_admin);
+		$data['points_out']		= $this->Point_model->get_minus_points_trx_monthly($year, $month, $customer_id, $this->current_admin);
 	
 		$this->load->view($this->config->item('admin_folder').'/reports/monthly_transaction', $data);
 	}
@@ -187,7 +189,7 @@ class Reports extends Admin_Controller {
 		}
 
 		$data['customer'] = $customer;
-		$data['vouchers'] = $this->Voucher_model->voucher_listing($voucher_id, $customer_id);
+		$data['vouchers'] = $this->Voucher_model->voucher_listing($voucher_id, $customer_id, $this->current_admin);
 				
 		$this->load->view($this->config->item('admin_folder').'/reports/voucher_listing', $data);
 	}
@@ -211,7 +213,7 @@ class Reports extends Admin_Controller {
 		}
 	
 		$data['customer'] = $customer;
-		$data['coupons'] = $this->Coupon_model->coupon_listing($coupon_id, $customer_id);
+		$data['coupons'] = $this->Coupon_model->coupon_listing($coupon_id, $customer_id, $this->current_admin);
 	
 		$this->load->view($this->config->item('admin_folder').'/reports/coupon_listing', $data);
 	}

@@ -28,6 +28,8 @@ $lang['out']						= 'Out';
 $lang['point']						= 'Point';
 $lang['depoint']					= 'Depoint';
 $lang['home']						= 'Home';
+$lang['branch']					= 'Branch';
+
 
 $lang['customer_cost']				= 'Customer Cost';
 $lang['customer_topup_value']		= 'Customer Topup Value';

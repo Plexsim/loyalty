@@ -5,9 +5,12 @@ function areyousure()
 }
 </script>
 <div style="text-align:right;">
-	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/export_xml');?>"><i class="fa fa-download"></i> <?php echo lang('xml_download');?></a>
-	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/get_subscriber_list');?>"><i class="fa fa-download"></i> <?php echo lang('subscriber_download');?></a>
+	<?php if($this->auth->check_access('Admin')) : ?>
+		<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/export_xml');?>"><i class="fa fa-download"></i> <?php echo lang('xml_download');?></a>
+		<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/get_subscriber_list');?>"><i class="fa fa-download"></i> <?php echo lang('subscriber_download');?></a>
+	<?php endif; ?>
 	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/form'); ?>"><i class="fa fa-plus-circle"></i> <?php echo lang('add_new_customer');?></a>
+	
 </div>
 
     <div class="row">

@@ -104,9 +104,22 @@ class Voucher_model extends CI_Model
 	}
 	
 	// get vouchers list, sorted by start_date (default), end_date
-	function get_vouchers($sort=NULL) 
+	function get_vouchers($sort=NULL, $current_admin=NULL, $is_form = false) 
 	{
-		$this->db->where('active', 1);
+		if($is_form){
+			$this->db->where('vouchers.active', 1);		
+		}
+		
+		$this->db->select(" branch.name as branch_name ,vouchers.* ");
+		$this->db->join("admin", "staff_id=admin.id");
+		$this->db->join("branch", "vouchers.branch_id=branch.id");
+		// for merchant || branch can view only own data
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):				
+				$this->db->where('vouchers.branch_id', $current_admin['branch']);
+			endif;
+		endif;
+		
 		if($sort=='end_date')
 		{
 			$this->db->order_by('end_date');
@@ -303,7 +316,7 @@ class Voucher_model extends CI_Model
 		return $this->db->get('customer_voucher')->row_array();
 	}
 	
-	function voucher_listing($voucher_id, $customer_id)
+	function voucher_listing($voucher_id, $customer_id, $current_admin = false)
 	{
 		$this->db->select('*, customers.name as customer_name, vouchers.name as voucher_name ');
 		$this->db->join("vouchers", "vouchers.id=customer_voucher.voucher_id");
@@ -314,6 +327,13 @@ class Voucher_model extends CI_Model
 		if(!empty($voucher_id)){
 			$this->db->where('voucher_id', $voucher_id);
 		}
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):				
+				$this->db->where('vouchers.branch_id', $current_admin['branch']);
+			endif;
+		endif;
+		
 		return $this->db->get('customer_voucher')->result();
 	}
 	

@@ -5,16 +5,19 @@ class Credit extends Admin_Controller {
 	protected $activemenu 	= 'credit';
 	var $current_admin	= false;
 	
+	
 	function __construct()
 	{		
 		parent::__construct();		
 		
-		$this->load->model(array('Credit_model', 'Search_model', 'Point_model', 'Voucher_model'));
+		$this->load->model(array('Credit_model', 'Search_model', 'Point_model', 'Voucher_model', 'Branch_model'));
 		//$this->load->model('location_model');
 		$this->load->helper(array('formatting'));
 		$this->lang->load('credit');
 		
 		$this->current_admin	= $this->session->userdata('admin');
+		
+		//var_dump($this->current_admin);
 	}
 	
 	/*---------------------------------------------------------------------------------------------------------
@@ -139,8 +142,7 @@ class Credit extends Admin_Controller {
 			$term	= json_decode($term);
 		} 
  		
-		
-		
+				
  		$data['term']	= $term;
  		$data['credits']	= $this->Credit_model->get_credits($term, $sort_by, $sort_order, $rows, $page);
 		$data['total']	= $this->Credit_model->get_credits_count($term);
@@ -250,6 +252,7 @@ class Credit extends Admin_Controller {
     	$data['out']				= '';   
     	$data['remark']				= '';    	
     	$data['active']				= false;
+    	$data['branch_id']			= false;
     	
     	$customer = '';
     	if ($id)
@@ -272,9 +275,23 @@ class Credit extends Admin_Controller {
     		$data['phone']				= $customer->phone;
     		$data['company']			= $customer->company;
     		$data['active']				= $customer->active;
-    		$data['email_subscribe']	= $customer->email_subscribe;
+    		$data['email_subscribe']	= $customer->email_subscribe;    		
     			
     	}
+    	
+    	$branches = $this->Branch_model->get_branch_list($this->current_admin, TRUE);
+    	$branch_list = array();
+    	foreach($branches as $branch)
+    	{
+    		$branch_list[$branch['id']] = $branch['name'];
+    	}
+    	$data['branches'] = $branch_list;
+    	
+    	
+    	//Checking for super admin
+    	if($this->current_admin['branch'] == 0):
+    		$this->form_validation->set_rules('branch_id', 'lang:branch', 'trim|required');
+    	endif;
     	
     	$this->form_validation->set_rules('card', 'lang:card', 'trim|required|max_length[255]|callback_check_card');
     	$this->form_validation->set_rules('topup_date', 'lang:topup_date', 'trim|required');
@@ -299,6 +316,13 @@ class Credit extends Admin_Controller {
     		$save['remark']				= $this->input->post('remark');
     		$save['created']			= format_ymd_malaysia($this->input->post('topup_date'));
     		$save['staff_id']			= $this->current_admin['id'];
+    		
+    		//Checking for super admin
+    		if($this->current_admin['branch'] == 0):
+    			$save['branch_id']					= $this->input->post('branch_id');
+    		else:
+    			$save['branch_id']					= $this->current_admin['branch'];
+    		endif;
     		
     		//$save['status']				= 1;
     		//$save['active']				= $this->input->post('active');
@@ -404,6 +428,9 @@ class Credit extends Admin_Controller {
     		$payment				= $this->input->post('payment');
     		$last_id = '';
     		
+    		//get voucher details for retrieve branch from:
+    		$voucher_row = $this->Voucher_model->get_voucher($voucher_id);
+    		
     		if($payment == 'Credit')
     		{    			    			
     			$save['id']					= $id;
@@ -413,6 +440,7 @@ class Credit extends Admin_Controller {
     			$save['created']			= format_ymd_malaysia($this->input->post('consume_date'));
     			$save['staff_id']			= $this->current_admin['id'];
     			$save['voucher_id']			= $voucher_id;
+    			$save['branch_id']			= $voucher_row->branch_id;
     			//$save['branch'] = $staff_branch;    			
     			$last_id = $this->Credit_model->save_credit($save);
     			
@@ -422,6 +450,7 @@ class Credit extends Admin_Controller {
     			$point_in['point'] 	= $consume_amount;
     			$point_in['created'] = format_ymd_malaysia($this->input->post('consume_date'));
     			$point_in['staff_id'] = $this->current_admin['id'];
+    			$point_in['branch_id'] = $voucher_row->branch_id;
     			//$point_in['branch'] = $staff_branch;
     			$point_in['voucher_id'] = $voucher_id;
     			//$point_in['status'] = 1; //enable
@@ -436,6 +465,7 @@ class Credit extends Admin_Controller {
     			$save['depoint'] 	= $consume_amount;
     			$save['created'] = format_ymd_malaysia($this->input->post('consume_date'));
     			$save['staff_id'] = $this->current_admin['id'];
+    			$point_in['branch_id'] = $voucher_row->branch_id;
     			//$save['branch'] = $staff_branch;
     			//$save['status'] = 1; //enable
     			$save['remark'] =  $remark;

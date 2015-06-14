@@ -3,22 +3,26 @@
 class Coupons extends Admin_Controller {	
 	
 	var $coupon_id;
+	var $current_admin	= false;
 	
 	function __construct()
 	{		
 		parent::__construct();
         
-		$this->auth->check_access('Admin', true);
+		//$this->auth->check_access('Admin', true);
 		$this->load->model('Coupon_model');
 		$this->load->model('Product_model');
 		$this->load->model('Customer_model');
+		$this->load->model('Branch_model');
 		$this->lang->load('coupon');
+		
+		$this->current_admin	= $this->session->userdata('admin');
 	}
 	
 	function index()
 	{
 		$data['page_title']	= lang('coupons');
-		$data['coupons']	= $this->Coupon_model->get_coupons();
+		$data['coupons']	= $this->Coupon_model->get_coupons(NULL, $this->current_admin);
 		
 		$this->view($this->config->item('admin_folder').'/coupons', $data);
 	}
@@ -65,6 +69,14 @@ class Coupons extends Admin_Controller {
 		
 		$this->load->library('form_validation');
 		
+		$branches = $this->Branch_model->get_branch_list($this->current_admin, TRUE);
+		$branch_list = array();
+		foreach($branches as $branch)
+		{
+			$branch_list[$branch['id']] = $branch['name'];
+		}
+		$data['branches'] = $branch_list;
+		
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
@@ -87,6 +99,7 @@ class Coupons extends Admin_Controller {
 		$data['point_consume']			= '';
 		$data['image']					= '';
 		$data['desc']					= '';
+		$data['branch_id']				= '';
 		
 		$added = array();
 		
@@ -119,11 +132,18 @@ class Coupons extends Admin_Controller {
 			$data['point_consume']			= $coupon->point_consume;
 			$data['image']					= $coupon->image;
 			$data['desc']					= $coupon->desc;
+			$data['branch_id']				= $coupon->branch_id;
 			
 			$added = $this->Coupon_model->get_product_ids($id);
 		}
 		
+		//Checking for super admin
+		if($this->current_admin['branch'] == 0):
+			$this->form_validation->set_rules('branch_id', 'lang:branch', 'trim|required');
+		endif;
+		
 		$this->form_validation->set_rules('code', 'lang:code', 'trim|required|callback_check_code');
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required');
 		$this->form_validation->set_rules('max_uses', 'lang:max_uses', 'trim|numeric');
 		$this->form_validation->set_rules('max_product_instances', 'lang:limit_per_order', 'trim|numeric');
 		$this->form_validation->set_rules('whole_order_coupon', 'lang:whole_order_discount');
@@ -198,6 +218,15 @@ class Coupons extends Admin_Controller {
 			$save['reduction_amount']		= $this->input->post('reduction_amount');
 			$save['point_consume']			= $this->input->post('point_consume');
 			$save['desc']					= $this->input->post('desc');
+			$save['staff_id']				= $this->current_admin['id'];
+			$save['created_date']			= date('Y-m-d H:i:s');
+						
+			//Checking for super admin
+			if($this->current_admin['branch'] == 0):
+				$save['branch_id']					= $this->input->post('branch_id');
+			else:
+				$save['branch_id']					= $this->current_admin['branch'];
+			endif;
 
 			if($save['start_date']=='')
 			{
@@ -375,7 +404,7 @@ class Coupons extends Admin_Controller {
 		$data['coupon_id']				= '';
 		$data['card']					= '';
 		
-		$coupons = $this->Coupon_model->get_coupons();
+		$coupons = $this->Coupon_model->get_coupons(NULL, $this->current_admin, TRUE);
 		foreach($coupons as $coupon)
 		{
 			$coupon_list[$coupon->id] = $coupon->name;
@@ -444,6 +473,7 @@ class Coupons extends Admin_Controller {
 				$log['customer_id'] = $save['customer_id'];
 				$log['used'] = $used;
 				$log['trx_date'] = date('Y-m-d H:i:s');
+				$log['staff_id'] = $this->current_admin['id'];
 					
 				$this->Coupon_model->add_customer_coupon_log($log);
 					

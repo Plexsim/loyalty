@@ -33,6 +33,15 @@
 						 </div>
 						 
 						 <div class="hr-line-dashed"></div>
+						 
+						 <?php
+							$current_admin	= $this->session->userdata('admin');
+							if ($current_admin['branch'] == 0): 
+						 ?>
+						 <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('branch');?></label>
+							<?php echo '<div class="col-sm-10">'.form_dropdown('branch_id', $branches, set_value('branch_id',$branch_id), 'class="form-control m-b"').'</div>'; ?>
+						 </div>
+						<?php endif;?>
                         
                          
 						 

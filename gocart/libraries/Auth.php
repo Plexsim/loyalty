@@ -138,6 +138,7 @@ class Auth
             $admin['admin']['lastname'] = $result['lastname'];
             $admin['admin']['email'] = $result['email'];
             $admin['admin']['username'] = $result['username'];
+            $admin['admin']['branch'] = $result['branch_id'];
             
             if($remember)
             {
@@ -264,9 +265,18 @@ class Auth
     /*
     This function gets a complete list of all admin
     */
-    function get_admin_list()
+    function get_admin_list($current_admin)
     {
-        $this->CI->db->select('*');
+    	// add in branch name
+    	$this->CI->db->select('branch.name as branch_name, admin.*');
+    	$this->CI->db->join("branch", "branch_id=branch.id", "left");
+    	
+    	if(!empty($current_admin) && isset($current_admin)):
+    		if($current_admin['branch'] > 0):
+    			$this->CI->db->where('branch_id', $current_admin['branch']);
+        	endif;
+        endif;
+        
         $this->CI->db->order_by('lastname', 'ASC');
         $this->CI->db->order_by('firstname', 'ASC');
         $this->CI->db->order_by('email', 'ASC');

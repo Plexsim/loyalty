@@ -24,3 +24,4 @@ $lang['view_all_customers']			= 'View All Customers';
 $lang['home']						= 'Home';
 $lang['no_shipping_module_installed']	= 'There is no shipping module currently installed. This could stop customers from checking out properly.';
 $lang['no_payment_module_installed']	= 'There is no payment module currently installed. This could stop customers from checking out properly.';
+$lang['branch']						= 'Branch';

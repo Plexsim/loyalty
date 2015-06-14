@@ -3,8 +3,10 @@
 class Branch extends Admin_Controller {
 
 	//this is used when editing or adding a customer
-	var $branch_id	= false;	
+	var $branch_id	= false;
+	var $current_admin	= false;
 	protected $activemenu 	= 'branch';
+	
 
 	function __construct()
 	{		
@@ -13,11 +15,12 @@ class Branch extends Admin_Controller {
 		$this->load->model(array('Branch_model', 'Location_model'));
 		$this->load->helper('formatting_helper');
 		$this->lang->load('branch');
+		$this->current_admin	= $this->session->userdata('admin');
 	}
 	
 	function index()
 	{				
-		$data['branches'] = $this->Branch_model->get_branch_list();
+		$data['branches'] = $this->Branch_model->get_branch_list($this->current_admin);
 		$data['activemenu'] 		= $this->activemenu;
 		$data['page_title']	= lang('branch');
 		

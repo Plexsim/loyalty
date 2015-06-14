@@ -1057,6 +1057,7 @@ class Cart extends Front_Controller {
 				$save['in']   = $customer_topup_value;
 				$save['created'] = date("Y-m-d H:i:s");
 				$save['staff_id'] = $admin['id'];
+				$save['branch_id'] = $admin['branch_id'];
 				//$save['branch'] = $staff_branch;
 				$save['status'] = 1; //enable
 				$save['remark'] = $topup_remark;
@@ -1207,6 +1208,7 @@ class Cart extends Front_Controller {
 					$save['out'] 		= $consume_amount;
 					$save['created'] = date("Y-m-d H:i:s");
 					$save['staff_id'] = $admin['id'];
+					$save['branch_id'] = $admin['branch_id'];
 					//$save['branch'] = $staff_branch;
 					$save['voucher_id'] = $voucher_id;
 					//$save['status'] = 1; //enable
@@ -1220,6 +1222,7 @@ class Cart extends Front_Controller {
 					$point_in['point'] 	= $consume_amount;
 					$point_in['created'] = date("Y-m-d H:i:s");
 					$point_in['staff_id'] = $admin['id'];
+					$point_in['branch_id'] = $admin['branch_id'];
 					//$point_in['branch'] = $staff_branch;
 					$point_in['voucher_id'] = $voucher_id;
 					//$point_in['status'] = 1; //enable
@@ -1235,6 +1238,7 @@ class Cart extends Front_Controller {
 					$save['depoint'] 	= $consume_amount;
 					$save['created'] = date("Y-m-d H:i:s");
 					$save['staff_id'] = $admin['id'];
+					$save['branch_id'] = $admin['branch_id'];
 					//$save['branch'] = $staff_branch;
 					$save['voucher_id'] = $voucher_id;
 					//$save['status'] = 1; //enable
@@ -1469,6 +1473,7 @@ class Cart extends Front_Controller {
 					$log['customer_id'] = $customer_id;
 					$log['used'] = $used_qty;
 					$log['trx_date'] = date('Y-m-d H:i:s');
+					$log['staff_id'] = $admin['id'];
 					
 					$this->Voucher_model->add_customer_voucher_log($log);
 						
@@ -1597,6 +1602,7 @@ class Cart extends Front_Controller {
 				$log['customer_id'] = $customer_id;
 				$log['used'] = $used_qty;
 				$log['trx_date'] = date('Y-m-d H:i:s');
+				$log['staff_id'] = $admin['id'];
 					
 				$this->Coupon_model->add_customer_coupon_log($log);
 	

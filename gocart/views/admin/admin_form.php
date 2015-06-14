@@ -36,28 +36,17 @@
 								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('access');?></label>
 									<?php
 									$options = array(	'Admin'		=> 'Admin',
-														'Orders'	=> 'Orders'
+														'Merchant'	=> 'Merchant'
 									                );
 									
-											echo '<div class="col-sm-10">'.form_dropdown('access', $options, set_value('phone',$access), 'class="form-control m-b"').'</div>'; 
+											echo '<div class="col-sm-10">'.form_dropdown('access', $options, set_value('access',$access), 'class="form-control m-b"').'</div>'; 
 									?>																	
 								  </div>
 								  
 								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('branch');?></label>
 									<?php echo '<div class="col-sm-10">'.form_dropdown('branch_id', $branches, set_value('branch_id',$branch_id), 'class="form-control m-b"').'</div>'; ?>
 									</div>
-								  
-								  
-								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('access');?></label>
-									<?php
-									$options = array(	'Admin'		=> 'Admin',
-														'Orders'	=> 'Orders'
-									                );
-									
-											echo '<div class="col-sm-10">'.form_dropdown('access', $options, set_value('phone',$access), 'class="form-control m-b"').'</div>'; 
-									?>																	
-								  </div>		
-								  		  
+  		  
 								  <div class="hr-line-dashed"></div>
 								  
 								  								  								                                    

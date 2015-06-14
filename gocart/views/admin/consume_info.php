@@ -28,13 +28,13 @@
                                   <div class="form-group">
 										<label class="col-sm-2 control-label" for="topup_date"><?php echo lang('consume_date');?></label>
 										<label class="col-sm-2 control-label">:</label>
-										<label class="col-sm-2 control-label"><?php echo $info['created']?></label>
+										<label class="col-sm-2 control-label"><?php echo date("d-m-Y", strtotime($credit['created'])); ?></label>
 								  </div>   
 								  <div class="hr-line-dashed"></div>			           
                                                 
 		                          <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('card');?></label>
 									<label class="col-sm-2 control-label">:</label>
-									<label class="col-sm-2 control-label"><?php echo $info['created']?></label>
+									<label class="col-sm-2 control-label"><?php echo $info['customer_card']?></label>
 								  </div>
 								  <div class="hr-line-dashed"></div>
 								  

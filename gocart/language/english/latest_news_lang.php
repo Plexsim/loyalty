@@ -43,6 +43,8 @@ $lang['width']  				= 'Width';
 $lang['height']  				= 'Height';
 $lang['latest_news_form']  			= 'News Form';
 $lang['home']						= 'Home';
+$lang['branch']					= 'Branch';
+
 
 $lang['no_latest_news_or_links']		= 'There are currently no latest news or links.';
 $lang['error_page_not_found']			= 'The request page could not be found.';

@@ -13,9 +13,18 @@ Class Branch_model extends CI_Model
         $this->CI->load->helper('url');
     }
     
-    function get_branch_list()
-    {
-    	$this->db->where('active','1');
+    function get_branch_list($current_admin, $is_form=TRUE)
+    {    	
+    	if($is_form):
+    		$this->db->where('active','1');
+    	endif;
+    	
+    	if(!empty($current_admin) && isset($current_admin)):
+	    	if($current_admin['branch'] > 0):
+	    		$this->db->where('id', $current_admin['branch']);
+	    	endif;
+    	endif;
+    	
         $branch = $this->db->get('branch')->result_array();
         // unserialize the field data       
         

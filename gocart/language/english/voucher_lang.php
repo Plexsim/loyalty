@@ -29,6 +29,7 @@ $lang['error_already_used']		= 'The requested voucher code is already in use!';
 $lang['error_voucher']			= 'The requested voucher code is invalid!';
 $lang['error_voucher_no_exist']			= 'The requested voucher code no exist, please check again!';
 $lang['home']					= 'Home';
+$lang['branch']					= 'Branch';
 $lang['voucher_listing']		= 'Voucher Listing';
 
 

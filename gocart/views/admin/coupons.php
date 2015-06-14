@@ -18,6 +18,7 @@ function areyousure()
 		<tr>
 		  <th><?php echo lang('code');?></th>
 		  <th><?php echo lang('name');?></th>
+		  <th><?php echo lang('branch');?></th>
 		  <!--th><?php echo lang('usage');?></th-->
 		  <th></th>
 		</tr>
@@ -28,6 +29,7 @@ function areyousure()
 		<tr>
 			<td><?php echo  $coupon->code; ?></td>
 			<td><?php echo  $coupon->name; ?></td>
+			<td><?php echo  $coupon->branch_name; ?></td>
 			<!--td>
 			  <?php echo  $coupon->num_uses ." / ". $coupon->max_uses; ?>
 			</td-->

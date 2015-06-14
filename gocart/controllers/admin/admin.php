@@ -21,7 +21,7 @@ class Admin extends Admin_Controller
 	function index()
 	{
 		$data['page_title']	= lang('admins');
-		$data['admins']		= $this->auth->get_admin_list();
+		$data['admins']		= $this->auth->get_admin_list($this->current_admin);
 
 		$this->view($this->config->item('admin_folder').'/admins', $data);
 	}
@@ -46,8 +46,12 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
 		
-		$branches = $this->Branch_model->get_branch_list();
+		$branches = $this->Branch_model->get_branch_list($this->current_admin, TRUE);
 		$branch_list = array();
+		
+		if($this->current_admin['branch'] == 0 ){
+			$branch_list[0] = 'Please Select a Branch';
+		}
 		foreach($branches as $branch)
 		{
 			$branch_list[$branch['id']] = $branch['name'];

@@ -1,5 +1,6 @@
 <?php $admin_url = site_url($this->config->item('admin_folder')).'/';?>
 <div class="row">
+	<?php if($this->auth->check_access('Admin')) : ?>
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
@@ -11,7 +12,7 @@
 			</div>
 		</div>
 	</div>
-
+	<?php endif; ?>
 	<div class="col-lg-3">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
@@ -82,17 +83,18 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="col-lg-3">
-		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5><?php echo lang('common_reports')?></h5>
-			</div>
-			<div class="ibox-content">
-				<a href="<?php echo $admin_url?>reports/monthly_reports" class="btn btn-w-m btn-info"><?php echo lang('common_view')?></a>
+	<?php if($this->auth->check_access('Admin')) : ?>
+		<div class="col-lg-3">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5><?php echo lang('common_reports')?></h5>
+				</div>
+				<div class="ibox-content">
+					<a href="<?php echo $admin_url?>reports/monthly_reports" class="btn btn-w-m btn-info"><?php echo lang('common_view')?></a>
+				</div>
 			</div>
 		</div>
-	</div>
+	<?php endif;?>
 </div>
 
 

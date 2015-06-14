@@ -130,7 +130,7 @@ Class Point_model extends CI_Model
 		return $id;
 	}
 	
-	function get_add_points_trx($start, $end)
+	function get_add_points_trx($start, $end, $current_admin = false)
 	{
 		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
 		$this->db->join('admin', 'admin.id = point.staff_id');
@@ -147,6 +147,12 @@ Class Point_model extends CI_Model
 		}
 	
 		$this->db->where('point > 0');
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('point.branch_id', $current_admin['branch']);
+			endif;
+		endif;
 	
 		// just fetch a list of order id's
 		$points	= $this->db->get('point')->result();
@@ -154,7 +160,7 @@ Class Point_model extends CI_Model
 		return $points;
 	}
 	
-	function get_minus_points_trx($start, $end)
+	function get_minus_points_trx($start, $end, $current_admin = false)
 	{
 		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
 		$this->db->join('admin', 'admin.id = point.staff_id');
@@ -172,13 +178,19 @@ Class Point_model extends CI_Model
 	
 		$this->db->where('depoint > 0');
 	
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('point.branch_id', $current_admin['branch']);
+			endif;
+		endif;
+		
 		// just fetch a list of order id's
 		$points	= $this->db->get('point')->result();
 	
 		return $points;
 	}
 	
-	function get_add_points_trx_monthly($year, $month, $customer_id)
+	function get_add_points_trx_monthly($year, $month, $customer_id, $current_admin = false)
 	{
 		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
 		$this->db->join('admin', 'admin.id = point.staff_id');
@@ -200,6 +212,12 @@ Class Point_model extends CI_Model
 		}
 	
 		$this->db->where('point > 0');
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('point.branch_id', $current_admin['branch']);
+			endif;
+		endif;
 	
 		// just fetch a list of order id's
 		$points	= $this->db->get('point')->result();
@@ -207,7 +225,7 @@ Class Point_model extends CI_Model
 		return $points;
 	}
 	
-	function get_minus_points_trx_monthly($year, $month, $customer_id)
+	function get_minus_points_trx_monthly($year, $month, $customer_id, $current_admin = false)
 	{
 		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
 		$this->db->join('admin', 'admin.id = point.staff_id');
@@ -229,6 +247,12 @@ Class Point_model extends CI_Model
 		}
 	
 		$this->db->where('depoint > 0');
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('point.branch_id', $current_admin['branch']);
+			endif;
+		endif;
 	
 		// just fetch a list of order id's
 		$points	= $this->db->get('point')->result();

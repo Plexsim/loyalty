@@ -24,6 +24,8 @@ $lang['end_date']				= 'End Date (UTC)';
 $lang['message_customer_coupon']= 'The coupon and customer details has been found!';
 $lang['message_saved_coupon']	= 'The coupon has been saved!';
 $lang['home']					= 'Home';
+$lang['branch']					= 'Branch';
+
 
 $lang['error_saved_coupon']		= 'The coupon saving has been go wrong!';
 $lang['error_already_used']		= 'The requested coupon code is already in use!';

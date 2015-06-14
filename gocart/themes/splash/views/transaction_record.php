@@ -32,7 +32,19 @@
 					?>	
 															
 					<li class="table_row">
-						<div class="table_section_small text_align_right"><?php echo $record['created'] ?></div>
+						<div class="table_section_small text_align_right">
+							<?php 								
+								$datetime = new DateTime($record['created']);
+								$date = $datetime->format('d-m-Y');	
+								$time = $datetime->format('H:i:s');
+								
+								if($time == "00:00:00"){
+									echo $date;
+								}else{
+									echo $date.' '.$time;
+								}																							
+							?>
+						</div>
 						<div class="table_section_small text_align_right"><?php echo number_format($record['cost'],2) ?></div>
 						<div class="table_section_small text_align_right"><?php echo number_format($record['in'],2) ?></div>
 						<div class="table_section_small text_align_right"><?php echo number_format($record['out'],2) ?></div>

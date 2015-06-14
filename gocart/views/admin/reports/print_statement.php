@@ -50,7 +50,20 @@
 			?>
 			<tr>
 				<?php /*<td style="width:16px;"><?php echo  $customer->id; ?></td>*/?>
-				<td><?php echo  $credit->created; ?></td>
+				<td>
+					<?php 
+						//echo  $credit->created; 
+						$datetime = new DateTime($credit->created);
+						$date = $datetime->format('d-m-Y');
+						$time = $datetime->format('H:i:s');
+						
+						if($time == "00:00:00"){
+							echo $date;
+						}else{
+							echo $date.' '.$time;
+						}					
+					?>
+				</td>
 				<td><?php echo  $credit->in; ?></td>
 				<td><?php echo $credit->out; ?></a></td>
 				<td><?php echo $balance ?></td>

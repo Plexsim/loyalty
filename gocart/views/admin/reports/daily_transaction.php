@@ -18,7 +18,21 @@
 		?>
 		<tr>
 			<?php /*<td style="width:16px;"><?php echo  $customer->id; ?></td>*/?>
-			<td><?php echo  $credit->created; ?></td>
+			<td>
+				<?php 
+					//echo  $credit->created; 
+					$datetime = new DateTime($credit->created);
+					$date = $datetime->format('d-m-Y');
+					$time = $datetime->format('H:i:s');
+					
+					if($time == "00:00:00"){
+						echo $date;
+					}else{
+						echo $date.' '.$time;
+					}
+					
+				?>			
+			</td>
 			<td><?php echo  $credit->cost; ?></td>
 			<td><?php echo $credit->in; ?></a></td>
 			<td><?php echo $credit->branch_name; ?></td>
@@ -52,7 +66,20 @@
 		?>
 		<tr>
 			<?php /*<td style="width:16px;"><?php echo  $customer->id; ?></td>*/?>
-			<td><?php echo  $credit->created; ?></td>
+			<td>
+				<?php 
+					//echo  $credit->created; 					
+					$datetime = new DateTime($credit->created);
+					$date = $datetime->format('d-m-Y');
+					$time = $datetime->format('H:i:s');
+						
+					if($time == "00:00:00"){
+						echo $date;
+					}else{
+						echo $date.' '.$time;
+					}
+				?>			
+			</td>
 			<td><?php echo  $credit->cost; ?></td>
 			<td><?php echo $credit->out; ?></a></td>
 			<td><?php echo $credit->branch_name; ?></td>
@@ -89,7 +116,20 @@
 		?>
 		<tr>
 			<?php /*<td style="width:16px;"><?php echo  $customer->id; ?></td>*/?>
-			<td><?php echo  $point->created; ?></td>
+			<td>
+				<?php 
+					//echo  $point->created;
+					$datetime = new DateTime($point->created);
+					$date = $datetime->format('d-m-Y');
+					$time = $datetime->format('H:i:s');
+					
+					if($time == "00:00:00"){
+						echo $date;
+					}else{
+						echo $date.' '.$time;
+					}								
+				?>
+			</td>
 			
 			<td><?php echo $point->point; ?></a></td>
 			<td><?php echo $point->branch_name; ?></td>
@@ -123,8 +163,19 @@
 		?>
 		<tr>
 			<?php /*<td style="width:16px;"><?php echo  $customer->id; ?></td>*/?>
-			<td><?php echo  $point->created; ?></td>
-			
+			<td><?php 
+					//echo  $point->created;
+					$datetime = new DateTime($point->created);
+					$date = $datetime->format('d-m-Y');
+					$time = $datetime->format('H:i:s');
+					
+					if($time == "00:00:00"){
+						echo $date;
+					}else{
+						echo $date.' '.$time;
+					}								
+				?>
+			</td>			
 			<td><?php echo $point->depoint; ?></a></td>
 			<td><?php echo $point->branch_name; ?></td>
 		</tr>

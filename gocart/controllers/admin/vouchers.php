@@ -527,6 +527,7 @@ class Vouchers extends Admin_Controller {
 
 		
 		$vouchers	= $this->Voucher_model->get_vouchers(NULL, $this->current_admin, TRUE);
+		$voucher_list = array();
 		foreach($vouchers as $voucher)
 		{
 			$voucher_list[$voucher->id] = $voucher->name;

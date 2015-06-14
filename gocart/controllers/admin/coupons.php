@@ -405,6 +405,7 @@ class Coupons extends Admin_Controller {
 		$data['card']					= '';
 		
 		$coupons = $this->Coupon_model->get_coupons(NULL, $this->current_admin, TRUE);
+		$coupon_list = array();
 		foreach($coupons as $coupon)
 		{
 			$coupon_list[$coupon->id] = $coupon->name;

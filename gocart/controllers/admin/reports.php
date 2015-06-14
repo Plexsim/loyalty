@@ -63,7 +63,7 @@ class Reports extends Admin_Controller {
 		$data['page_title']	= lang('voucher_report');
 		$this->load->helper(array('form', 'date'));
 		$data['voucher_id'] = '';
-		$vouchers = $this->Voucher_model->get_vouchers();
+		$vouchers = $this->Voucher_model->get_vouchers();		
 		$voucher_list[0] = 'Please select a voucher';
 		foreach($vouchers as $voucher)
 		{

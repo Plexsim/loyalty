@@ -1163,7 +1163,7 @@ class Cart extends Front_Controller {
 		}
 		
 		$vouchers = $this->Voucher_model->get_vouchers();
-		
+		$voucher_list = array();
 		foreach($vouchers as $voucher)
 		{			
 			$voucher_list[$voucher->id] = $voucher->name;
@@ -1424,6 +1424,7 @@ class Cart extends Front_Controller {
 		}
 		
 		$vouchers = $this->Voucher_model->get_vouchers();
+		$voucher_list = array();
 		foreach($vouchers as $voucher)
 		{
 			$voucher_list[$voucher->id] = $voucher->name;
@@ -1553,6 +1554,7 @@ class Cart extends Front_Controller {
 		}
 	
 		$coupons = $this->Coupon_model->get_coupons();
+		$coupon_list = array();
 		foreach($coupons as $coupon)
 		{
 			$coupon_list[$coupon->id] = $coupon->name;

@@ -371,8 +371,8 @@ class Credit extends Admin_Controller {
     	$data['voucher_id'] = '';
     	
     	
-    	$vouchers = $this->Voucher_model->get_vouchers();
-    	
+    	$vouchers = $this->Voucher_model->get_vouchers(NULL, $this->current_admin, TRUE);
+    	$voucher_list = array();
     	foreach($vouchers as $voucher)
     	{
     		$voucher_list[$voucher->id] = $voucher->name;

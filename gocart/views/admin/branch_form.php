@@ -13,6 +13,18 @@
 								$data	= array('name'=>'name', 'value'=>set_value('branch_name', $name), 'class'=>'form-control');
 								echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
 							  </div>
+							  
+							  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('address');?></label>
+								<?php
+								$data	= array('name'=>'address', 'value'=>set_value('address', $address), 'class'=>'form-control');
+								echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
+							  </div>
+							  
+							  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('phone');?></label>
+								<?php
+								$data	= array('name'=>'phone', 'value'=>set_value('phone', $phone), 'class'=>'form-control');
+								echo '<div class="col-sm-10">'.form_input($data).'</div>'; ?>
+							  </div>
 							  							
                                <div class="hr-line-dashed"></div>
                                                                                               

@@ -15,7 +15,11 @@
 	             <center><p>E - Member Card: <?php echo $customer['card']?></p></center>
 	             <center><p>E - Member Card, easier carrier and never lost it.</p></center>
 	             <p>
-	             	<a href="<?php echo site_url('top_up_credit_qrcode')?>" class="button_12 green green_borderbottom radius4">Top Up</a>  <a href="<?php echo site_url('consumption_qrcode')?>" class="button_12 blue blue_borderbottom radius4">Consumption</a>
+	             	<a href="<?php echo site_url('top_up_credit_qrcode')?>" class="button_11 green green_borderbottom radius4"><i class="card_icon"><img src="<?php echo theme_img('credit.png')?>"></i>Top Up Credit</a>  
+	             	<a href="<?php echo site_url('deduct_credit_qrcode')?>" class="button_11 bluegreen bluegreen_borderbottom radius4"><i class="card_icon"><img src="<?php echo theme_img('credit.png')?>"></i>Deduct Credit</a>
+	             	<a href="<?php echo site_url('top_up_point_qrcode')?>" class="button_11 red red_borderbottom radius4"><i class="card_icon"><img src="<?php echo theme_img('point-1.png')?>"></i>Top Up Point</a>  
+	             	<a href="<?php echo site_url('deduct_point_qrcode')?>" class="button_11 orange orange_borderbottom radius4"><i class="card_icon"><img src="<?php echo theme_img('point-1.png')?>"></i>Deduct Point</a>
+	             	<a href="<?php echo site_url('consumption_qrcode')?>" class="button_11 blue blue_borderbottom radius4"><i class="card_icon"><img src="<?php echo theme_img('credit.png')?>" width="35px" height="35px"><img src="<?php echo theme_img('point-1.png')?>"></i>Consumption</a>
 	             </p>
 				 <div class="clearfix"></div>	             
 	             

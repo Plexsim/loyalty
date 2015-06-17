@@ -17,31 +17,19 @@
 	            	<div class="clearfix print-display space_between"></div>
 	             	<h2 class="print-display"><b><?php echo lang('receipt')?> </b></h2>
 	             </div>
-	             	             	             
-            	 <h3 class="no-print"><?php echo lang('topup_credit_info')?> </h3>
-            	 
-            	 <?php if(isset($info['trx_no']) && !empty($info['trx_no'])):?>
-            	 	<blockquote><span><b><?php echo lang('trx_no');?> : </b></span> <span><?php echo $info['trx_no']?></span></blockquote>
-            	 <?php endif;?>
-            	 
-            	 <blockquote><span><b><?php echo lang('consume_date');?> : </b></span> <span><?php echo $info['created']?></span></blockquote>
+	             	             	             	             	             
+            	 <h3 class="no-print"><?php echo lang('topup_point_info')?> </h3>
+            	 <blockquote><span><b><?php echo lang('top_up_date');?> : </b></span> <span><?php echo $point_info['created']?></span></blockquote>
             	 <blockquote><span><b><?php echo lang('staff_branch');?> : </b></span> <span><?php echo (isset($admin['branch_name']) && !empty($admin['branch_name'])) ? $admin['branch_name'] : '-'?></span></blockquote>
-            	 <!--blockquote><span><b><?php echo lang('staff_name');?> : </b></span> <span><?php echo $info['staff_id']?></span></blockquote-->
-            	 <blockquote><span><b><?php echo lang('customer_name');?> : </b></span> <span><?php echo $info['customer_name']?></span></blockquote>
-            	 
-            	 <?php if($payment == 'Credit'):?>
-            	 	<blockquote><span><b><?php echo lang('total_consume');?> : </b></span> <span><?php echo $info['out']?></span></blockquote>
-            	 <?php else:?>
-            	 	<blockquote><span><b><?php echo lang('total_consume');?> : </b></span> <span><?php echo $info['depoint']?></span></blockquote>            	 	
-            	 <?php endif;?>            	             	 
-            	         
-            	 <blockquote><span><b><?php echo lang('remark');?> : </b></span> <span><?php echo $info['remark']?></span></blockquote>        
+            	 <!--blockquote><span><b><?php echo lang('staff_name');?> : </b></span> <span><?php echo $point_info['staff_id']?></span></blockquote-->
+            	 <blockquote><span><b><?php echo lang('customer_name');?> : </b></span> <span><?php echo $point_info['customer_name']?></span></blockquote>
+            	 <blockquote><span><b><?php echo lang('customer_topup_point');?> : </b></span> <span><?php echo $point_info['point']?></span></blockquote>
+            	 <blockquote><span><b><?php echo lang('remark');?> : </b></span> <span><?php echo $point_info['remark']?></span></blockquote>
             	         
             	 <!--div class="label_instruction no-print">
-					<a href="<?php echo site_url('consumption_qrcode'); ?>"><?php echo lang('return_to_consumption');?></a>
+					<a href="<?php echo site_url('top_up_point'); ?>"><?php echo lang('return_to_topup_point');?></a>
 				 </div-->
-				 
-				 <br/><br/><br/><br/>
+				<br/><br/><br/><br/>
 				 <div class="print-display" style="text-align:center;">
 				  		
 				  		<?php echo lang('customer_sign')?>
@@ -54,7 +42,7 @@
 				  		<?php echo lang('staff_sign')?>
 	             		<br/><br/><br/><br/> <br/><br/><br/><br/>
 	             		---------------------------
-	             </div> 
+	             </div>      
             	             	 
 	         	</div>
 	       </div>

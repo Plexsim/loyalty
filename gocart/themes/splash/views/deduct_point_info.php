@@ -18,7 +18,7 @@
 	             	<h2 class="print-display"><b><?php echo lang('receipt')?> </b></h2>
 	             </div>
 	             	             	             
-            	 <h3 class="no-print"><?php echo lang('topup_credit_info')?> </h3>
+            	 <h3 class="no-print"><?php echo lang('topup_point_info')?> </h3>
             	 
             	 <?php if(isset($info['trx_no']) && !empty($info['trx_no'])):?>
             	 	<blockquote><span><b><?php echo lang('trx_no');?> : </b></span> <span><?php echo $info['trx_no']?></span></blockquote>
@@ -29,18 +29,11 @@
             	 <!--blockquote><span><b><?php echo lang('staff_name');?> : </b></span> <span><?php echo $info['staff_id']?></span></blockquote-->
             	 <blockquote><span><b><?php echo lang('customer_name');?> : </b></span> <span><?php echo $info['customer_name']?></span></blockquote>
             	 
-            	 <?php if($payment == 'Credit'):?>
-            	 	<blockquote><span><b><?php echo lang('total_consume');?> : </b></span> <span><?php echo $info['out']?></span></blockquote>
-            	 <?php else:?>
-            	 	<blockquote><span><b><?php echo lang('total_consume');?> : </b></span> <span><?php echo $info['depoint']?></span></blockquote>            	 	
-            	 <?php endif;?>            	             	 
-            	         
+            	 <blockquote><span><b><?php echo lang('total_consume');?> : </b></span> <span><?php echo $info['depoint']?></span></blockquote>            	 	
+            	 
             	 <blockquote><span><b><?php echo lang('remark');?> : </b></span> <span><?php echo $info['remark']?></span></blockquote>        
             	         
-            	 <!--div class="label_instruction no-print">
-					<a href="<?php echo site_url('consumption_qrcode'); ?>"><?php echo lang('return_to_consumption');?></a>
-				 </div-->
-				 
+            	  
 				 <br/><br/><br/><br/>
 				 <div class="print-display" style="text-align:center;">
 				  		

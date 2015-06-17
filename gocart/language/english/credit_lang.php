@@ -42,12 +42,20 @@ $lang['print_statement']			= 'Print Statement';
 $lang['branch']						= 'Branch';
 $lang['customer_card']				= 'Member Card No';
 $lang['customer_name']				= 'Customer Name';
+$lang['deduct_credit']				= 'Deduct Credit';
+$lang['deduct_credit_form']			= 'Deduct Credit Form';
+$lang['trx_no']						= 'Trx No';
+$lang['credit_amount']				= 'Credit Amount';
+$lang['credit_balance']				= 'Credit Balance';
+$lang['point_balance']				= 'Point Balance';
+
 
 
 
 
 
 $lang['no_credits']					= 'There are currently no credits.';
+$lang['no_data']					= 'There are currently no data.';
 $lang['message_credit_updated']		= 'The credit has been updated.';
 $lang['message_credits_deleted']		= 'The selected credits have been deleted';
 $lang['error_no_credits_selected']	= 'You did not select any credits to delete';
@@ -106,6 +114,9 @@ $lang['error_card_in_use']			= 'Member Card no exist';
 $lang['receipt']					= 'Receipt';
 $lang['back_to_listing']			= 'Back To Listing';
 $lang['payment']					= 'Payment Type';
+$lang['check_balance']				= 'Check balance';
+$lang['check']						= 'Check';
+
 
 
 

@@ -18,7 +18,10 @@ function areyousure()
 		<tr>
 		  <th><?php echo lang('code');?></th>
 		  <th><?php echo lang('name');?></th>
+		  <th><?php echo lang('credit_consume');?></th>
+		  <th><?php echo lang('point_consume');?></th>
 		  <th><?php echo lang('branch');?></th>
+		  
 		  <!--th><?php echo lang('usage');?></th-->
 		  <th></th>
 		</tr>
@@ -29,6 +32,8 @@ function areyousure()
 		<tr>
 			<td><?php echo  $voucher->code; ?></td>
 			<td><?php echo  $voucher->name; ?></td>
+			<td><?php echo  $voucher->point_consume; ?></td>
+			<td><?php echo  $voucher->credit_consume; ?></td>
 			<td><?php echo  $voucher->branch_name; ?></td>
 			<!--td>
 			  <?php echo  $voucher->num_uses ." / ". $voucher->max_uses; ?>

@@ -57,6 +57,10 @@ $lang['common_coupon_form'] = 'Add Coupon';
 $lang['common_print_statement'] = 'Print Statement';
 $lang['common_voucher_listing'] = 'Voucher Listing';
 $lang['common_coupon_listing'] 	= 'Coupon Listing';
+$lang['common_deduct_credit'] 	= 'Deduct Credit';
+$lang['common_add_point'] 	= 'Add Point';
+$lang['common_deduct_point'] = 'Deduct Point';
+$lang['common_check_balance'] = 'Check Balance';
 
 
 

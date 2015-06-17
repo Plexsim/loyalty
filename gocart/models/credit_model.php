@@ -15,14 +15,14 @@ Class Credit_model extends CI_Model
 		{
 			if(!empty($search->start_top))
 			{				
-				$this->db->where('created >=',format_ymd_malaysia($search->start_top));
+				$this->db->where('created >=',format_ymd_malaysia($search->start_top).' 00:00:00');
 			}
 			if(!empty($search->end_top))
 			{
 				//increase by 1 day to make this include the final day
 				//I tried <= but it did not function. Any ideas why?
 				$search->end_date = date('Y-m-d', strtotime(format_ymd_malaysia($search->end_top))+86400);
-				$this->db->where('created <',$search->end_top);
+				$this->db->where('created <',$search->end_top.' 23:59:59');
 			}
 			if(!empty($search->customer_id))
 			{
@@ -69,11 +69,11 @@ Class Credit_model extends CI_Model
 		{
 			if(!empty($search->start_top))
 			{
-				$this->db->where('created >=',format_ymd_malaysia($search->start_top));
+				$this->db->where('created >=',format_ymd_malaysia($search->start_top).' 00:00:00');
 			}
 			if(!empty($search->end_top))
 			{
-				$this->db->where('created <',format_ymd_malaysia($search->end_top));
+				$this->db->where('created <',format_ymd_malaysia($search->end_top).' 23:59:59');
 			}
 			if(!empty($search->customer_id))
 			{
@@ -151,18 +151,19 @@ Class Credit_model extends CI_Model
 	
 	function get_add_credits_trx($start, $end, $current_admin = false)
 	{
-		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card');
 		$this->db->join('admin', 'admin.id = credit.staff_id');
-		$this->db->join('branch', 'admin.branch_id = branch.id');
+		$this->db->join('branch', 'credit.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = credit.customer_id');
 		
 		if(!empty($start))
 		{
-			$this->db->where('created >=', format_ymd_malaysia($start));
+			$this->db->where('created >=', format_ymd_malaysia($start).' 00:00:00');
 		}
 		
 		if(!empty($end))
 		{
-			$this->db->where('created <',  format_ymd_malaysia($end));
+			$this->db->where('created <',  format_ymd_malaysia($end).' 23:59:59');
 		}
 		
 		$this->db->where('in > 0');
@@ -181,18 +182,19 @@ Class Credit_model extends CI_Model
 	
 	function get_minus_credits_trx($start, $end, $current_admin = false)
 	{
-		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card');
 		$this->db->join('admin', 'admin.id = credit.staff_id');
-		$this->db->join('branch', 'admin.branch_id = branch.id');
+		$this->db->join('branch', 'credit.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = credit.customer_id');
 		
 		if(!empty($start))
 		{
-			$this->db->where('created >=', format_ymd_malaysia($start));
+			$this->db->where('created >=', format_ymd_malaysia($start).' 00:00:00');
 		}
 	
 		if(!empty($end))
 		{
-			$this->db->where('created <',  format_ymd_malaysia($end));
+			$this->db->where('created <',  format_ymd_malaysia($end).' 23:59:59');
 		}
 	
 		$this->db->where('out > 0');
@@ -212,9 +214,10 @@ Class Credit_model extends CI_Model
 	function get_add_credits_trx_monthly($year, $month, $customer_id, $current_admin = false)
 	{
 		
-		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card');
 		$this->db->join('admin', 'admin.id = credit.staff_id');
-		$this->db->join('branch', 'admin.branch_id = branch.id');
+		$this->db->join('branch', 'credit.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = credit.customer_id');
 		
 		if(!empty($year))
 		{
@@ -248,9 +251,10 @@ Class Credit_model extends CI_Model
 	
 	function get_minus_credits_trx_monthly($year, $month, $customer_id, $current_admin = false)
 	{
-		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card');
 		$this->db->join('admin', 'admin.id = credit.staff_id');
-		$this->db->join('branch', 'admin.branch_id = branch.id');
+		$this->db->join('branch', 'credit.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = credit.customer_id');
 		
 		if(!empty($year))
 		{
@@ -284,18 +288,19 @@ Class Credit_model extends CI_Model
 	function get_credits_trx($start, $end, $customer_id)
 	{
 	
-		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name');
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card');
 		$this->db->join('admin', 'admin.id = credit.staff_id');
-		$this->db->join('branch', 'admin.branch_id = branch.id');
-	
+		$this->db->join('branch', 'credit.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = credit.customer_id');
+		
 		if(!empty($start))
 		{
-			$this->db->where('created >=', $start);
+			$this->db->where('created >=', $start.' 00:00:00');
 		}
 	
 		if(!empty($end))
 		{
-			$this->db->where('created <',  $end);
+			$this->db->where('created <',  $end.' 23:59:59');
 		}
 	
 		if(!empty($customer_id))
@@ -306,6 +311,74 @@ Class Credit_model extends CI_Model
 		// just fetch a list of order id's
 		$credits	= $this->db->get('credit')->result();
 	
+	
+		return $credits;
+	}
+	
+	function get_voucher_trx($start, $end, $current_admin = false)
+	{
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card, vouchers.name as voucher_name');
+		$this->db->join('branch', 'credit.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = credit.customer_id');
+		$this->db->join('vouchers', 'vouchers.id = credit.voucher_id');
+		
+		
+		if(!empty($start))
+		{
+			$this->db->where('created >=', format_ymd_malaysia($start).' 00:00:00');
+		}
+	
+		if(!empty($end))
+		{
+			$this->db->where('created <',  format_ymd_malaysia($end).' 23:59:59');
+		}
+	
+		$this->db->where('out > 0');
+		
+		if(isset($current_admin)&&!empty($current_admin)):
+			if($current_admin['branch'] > 0):
+				$this->db->where('credit.branch_id', $current_admin['branch']);
+			endif;
+		endif;
+	
+		// just fetch a list of order id's
+		$credits	= $this->db->get('credit')->result();
+	
+		return $credits;
+	}
+	
+	function get_voucher_trx_monthly($year, $month, $customer_id, $current_admin = false)
+	{
+		$this->db->select(' credit.*, credit.id as credit_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card, vouchers.name as voucher_name');		
+		$this->db->join('branch', 'credit.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = credit.customer_id');
+		$this->db->join('vouchers', 'vouchers.id = credit.voucher_id');
+		
+		if(!empty($year))
+		{
+			$this->db->where('YEAR(created)', (int)$year);
+		}
+	
+		if(!empty($month))
+		{
+			$this->db->where('MONTH(created)', (int)$month);
+		}
+	
+		if(!empty($customer_id))
+		{
+			$this->db->where('customer_id', $customer_id);
+		}
+	
+		$this->db->where('out > 0');
+	
+		if(isset($current_admin)&&!empty($current_admin)):
+		if($current_admin['branch'] > 0):
+		$this->db->where('credit.branch_id', $current_admin['branch']);
+		endif;
+		endif;
+	
+		// just fetch a list of order id's
+		$credits	= $this->db->get('credit')->result();
 	
 		return $credits;
 	}

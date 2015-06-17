@@ -17,14 +17,14 @@ Class Point_model extends CI_Model
 			
 			if(!empty($search->start_top))
 			{				
-				$this->db->where('created >=',format_ymd_malaysia($search->start_top));
+				$this->db->where('created >=',format_ymd_malaysia($search->start_top).' 00:00:00');
 			}
 			if(!empty($search->end_top))
 			{
 				//increase by 1 day to make this include the final day
 				//I tried <= but it did not function. Any ideas why?
 				$search->end_date = date('Y-m-d', strtotime(format_ymd_malaysia($search->end_top))+86400);
-				$this->db->where('created <',format_ymd_malaysia($search->end_top));
+				$this->db->where('created <',format_ymd_malaysia($search->end_top). ' 23:59:59');
 			}
 			if(!empty($search->customer_id))
 			{
@@ -73,11 +73,11 @@ Class Point_model extends CI_Model
 		{
 		if(!empty($search->start_top))
 		{
-			$this->db->where('created >=',format_ymd_malaysia($search->start_top));
+			$this->db->where('created >=',format_ymd_malaysia($search->start_top).' 00:00:00');
 			}
 			if(!empty($search->end_top))
 			{
-			$this->db->where('created <',format_ymd_malaysia($search->end_top));
+			$this->db->where('created <',format_ymd_malaysia($search->end_top).' 23:59:59');
 			}
 			if(!empty($search->customer_id))
 			{
@@ -147,18 +147,19 @@ Class Point_model extends CI_Model
 	
 	function get_add_points_trx($start, $end, $current_admin = false)
 	{
-		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card');
 		$this->db->join('admin', 'admin.id = point.staff_id');
-		$this->db->join('branch', 'admin.branch_id = branch.id');
+		$this->db->join('branch', 'point.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = point.customer_id');
 		
 		if(!empty($start))
 		{
-			$this->db->where('created >=', format_ymd_malaysia($start));
+			$this->db->where('created >=', format_ymd_malaysia($start).' 00:00:00');
 		}
 	
 		if(!empty($end))
 		{
-			$this->db->where('created <',  format_ymd_malaysia($end));
+			$this->db->where('created <',  format_ymd_malaysia($end).' 23:59:59');
 		}
 	
 		$this->db->where('point > 0');
@@ -177,18 +178,19 @@ Class Point_model extends CI_Model
 	
 	function get_minus_points_trx($start, $end, $current_admin = false)
 	{
-		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card');
 		$this->db->join('admin', 'admin.id = point.staff_id');
-		$this->db->join('branch', 'admin.branch_id = branch.id');
+		$this->db->join('branch', 'point.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = point.customer_id');
 		
 		if(!empty($start))
 		{
-			$this->db->where('created >=', format_ymd_malaysia($start));
+			$this->db->where('created >=', format_ymd_malaysia($start).' 00:00:00');
 		}
 	
 		if(!empty($end))
 		{
-			$this->db->where('created <',  format_ymd_malaysia($end));
+			$this->db->where('created <',  format_ymd_malaysia($end).' 23:59:59');
 		}
 	
 		$this->db->where('depoint > 0');
@@ -207,9 +209,10 @@ Class Point_model extends CI_Model
 	
 	function get_add_points_trx_monthly($year, $month, $customer_id, $current_admin = false)
 	{
-		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card');
 		$this->db->join('admin', 'admin.id = point.staff_id');
-		$this->db->join('branch', 'admin.branch_id = branch.id');
+		$this->db->join('branch', 'point.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = point.customer_id');
 		
 		if(!empty($year))
 		{
@@ -242,9 +245,10 @@ Class Point_model extends CI_Model
 	
 	function get_minus_points_trx_monthly($year, $month, $customer_id, $current_admin = false)
 	{
-		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name');
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card');
 		$this->db->join('admin', 'admin.id = point.staff_id');
-		$this->db->join('branch', 'admin.branch_id = branch.id');		
+		$this->db->join('branch', 'point.branch_id = branch.id');	
+		$this->db->join('customers', 'customers.id = point.customer_id');
 		
 		if(!empty($year))
 		{
@@ -267,6 +271,74 @@ Class Point_model extends CI_Model
 			if($current_admin['branch'] > 0):
 				$this->db->where('point.branch_id', $current_admin['branch']);
 			endif;
+		endif;
+	
+		// just fetch a list of order id's
+		$points	= $this->db->get('point')->result();
+	
+		return $points;
+	}
+	
+	function get_voucher_trx($start, $end, $current_admin = false)
+	{
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card, vouchers.name as voucher_name');
+		$this->db->join('branch', 'point.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = point.customer_id');
+		$this->db->join('vouchers', 'vouchers.id = point.voucher_id');
+	
+	
+		if(!empty($start))
+		{
+			$this->db->where('created >=', format_ymd_malaysia($start).' 00:00:00');
+		}
+	
+		if(!empty($end))
+		{
+			$this->db->where('created <',  format_ymd_malaysia($end).' 23:59:59');
+		}
+	
+		$this->db->where('depoint > 0');
+	
+		if(isset($current_admin)&&!empty($current_admin)):
+		if($current_admin['branch'] > 0):
+		$this->db->where('point.branch_id', $current_admin['branch']);
+		endif;
+		endif;
+	
+		// just fetch a list of order id's
+		$points	= $this->db->get('point')->result();
+	
+		return $points;
+	}
+	
+	function get_voucher_trx_monthly($year, $month, $customer_id, $current_admin = false)
+	{
+		$this->db->select(' point.*, point.id as point_id, branch.name as branch_name, customers.name as customer_name, customers.card as customer_card, vouchers.name as voucher_name');
+		$this->db->join('branch', 'point.branch_id = branch.id');
+		$this->db->join('customers', 'customers.id = point.customer_id');
+		$this->db->join('vouchers', 'vouchers.id = point.voucher_id');
+	
+		if(!empty($year))
+		{
+			$this->db->where('YEAR(created)', (int)$year);
+		}
+	
+		if(!empty($month))
+		{
+			$this->db->where('MONTH(created)', (int)$month);
+		}
+	
+		if(!empty($customer_id))
+		{
+			$this->db->where('customer_id', $customer_id);
+		}
+	
+		$this->db->where('depoint > 0');
+	
+		if(isset($current_admin)&&!empty($current_admin)):
+		if($current_admin['branch'] > 0):
+		$this->db->where('point.branch_id', $current_admin['branch']);
+		endif;
 		endif;
 	
 		// just fetch a list of order id's

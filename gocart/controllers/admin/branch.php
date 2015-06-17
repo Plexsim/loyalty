@@ -49,6 +49,8 @@ class Branch extends Admin_Controller {
 		
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('name', 'lang:name', 'trim|required|max_length[255]');
+		$this->form_validation->set_rules('address', 'lang:address', 'trim');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim');
 		$this->form_validation->set_rules('active', 'lang:active', 'trim');
 						
 		if ($this->form_validation->run() == FALSE)
@@ -60,6 +62,8 @@ class Branch extends Admin_Controller {
 			
 			$a['id']				= (empty($id))?'':$id;
 			$a['name']				= $this->input->post('name');
+			$a['address']			= $this->input->post('address');
+			$a['phone']				= $this->input->post('phone');
 			$a['active']			= 1;
 										
 			$this->Branch_model->save_branch($a);

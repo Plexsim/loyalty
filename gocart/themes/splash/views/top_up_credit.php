@@ -20,7 +20,7 @@
 		             </div-->
 		             
 		             <div class="control-group">
-		             	 <label class="control-label" for="staff_username"><?php echo lang('staff_username');?></label>
+		             	 <label class="control-label" for="staff_username"><?php echo lang('staff_username');?></label> <span style="color:red"> * </span>
 			             <div class="controls">
 							<input type="text" name="staff_username" class="form_input radius4 required"/>							
 						 </div>
@@ -28,7 +28,7 @@
 	            	 
 	            	 
 	            	<div class="control-group">
-		             	 <label class="control-label" for="staff_password"><?php echo lang('staff_password');?></label>
+		             	 <label class="control-label" for="staff_password"><?php echo lang('staff_password');?></label> <span style="color:red"> * </span>
 		            	<div class="controls">
 							<input type="password" name="staff_password" class="form_input radius4 required"/>							
 						</div>
@@ -45,21 +45,21 @@
 					 </div>
 					 
 					 <div class="control-group">
-		             	 <label class="control-label" for="customer_topup_value"><?php echo lang('customer_cost');?></label>            	
+		             	 <label class="control-label" for="customer_topup_value"><?php echo lang('customer_cost');?></label><span style="color:red"> * </span>            	
 		            	<div class="controls">
-							<input type="text" name="customer_cost" value="<?php echo set_value('customer_cost') ?>" class="form_input radius4 required"/>							
+							<input type="text" name="customer_cost" value="<?php echo set_value('customer_cost') ?>" class="form_input radius4 required"/> 							
 						 </div>
 					 </div>
 					 
 					 <div class="control-group">
-		             	 <label class="control-label" for="customer_topup_value"><?php echo lang('customer_topup_value');?></label>            	
+		             	 <label class="control-label" for="customer_topup_value"><?php echo lang('customer_topup_value');?></label> <span style="color:red"> * </span>           	
 		            	<div class="controls">
 							<input type="text" name="customer_topup_value" value="<?php echo set_value('customer_topup_value') ?>"   class="form_input radius4 required"/>							
 						 </div>
 					 </div>
 					 
 					 <div class="control-group">
-		             	 <label class="control-label" for="customer_topup_value"><?php echo lang('remark');?></label>            	
+		             	 <label class="control-label" for="customer_topup_value"><?php echo lang('remark');?></label> <span style="color:red"> * </span>           	
 		            	 <div class="controls">
 							<textarea name="topup_remark" class="form_input radius4" id="topup_remark"><?php echo set_value('topup_remark') ?></textarea>
 						 </div>

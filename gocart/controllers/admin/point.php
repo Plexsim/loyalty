@@ -9,12 +9,53 @@ class Point extends Admin_Controller {
 	{		
 		parent::__construct();		
 		
-		$this->load->model(array('Search_model', 'Point_model'));
+		$this->load->model(array('Search_model', 'Point_model', 'Branch_model', 'Credit_model'));
 		//$this->load->model('location_model');
 		$this->load->helper(array('formatting'));
 		$this->lang->load('point');
 		
 		$this->current_admin	= $this->session->userdata('admin');
+	}
+	
+	public function check_point($value)
+	{
+		//$customer_id			= $this->input->post('customer_id');
+		$card 					= $this->input->post('card');
+		$payment				= $this->input->post('payment');
+	
+		$customer		= $this->Customer_model->get_customer_by_card($card);
+	
+		if(!empty($customer) && isset($customer)){
+			$balance = 0;
+			if($payment == 'Credit'){
+				$credit_balance = $this->Credit_model->get_credit_amt($customer['id']);
+				$balance = $credit_balance['credit_amt'];
+			}else{
+				$point_balance = $this->Point_model->get_point_amt($customer['id']);
+				$balance = $point_balance['point_amt'];
+			}
+	
+			if($value > $balance)
+			{
+				if($payment == 'Credit'){
+					$this->form_validation->set_message('check_point', lang('invalid_credit_balance'));
+				}else{
+					$this->form_validation->set_message('check_point', lang('invalid_point_balance'));
+				}
+				return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+		}else{
+			if($payment == 'Credit'){
+				$this->form_validation->set_message('check_point', lang('invalid_credit_balance'));
+			}else{
+				$this->form_validation->set_message('check_point', lang('invalid_point_balance'));
+			}
+			return FALSE;
+		}		
 	}
 	
 	//this is a callback to make sure that customers are not sharing an email address
@@ -166,14 +207,14 @@ class Point extends Admin_Controller {
 		redirect($this->config->item('admin_folder').'/points');	
     }
     
-    function topup_point_form($id = false)
+    function add_point_form($id = false)
     {
     	$data['activemenu'] 		= $this->activemenu;
     	//$this->load->helper('form');
     	$this->load->helper(array('form', 'date'));
     	$this->load->library('form_validation');
     
-    	$data['page_title']		= lang('topup_point_form');
+    	$data['page_title']		= lang('add_point_form');
     
     	//default values are empty if the customer is new
     	$data['id']					= '';
@@ -184,6 +225,16 @@ class Point extends Admin_Controller {
     	$data['out']				= '';   
     	$data['remark']				= '';    	
     	$data['active']				= false;
+    	$data['branch_id']			= false;
+    	$data['trx_no']				= '';
+    	
+    	$branches = $this->Branch_model->get_branch_list($this->current_admin, TRUE);
+    	$branch_list = array();
+    	foreach($branches as $branch)
+    	{
+    		$branch_list[$branch['id']] = $branch['name'];
+    	}
+    	$data['branches'] = $branch_list;
     	
     	$customer = '';
     	if ($id)
@@ -210,16 +261,22 @@ class Point extends Admin_Controller {
     			
     	}
     	
+    	//Checking for super admin
+    	if($this->current_admin['branch'] == 0):
+    		$this->form_validation->set_rules('branch_id', 'lang:branch', 'trim|required');
+    	endif;
+    	
     	$this->form_validation->set_rules('card', 'lang:card', 'trim|required|max_length[255]|callback_check_card');
-    	$this->form_validation->set_rules('topup_date', 'lang:topup_date', 'trim|required');
-    	$this->form_validation->set_rules('customer_cost', 'lang:customer_cost', 'trim|required|numeric');
-    	$this->form_validation->set_rules('customer_topup_value', 'lang:customer_topup_value', 'trim|required|numeric');
+    	
+    	//$this->form_validation->set_rules('topup_date', 'lang:topup_date', 'trim|required');    	
+    	$this->form_validation->set_rules('point_amount', 'lang:point_amount', 'trim|required|numeric');
+    	$this->form_validation->set_rules('trx_no', 'lang:trx_no', 'trim|required');
     	$this->form_validation->set_rules('remark', 'lang:remark', 'trim|required');    	
     	$this->form_validation->set_rules('active', 'lang:active');
     	    	
     	if ($this->form_validation->run() == FALSE)
     	{
-    		$this->view($this->config->item('admin_folder').'/topup_point_form', $data);
+    		$this->view($this->config->item('admin_folder').'/add_point_form', $data);
     	}
     	else
     	{
@@ -228,21 +285,41 @@ class Point extends Admin_Controller {
     		
     		$save['id']					= $id;
     		$save['customer_id']		= $customer['id'];
-    		$save['cost']				= $this->input->post('customer_cost');
-    		$save['point']				= $this->input->post('customer_topup_value');
+    		$save['trx_no']				= $this->input->post('trx_no');
+    		$save['point']				= $this->input->post('point_amount');
     		$save['remark']				= $this->input->post('remark');
-    		$save['created']			= format_ymd_malaysia($this->input->post('topup_date'));
+    		$save['created']			= date('Y-m-d H:i:s');
     		$save['staff_id']			= $this->current_admin['id'];
+    		
+    		//Checking for super admin
+    		if($this->current_admin['branch'] == 0):
+    			$save['branch_id']					= $this->input->post('branch_id');
+    		else:
+    			$save['branch_id']					= $this->current_admin['branch'];
+    		endif;
     		
     		//$save['status']				= 1;
     		//$save['active']				= $this->input->post('active');
     			
-    		$this->Point_model->save_point($save);
+    		$last_id = $this->Point_model->save_point($save);
     			
     		$this->session->set_flashdata('message', lang('message_saved_customer'));
     			
     		//go back to the point
-    		redirect($this->config->item('admin_folder').'/point');
+    		redirect($this->config->item('admin_folder').'/point/point_info/'.$last_id);
+    	}
+    }
+    
+    function point_info($id = false)
+    {    	
+    	$data['page_title']		= lang('point_info');
+    	 
+    	if($id){
+    		$data['point'] = $this->Point_model->get_point($id);    		
+    		$this->view($this->config->item('admin_folder').'/point_info', $data);
+    	}else{
+    		//go back to the credit
+    		redirect($this->config->item('admin_folder').'/point/');
     	}
     }
     
@@ -316,7 +393,10 @@ class Point extends Admin_Controller {
     			$save['customer_id']		= $customer['id'];
     			$save['out']				= $this->input->post('consume_amount');
     			$save['remark']				= $this->input->post('remark');
-    			$save['created']			= format_ymd_malaysia($this->input->post('consume_date'));
+    			
+    			// unlogic sales man logic:everything put today
+    			$save['created']			= date('Y-m-d H:i:s');    			    			
+    			//$save['created']			= format_ymd_malaysia($this->input->post('consume_date'));
     			$save['staff_id']			= $this->current_admin['id'];
     			//$save['branch'] = $staff_branch;    			
     			$id = $this->Point_model->save_point($save);
@@ -325,7 +405,7 @@ class Point extends Admin_Controller {
     			$save['id'] = '';
     			$save['customer_id'] =  $customer['id'];
     			$save['depoint'] 	= $this->input->post('consume_amount');
-    			$save['created'] = format_ymd_malaysia($this->input->post('consume_date'));
+    			$save['created']			= date('Y-m-d H:i:s');
     			$save['staff_id'] = $this->current_admin['id'];
     			//$save['branch'] = $staff_branch;
     			//$save['status'] = 1; //enable
@@ -341,6 +421,112 @@ class Point extends Admin_Controller {
     		 
     		//go back to the point
     		redirect($this->config->item('admin_folder').'/point');
+    	}
+    }
+    
+    function deduct_point_form($id = false)
+    {
+    	$data['activemenu'] 		= $this->activemenu;
+    	//$this->load->helper('form');
+    	$this->load->helper(array('form', 'date'));
+    	$this->load->library('form_validation');
+    
+    	$data['page_title']		= lang('deduct_point_form');
+    
+    	//default values are empty if the customer is new
+    	$data['id']					= '';
+    	$data['trx_no']				= '';
+    	$data['card']				= '';
+    	$data['created']			= '';
+    	$data['cost']				= '';
+    	$data['point']				= '';
+    	$data['depoint']			= '';
+    	$data['remark']				= '';
+    	$data['options']			= '';
+    	$data['active']				= false;
+    	$data['branch_id']			= false;
+    	 
+    	$branches = $this->Branch_model->get_branch_list($this->current_admin, TRUE);
+    	$branch_list = array();
+    	foreach($branches as $branch)
+    	{
+    		$branch_list[$branch['id']] = $branch['name'];
+    	}
+    	$data['branches'] = $branch_list;
+    		
+    	$customer = '';
+    	if ($id)
+    	{
+    		//$this->customer_id	= $id;
+    		$customer		= $this->Customer_model->get_customer_by_id($id);
+    		//if the customer does not exist, redirect them to the customer list with an error
+    		if (!$customer)
+    		{
+    			$this->session->set_flashdata('error', lang('error_not_found'));
+    			redirect($this->config->item('admin_folder').'/point');
+    		}
+    		 
+    		//set values to db values
+    		$data['id']					= $customer->id;
+    		$data['trx_no']				= $customer->trx_no;
+    		$data['name']				= $customer->name;
+    		$data['firstname']			= $customer->firstname;
+    		$data['lastname']			= $customer->lastname;
+    		$data['email']				= $customer->email;
+    		$data['phone']				= $customer->phone;
+    		$data['company']			= $customer->company;
+    		$data['active']				= $customer->active;
+    		$data['options']			= '';
+    		$data['email_subscribe']	= $customer->email_subscribe;
+    		 
+    	}
+    
+    	//Checking for super admin
+    	if($this->current_admin['branch'] == 0):
+    	$this->form_validation->set_rules('branch_id', 'lang:branch', 'trim|required');
+    	endif;
+    	 
+    	$this->form_validation->set_rules('card', 'lang:card', 'trim|required|max_length[255]|callback_check_card');
+    	$this->form_validation->set_rules('trx_no', 'lang:trx_no', 'trim|required');
+    	//$this->form_validation->set_rules('consume_date', 'lang:consume_date', 'trim|required');
+    	$this->form_validation->set_rules('point_amount', 'lang:point_amount', 'trim|required|numeric|callback_check_point');
+    	$this->form_validation->set_rules('remark', 'lang:remark', 'trim|required');
+    	 
+    	if ($this->form_validation->run() == FALSE)
+    	{
+    		$this->view($this->config->item('admin_folder').'/deduct_point_form', $data);
+    	}
+    	else
+    	{
+    		$card = $this->input->post('card');
+    		$customer				= $this->Customer_model->get_customer_by_card($card);
+    		$trx_no					= $this->input->post('trx_no');
+    		$point_amount			= $this->input->post('point_amount');
+    		$remark					= $this->input->post('remark');
+    		$last_id = '';
+    
+    		$save['id']					= $id;
+    		$save['customer_id']		= $customer['id'];
+    		$save['trx_no']				= $trx_no;
+    		$save['depoint']			= $point_amount;
+    		$save['remark']				= $remark;
+    		$save['created']			= date('Y-m-d H:i:s');
+    		$save['staff_id']			= $this->current_admin['id'];
+    		//Checking for super admin
+    		if($this->current_admin['branch'] == 0):
+    			$save['branch_id']					= $this->input->post('branch_id');
+    		else:
+    			$save['branch_id']					= $this->current_admin['branch'];
+    		endif;
+    
+    		//$save['branch'] = $staff_branch;
+    		$last_id = $this->Point_model->save_point($save);
+        		
+    		$this->session->set_flashdata('message', lang('message_saved_customer'));
+    		 
+    		//go back to the point
+    		//redirect($this->config->item('admin_folder').'/credit');
+    		redirect($this->config->item('admin_folder').'/credit/consume_info/'.$last_id.'/Point');
     	}
     }
     

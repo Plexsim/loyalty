@@ -311,9 +311,11 @@ $lang['qty_left']							= 'Qty left';
 
 $lang['you_used_voucher_qty']				= 'Qty you have used for this voucher';
 $lang['you_used_coupon_qty']				= 'Qty you have used for this coupon';
+$lang['trx_no']								= 'Transaction No';
+$lang['credit_amount']						= 'Credit Amount';
+$lang['consume_date']						= 'Consume Date';
 
-
-
+$lang['customer_topup_point']				= 'Customer Topup Point';
 
 
 

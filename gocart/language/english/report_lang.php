@@ -42,6 +42,10 @@ $lang['add_point_trx']			= 'Add Point Transaction';
 $lang['deduct_point_trx']		= 'Deduct Point Transaction';
 $lang['credit_balance']			= 'Credit balance';
 $lang['point_balance']			= 'Point balance';
+$lang['voucher_credit']			= 'Voucher - Credit';
+$lang['voucher_point']			= 'Voucher - Point';
+
+
 
 
 $lang['get_best_sellers']		= 'Get Best Sellers';
@@ -65,6 +69,7 @@ $lang['credit']					= 'Credit';
 $lang['branch']					= 'Branch';
 $lang['point']					= 'Point';
 $lang['card']					= 'Card No';
+$lang['card_name']					= 'Card Name';
 $lang['debit']					= 'Debit';
 $lang['print_statement']		= 'Print Statement';
 $lang['balance']				= 'Balance';

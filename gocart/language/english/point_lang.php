@@ -36,11 +36,19 @@ $lang['customer_cost']				= 'Customer Cost';
 $lang['customer_topup_value']		= 'Customer Topup Value';
 $lang['remark']						= 'Remark';
 $lang['active']						= 'Active';
-$lang['topup_date']					= 'Topup Date';
+$lang['add_date']					= 'Add Date';
 $lang['consume_form']				= 'Consume Form';
 $lang['consume_amount']				= 'Consume Amount';
 $lang['consume_date']				= 'Consume Date';
-
+$lang['add_point_form']				= 'Add Point Form';
+$lang['point_amount']				= 'Point Amount';
+$lang['point_info']					= 'Point Info';
+$lang['add_point_amount']			= 'Add Point Amount';
+$lang['print_receipt']				= 'Print Receipt';
+$lang['back_to_listing']			= 'Back to Listing';
+$lang['trx_no']						= 'Trx No';
+$lang['deduct_point_form']			= 'Deduct Point Form';
+$lang['deduct_point']				= 'Deduct Point';
 
 
 
@@ -50,6 +58,9 @@ $lang['message_points_deleted']		= 'The selected points have been deleted';
 $lang['error_no_points_selected']	= 'You did not select any points to delete';
 $lang['confirm_delete_point']		= 'Are you sure you want to delete the selected points?';
 $lang['sent_notification_message']	= 'Email notification has been sent!';
+$lang['invalid_point_balance']				= 'Point balance not enough';
+$lang['confirm_consume']				= 'Are you sure you want to consume for this customer?';
+
 
 $lang['send_email_notification']	= 'Send Email Notification';
 $lang['packing_slip']				= 'Packing Slip';

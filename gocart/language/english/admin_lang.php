@@ -24,4 +24,5 @@ $lang['branch']					= 'Branch';
 $lang['confirm_delete']			= 'Are you sure you want to delete this administrator?';
 $lang['home']					= 'Home';
 $lang['no_branch']				= 'No branch';
+$lang['merchant']				= 'Merchant';
 

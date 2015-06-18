@@ -50,7 +50,7 @@ class Admin extends Admin_Controller
 		$branch_list = array();
 		
 		if($this->current_admin['branch'] == 0 ){
-			$branch_list[0] = 'Please Select a Branch';
+			$branch_list[0] = 'Please Select a Branch (Merchant)';
 		}
 		foreach($branches as $branch)
 		{

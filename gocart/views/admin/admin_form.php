@@ -1,3 +1,6 @@
+<?php 
+	$current_admin	= $this->session->userdata('admin');
+?>
 <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
@@ -36,16 +39,19 @@
 								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('access');?></label>
 									<?php
 									$options = array(	'Admin'		=> 'Admin',
-														'Merchant'	=> 'Merchant'
+														'Supervisor'=> 'Supervisor'
 									                );
 									
 											echo '<div class="col-sm-10">'.form_dropdown('access', $options, set_value('access',$access), 'class="form-control m-b"').'</div>'; 
 									?>																	
 								  </div>
 								  
-								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('branch');?></label>
+								  <div class="form-group"><label class="col-sm-2 control-label"><?php echo lang('branch');?> (<?php echo lang('merchant')?>)</label>
 									<?php echo '<div class="col-sm-10">'.form_dropdown('branch_id', $branches, set_value('branch_id',$branch_id), 'class="form-control m-b"').'</div>'; ?>
-									</div>
+								  </div>
+								  <?php 
+								  		echo $current_admin['branch'] == 0 ? '<font style="color:red">If no select Branch(Merchant), which mean is Super Admin.</font>' : '';
+								  ?>
   		  
 								  <div class="hr-line-dashed"></div>
 								  

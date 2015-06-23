@@ -18,8 +18,8 @@ function areyousure()
 		<tr>
 		  <th><?php echo lang('code');?></th>
 		  <th><?php echo lang('name');?></th>
-		  <th><?php echo lang('credit_consume');?></th>
 		  <th><?php echo lang('point_consume');?></th>
+		  <th><?php echo lang('credit_consume');?></th>		  
 		  <th><?php echo lang('branch');?></th>
 		  
 		  <!--th><?php echo lang('usage');?></th-->

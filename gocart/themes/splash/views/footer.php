@@ -198,6 +198,13 @@
 		window.location = url + "/" + encrypt + "/" + customer_id + "/" + voucher_id;
 	}
 
+	function go_consumption_qrcode(encrypt, customer_id, voucher_id)
+	{
+		url = "<?php echo site_url('cart/consumption_qrcode')?>";
+		//console.log(url + "/" + encrypt + "/" + customer_id + "/" + voucher_id);
+		window.location = url + "/" + encrypt + "/" + customer_id + "/" + voucher_id;
+	}
+
 	function process_voucher_qrcode(customer_id, voucher_id)
 	{
 		url = "<?php echo site_url('cart/process_voucher_qrcode')?>";

@@ -91,3 +91,9 @@ $lang['shipping']				= 'Shipping';
 $lang['tax']					= 'Tax';
 $lang['grand_total']			= 'Grand Total';
 $lang['loading']				= 'Loading';
+
+$lang['daily_transaction_download']		= 'Daily Transaction CSV';
+$lang['monthly_transaction_download']	= 'Monthly Transaction CSV';
+
+
+

@@ -86,10 +86,12 @@
                 <li <?php echo (isset($activemenu) && !empty($activemenu) && $activemenu == 'point') ? 'class="active"' : ''; ?>>
                     <a href="#l"><i class="fa fa-rub"></i> <span class="nav-label"><?php echo lang('common_point');?></span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="<?php echo $admin_url?>credit/check_balance"><i class="fa fa-search-plus"></i> <span class="nav-label"><?php echo lang('common_check_balance') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                                           
+                    	<li><a href="<?php echo $admin_url?>credit/check_balance"><i class="fa fa-search-plus"></i> <span class="nav-label"><?php echo lang('common_check_balance') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                                           
                         <li><a href="<?php echo $admin_url?>point"><i class="fa fa-list-ol"></i> <span class="nav-label"><?php echo lang('common_point') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
                         <li><a href="<?php echo $admin_url?>point/add_point_form"><i class="fa fa-plus-square-o"></i> <span class="nav-label"><?php echo lang('common_add_point') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
                         <li><a href="<?php echo $admin_url?>point/deduct_point_form"><i class="fa fa-minus-circle"></i> <span class="nav-label"><?php echo lang('common_deduct_point') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>                                                
+                        <li><a href="<?php echo $admin_url?>point/branch_point"><i class="fa fa-search-plus"></i> <span class="nav-label"><?php echo lang('common_point_listing') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
+                        <li><a href="<?php echo $admin_url?>point/branch_point_form"><i class="fa fa-search-plus"></i> <span class="nav-label"><?php echo lang('common_point_form') ?></span> <!--span class="label label-primary pull-right">NEW</span--></a></li>
                     </ul>
                 </li>
                 

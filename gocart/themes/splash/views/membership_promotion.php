@@ -54,7 +54,7 @@
 															
 									<div class="controls">
 											
-											<input type="button" value="<?php echo lang('click_button');?>" name="click_button" onclick="javascript:go_consumption('<?php echo $encrypt ?>', '<?php echo $customer_id ?>', '<?php echo $voucher->id ?>')" class="form_submit radius4 red red_borderbottom"/>
+											<input type="button" value="<?php echo lang('click_button');?>" name="click_button" onclick="javascript:go_consumption_qrcode('<?php echo $encrypt ?>', '<?php echo $customer_id ?>', '<?php echo $voucher->id ?>')" class="form_submit radius4 red red_borderbottom"/>
 									</div>
 								</div>
 								<div class="portfolio_details">

@@ -54,6 +54,32 @@ class Cart extends Front_Controller {
 		}	
 	}
 	
+	public function check_branch_point($point)
+	{
+		// Get the value in the field
+		$staff_username	  		= $this->input->post('staff_username');
+		$staff_password	  		= $this->input->post('staff_password');
+				
+		$admin = $this->admin_model->get_admin($staff_username,$staff_password);
+					
+		if (!empty($admin) && isset($admin))
+		{				
+			$credit_balance = $this->point_model->get_branch_point_balance($admin['branch_id']);
+						
+			if($point > $credit_balance['point_amt']){
+				$this->form_validation->set_message('check_branch_point', 'Insufficient of Branch Point');
+				return FALSE;
+			}else{
+				return TRUE;
+			}
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	
 	public function check_credit($value)
 	{		
 		$customer_id			= $this->input->post('customer_id');
@@ -1197,7 +1223,7 @@ class Cart extends Front_Controller {
 			$this->form_validation->set_rules('customer_id', 'lang:customer_id');
 			$this->form_validation->set_rules('staff_username', 'lang:staff_username', 'trim|required|max_length[100]');
 			$this->form_validation->set_rules('staff_password', 'lang:staff_password', 'trim|required|min_length[6]|callback_staff_login[staff_username]');
-			$this->form_validation->set_rules('customer_topup_point', 'lang:customer_topup_point', 'required|numeric');
+			$this->form_validation->set_rules('customer_topup_point', 'lang:customer_topup_point', 'required|numeric|callback_check_branch_point');
 			$this->form_validation->set_rules('topup_remark', 'lang:remark','required');
 				
 			//original is: if ($this->form_validation->run() == TRUE && strcmp(strtoupper($userCaptcha),strtoupper($word)) == 0)
@@ -1223,8 +1249,21 @@ class Cart extends Front_Controller {
 				$save['branch_id'] = $admin['branch_id'];
 				//$save['branch'] = $staff_branch;				
 				$save['remark'] = $topup_remark;
+				$save['trx_no'] = $trx_no;
 	
 				$id = $this->point_model->save_point($save);
+				
+				//deduct branch point for particular branch point
+				$branch_save['id'] = '';
+				$branch_save['customer_id'] = $customer_id;
+				$branch_save['depoint']   = $customer_topup_point;
+				$branch_save['created'] = date("Y-m-d H:i:s");
+				$branch_save['staff_id'] = $admin['id'];
+				$branch_save['branch_id'] = $admin['branch_id'];				
+				$branch_save['remark'] = $topup_remark;
+				$branch_save['trx_no'] = $trx_no;
+				
+				$this->point_model->save_branch_point($branch_save);
 	
 				//$this->session->set_flashdata('message', 'Hi '. $name. '. Thank you! We will response you as soon as possible.');
 				redirect('cart/top_up_point_info/'.$id);
@@ -1415,16 +1454,24 @@ class Cart extends Front_Controller {
 	}
 				
 	
-	function consumption_qrcode()
+	function consumption_qrcode($encrypt = '', $customer_id = '', $voucher_id = '')
 	{
 		$data['page_title']	= 'Consumption QR Code';
 		$data['seo_title']	= 'Consumption QR Code';
 		$this->load->library('ciqrcode');
-	
-		$encrypt = random_string('alnum', 16);
+			
+		if(empty($encrypt)):
+			$encrypt = random_string('alnum', 16);
+		endif;
+						
+		if(isset($voucher_id) && !empty($voucher_id)):
+			$voucher_param = '/'.$voucher_id;
+		else:
+			$voucher_param = '';		
+		endif;		
 		
-		$link = site_url('cart/consumption/'.$encrypt.'/'.$this->customer['id']);
-	
+		$link = site_url('cart/consumption/'.$encrypt.'/'.$this->customer['id'].$voucher_param);			
+		
 		$params['data'] = $link;
 		$params['level'] = 'H';
 		$params['size'] = 5;
@@ -1439,11 +1486,11 @@ class Cart extends Front_Controller {
 		$this->view('consumption_qrcode', $data);
 	}
 	
-	function consumption($string_passing_value,$customer_id = NULL, $voucher_id = '')
+	function consumption($string_passing_value = '',$customer_id = NULL, $voucher_id = '')
 	{				
 		$data['page_title']	= 'Consumption';
 		$data['seo_title']	= 'Consumption';
-		$data['encrypt'] = $string_passing_value;
+		$data['encrypt'] 	= $string_passing_value;
 			
 		// 		$this->load->helper('captcha');
 		$this->load->library('form_validation');
@@ -1454,6 +1501,7 @@ class Cart extends Front_Controller {
 		$data['customer_id'] = $customer_id;				
 		//$data['customer'] = $this->customer;
 		$data['customer'] = $this->Customer_model->get_customer_by_id($customer_id);
+
 		if($voucher_id){
 			$data['voucher_id'] = $voucher_id;
 		}else{

@@ -50,6 +50,11 @@ $lang['trx_no']						= 'Trx No';
 $lang['deduct_point_form']			= 'Deduct Point Form';
 $lang['deduct_point']				= 'Deduct Point';
 
+$lang['branch_point_form']			= 'Branch Point Form';
+$lang['branch_point_error']			= 'Insufficient of Branch Point';
+
+
+
 
 
 $lang['no_points']					= 'There are currently no points.';
@@ -83,6 +88,11 @@ $lang['quantity']					= 'Quantity';
 $lang['qty']						= 'Qty';
 $lang['total']						= 'Total';
 $lang['sku']						= 'SKU';
+$lang['cost']						= 'Cost';
+$lang['branch_id']					= 'Branch id';
+$lang['branch_name']				= 'Branch Name';
+
+
 
 $lang['coupon_discount']			= 'Coupon Discount';
 $lang['goftcard_discount']			= 'Gift Card Discount';
@@ -104,6 +114,8 @@ $lang['packing_is_gift']			= 'IS GIFT';
 $lang['ship_to_address']			= 'Ship To Address';
 $lang['bill_to_address']			= 'Bill To Address';
 $lang['saving']						= 'Saving';
+$lang['message_saved_point']		= 'Branch Point has been Saved';
+
 
 $lang['error_card_in_use']			= 'Member Card no exist';
 

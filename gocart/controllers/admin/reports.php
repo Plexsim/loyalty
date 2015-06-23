@@ -97,7 +97,9 @@ class Reports extends Admin_Controller {
 		$data['page_title']	= lang('daily_reports');
 		$this->load->helper('date');
 		$start	= $this->input->post('start');
-		$end	= $this->input->post('end');		
+		$end	= $this->input->post('end');	
+		$data['start']			= $start;
+		$data['end']			= $end;
 		$data['credits_in']		= $this->Credit_model->get_add_credits_trx($start, $end, $this->current_admin);
 		$data['credits_out']	= $this->Credit_model->get_minus_credits_trx($start, $end, $this->current_admin);
 		$data['points_in']		= $this->Point_model->get_add_points_trx($start, $end, $this->current_admin);
@@ -106,6 +108,26 @@ class Reports extends Admin_Controller {
 		$data['point_voucher_out']	= $this->Point_model->get_voucher_trx($start, $end, $this->current_admin);
 						
 		$this->load->view($this->config->item('admin_folder').'/reports/daily_transaction', $data);
+	}
+	
+	function viewdailypdf($start = '', $end = '')
+	{
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('daily_reports');
+		$this->load->helper('date');
+		$this->load->helper('pdf');
+		//$start	= $this->input->post('start');
+		//$end		= $this->input->post('end');
+		
+		$credits_in			= $this->Credit_model->get_add_credits_trx($start, $end, $this->current_admin);
+		$credits_out		= $this->Credit_model->get_minus_credits_trx($start, $end, $this->current_admin);
+		$points_in			= $this->Point_model->get_add_points_trx($start, $end, $this->current_admin);
+		$points_out			= $this->Point_model->get_minus_points_trx($start, $end, $this->current_admin);
+		$credit_voucher_out	= $this->Credit_model->get_voucher_trx($start, $end, $this->current_admin);
+		$point_voucher_out	= $this->Point_model->get_voucher_trx($start, $end, $this->current_admin);
+				
+		$pdf_dailyreport = generate_pdf_daily_report($credits_in, $credits_out, $points_in, $points_out, $credit_voucher_out, $point_voucher_out, $start, $end);
+					
 	}
 	
 	function monthly_trx()
@@ -131,6 +153,10 @@ class Reports extends Admin_Controller {
 		{
 			$customer_id = $customer['id'];
 		}		
+				
+		$data['year']			= $year;
+		$data['month']			= $month;
+		$data['card']			= $card;
 		
 		$data['credits_in']		= $this->Credit_model->get_add_credits_trx_monthly($year, $month, $customer_id, $this->current_admin);					
 		$data['credits_out']	= $this->Credit_model->get_minus_credits_trx_monthly($year, $month, $customer_id, $this->current_admin);
@@ -140,6 +166,32 @@ class Reports extends Admin_Controller {
 		$data['point_voucher_out']	= $this->Point_model->get_voucher_trx_monthly($year, $month, $customer_id, $this->current_admin);		
 		
 		$this->load->view($this->config->item('admin_folder').'/reports/monthly_transaction', $data);
+	}
+	
+	function viewmonthlypdf($year = '', $month = '', $card = '')
+	{
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('monthly_reports');				
+		$this->load->helper('date');
+		$this->load->helper('pdf');
+		
+		$customer = $this->Customer_model->get_customer_by_card($card);
+		$customer_id = NULL;
+		if(isset($customer) && !empty($customer))
+		{
+			$customer_id = $customer['id'];
+		}
+		//$start	= $this->input->post('start');
+		//$end		= $this->input->post('end');	
+		$credits_in			= $this->Credit_model->get_add_credits_trx_monthly($year, $month, $customer_id, $this->current_admin);	
+		$credits_out		= $this->Credit_model->get_minus_credits_trx_monthly($year, $month, $customer_id, $this->current_admin);
+		$points_in			= $this->Point_model->get_add_points_trx_monthly($year, $month, $customer_id, $this->current_admin);
+		$points_out			= $this->Point_model->get_minus_points_trx_monthly($year, $month, $customer_id, $this->current_admin);
+		$credit_voucher_out	= $this->Credit_model->get_voucher_trx_monthly($year, $month, $customer_id, $this->current_admin);
+		$point_voucher_out	= $this->Point_model->get_voucher_trx_monthly($year, $month, $customer_id, $this->current_admin);
+	
+		$pdf_dailyreport = generate_pdf_monthly_report($credits_in, $credits_out, $points_in, $points_out, $credit_voucher_out, $point_voucher_out, $year, $month, $card);
+			
 	}
 	
 	function print_statement()
@@ -185,6 +237,9 @@ class Reports extends Admin_Controller {
 		//$voucher_id	= 1;
 		//$member_card = 3;
 		
+		$data['voucher_id']		= $voucher_id;		
+		$data['card']			= $member_card;
+		
 		$customer = $this->Customer_model->get_customer_by_card($member_card);
 		$customer_id = NULL;
 		if(isset($customer) && !empty($customer))
@@ -198,6 +253,32 @@ class Reports extends Admin_Controller {
 		$this->load->view($this->config->item('admin_folder').'/reports/voucher_listing', $data);
 	}
 	
+	function viewvoucherpdf($voucher_id = '', $member_card = '')
+	{
+		$this->load->helper('date');
+		$this->load->helper('pdf');
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('voucher_report');
+		
+		
+		//$voucher_id	= $this->input->post('voucher_id');
+		//$member_card	= $this->input->post('customer_card');				
+	
+		$customer = $this->Customer_model->get_customer_by_card($member_card);
+		$customer_id = NULL;
+		if(isset($customer) && !empty($customer))
+		{
+			$customer_id = $customer['id'];
+		}
+		//$start	= $this->input->post('start');
+		//$end		= $this->input->post('end');
+		$customer			= $customer;
+		$vouchers			= $this->Voucher_model->voucher_listing($voucher_id, $customer_id, $this->current_admin);
+		
+		$pdf_voucherreport = generate_pdf_voucher_report($customer, $vouchers, $voucher_id, $customer_id);
+			
+	}
+	
 	function coupon_listing()
 	{
 		$data['activemenu'] = $this->activemenu;
@@ -208,6 +289,8 @@ class Reports extends Admin_Controller {
 	
 		//$coupon_id	= 1;
 		//$member_card = 3;
+		$data['coupon_id']		= $coupon_id;
+		$data['card']			= $member_card;
 	
 		$customer = $this->Customer_model->get_customer_by_card($member_card);
 		$customer_id = NULL;
@@ -220,6 +303,34 @@ class Reports extends Admin_Controller {
 		$data['coupons'] = $this->Coupon_model->coupon_listing($coupon_id, $customer_id, $this->current_admin);
 	
 		$this->load->view($this->config->item('admin_folder').'/reports/coupon_listing', $data);
+	}
+	
+	function viewcouponpdf($coupon_id = '', $member_card = '')
+	{
+		$this->load->helper('date');
+		$this->load->helper('pdf');
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('coupon_report');
+		
+	
+		//$coupon_id	= $this->input->post('coupon_id');
+		//$member_card	= $this->input->post('customer_card');
+		
+	
+		$customer = $this->Customer_model->get_customer_by_card($member_card);
+		$customer_id = NULL;
+		if(isset($customer) && !empty($customer))
+		{
+			$customer_id = $customer['id'];
+		}
+		//$start	= $this->input->post('start');
+		//$end		= $this->input->post('end');
+		$customer			= $customer;
+		$coupons			= $this->Coupon_model->coupon_listing($coupon_id, $customer_id, $this->current_admin);
+		
+			
+		$pdf_couponreport = generate_pdf_coupon_report($customer, $coupons, $coupon_id, $customer_id);
+			
 	}
 	
 	

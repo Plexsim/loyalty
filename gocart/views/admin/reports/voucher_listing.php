@@ -1,3 +1,6 @@
+<?php if($this->auth->check_access('Admin')) : ?>	
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/reports/viewvoucherpdf/'.$voucher_id.'/'.$card);?>" class="btn btn-warning btn-xs">Download PDF</a>	
+<?php endif; ?>
 
 <div class="row">
 	<div class="col-sm-10">

@@ -1,4 +1,10 @@
+<?php if($this->auth->check_access('Admin')) : ?>
+	<?php echo $year.'/'.$month.'/'.$card ?>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/reports/viewmonthlypdf/'.$year.'/'.$month.'/'.$card);?>" class="btn btn-warning btn-xs">Download PDF</a>	
+<?php endif; ?>
+
 <h2><?php echo lang('add_credit_trx') ?></h2>
+
 <table class="table table-striped table-hover" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>

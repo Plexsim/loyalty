@@ -4,13 +4,35 @@ function areyousure()
 	return confirm('<?php echo lang('confirm_delete_customer');?>');
 }
 </script>
+
+
+
 <div style="text-align:right;">
-	<?php if($this->auth->check_access('Admin')) : ?>
-		<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/export_xml');?>"><i class="fa fa-download"></i> <?php echo lang('xml_download');?></a>
-		<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/get_subscriber_list');?>"><i class="fa fa-download"></i> <?php echo lang('subscriber_download');?></a>
-	<?php endif; ?>
-	<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/form'); ?>"><i class="fa fa-plus-circle"></i> <?php echo lang('add_new_customer');?></a>
+
+	<div class="row pull-right"> 
+		<?php if($this->auth->check_access('Admin')) : ?>
+			<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/export_xml');?>"><i class="fa fa-download"></i> <?php echo lang('xml_download');?></a>
+			<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/get_subscriber_list');?>"><i class="fa fa-download"></i> <?php echo lang('subscriber_download');?></a>
+		<?php endif; ?>
+		<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/form'); ?>"><i class="fa fa-plus-circle"></i> <?php echo lang('add_new_customer');?></a>
+	</div>
 	
+	<div style="clear: both; padding:5px 0px;"></div>
+		
+	<div class="row">		 
+		 <?php echo form_open($this->config->item('admin_folder').'/customers/', 'class="form-horizontal"'); ?>		 
+				<!--input class="form-control"  type="text" name="name" id="name" placeholder="<?php echo lang('name');?>"/-->			
+				<div class="col-sm-2 pull-right">
+					<input class="btn btn-primary" type="submit" value="<?php echo lang('search');?>"/>
+					<a class="btn btn-white btn-bitbucket" href="<?php echo site_url($this->config->item('admin_folder').'/customers/index');?>">Reset</a>
+				</div>
+				<div class="col-sm-6 pull-right">
+					<input class="form-control"  type="text" name="term" id="term" placeholder="<?php echo lang('search');?>"/>			
+				</div>
+				
+				
+		 </form>	
+	</div>
 </div>
 
     <div class="row">

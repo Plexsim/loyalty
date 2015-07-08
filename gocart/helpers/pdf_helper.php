@@ -109,6 +109,28 @@ function generate_pdf_monthly_report($credits_in, $credits_out, $points_in, $poi
 	return pdf_create($html, $filename , $stream);
 }
 
+function generate_pdf_print_statement($customer, $credit_balance, $point_balance, $credits, $from_year, $from_month, $to_year, $to_month , $card, $stream = TRUE)
+{
+	$CI = &get_instance();
+
+	$data = array(
+			'customer'   		    => $customer,
+			'credit_balance'   	    => $credit_balance,
+			'point_balance'   		=> $point_balance,
+			'credits'   			=> $credits,			
+			'output_type'       	=> 'pdf',
+	);
+	$html = $CI->load->view('admin/pdf_templates/print_statement', $data, TRUE);
+	//$html = $CI->load->view($this->config->item('admin_folder').'/pdf_templates/daily', $data, TRUE);
+	//echo $CI->load->view('admin/pdf_templates/daily', $data, TRUE);
+	$CI->load->helper('mpdf');
+
+	// statement name and month file
+	$filename = 'print_statement_'.strtolower(trim(preg_replace('#\W+#', '_from_', $from_year.'_'.$from_month.'_to_'.$from_year.'_'.$to_month.'_'.$card) , '_'));
+
+	return pdf_create($html, $filename , $stream);
+}
+
 function generate_pdf_voucher_report($customer, $vouchers, $voucher_id, $customer_id, $stream = TRUE)
 {
 	$CI = &get_instance();

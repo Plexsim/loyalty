@@ -30,7 +30,7 @@
 ?>
 <div id="wrapper">
 
-<nav class="navbar-default navbar-static-side" role="navigation">
+<nav class="navbar-default navbar-static-side no-print" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav no-print" id="side-menu">
                 <li class="nav-header">
@@ -147,7 +147,7 @@
 
 <div id="page-wrapper" class="gray-bg">
 
-	<div class="row border-bottom">
+	<div class="row border-bottom no-print">
         <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>

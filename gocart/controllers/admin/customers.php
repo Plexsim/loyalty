@@ -30,7 +30,22 @@ class Customers extends Admin_Controller {
 		//$this->session->set_flashdata('message', 'this is our message');
 		$data['activemenu'] = $this->activemenu;
 		$data['page_title']	= lang('customers');
-		$data['customers']	= $this->Customer_model->get_customers(50,$page, $field, $by);
+		
+		$this->load->library('form_validation');
+		$term				= false;
+		$post				= $this->input->post(null, false);
+		$this->load->model('Search_model');
+		if($post)
+		{
+			$term			= json_encode($post);			
+		}		
+		
+		//store the search term
+		$data['term']		= $term;
+		$data['field']		= $field;
+		$data['by']			= $by;
+		
+		$data['customers']	= $this->Customer_model->get_customers(50,$page, $field, $by, $term);		
 		
 		$this->load->library('pagination');
 

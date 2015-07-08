@@ -1,8 +1,15 @@
-<?php if($this->auth->check_access('Admin')) : ?>	
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/reports/viewdailypdf/'.$start.'/'.$end);?>" class="btn btn-warning btn-xs">Download PDF</a>	
-<?php endif; ?>
+<div class="row">
+	<div class="col-sm-10">
+		<h2><?php echo lang('add_credit_trx') ?></h2>
+	</div>
 
-<h2><?php echo lang('add_credit_trx') ?></h2>
+	<div class="col-sm-2">
+	<?php if($this->auth->check_access('Admin')) : ?>	
+		<a href="<?php echo site_url($this->config->item('admin_folder').'/reports/viewdailypdf/'.$start.'/'.$end);?>" class="btn btn-warning btn-md">Download PDF</a>	
+	<?php endif; ?>
+	</div>
+
+</div>
 
 <table class="table table-striped table-hover" cellspacing="0" cellpadding="0">
 	<thead>

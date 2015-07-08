@@ -209,6 +209,12 @@ class Reports extends Admin_Controller {
 		$end = $to_year.'-'.$to_month.'-31';
 		
 		$card	= $this->input->post('card');
+			
+		$data['from_year']				= $from_year;
+		$data['from_month']				= $from_month;		
+		$data['to_year']				= $to_year;
+		$data['to_month']				= $to_month;
+		$data['card']					= $card;
 	
 		$customer = $this->Customer_model->get_customer_by_card($card);
 		$customer_id = NULL;
@@ -224,6 +230,34 @@ class Reports extends Admin_Controller {
 			$data['credits']		= $this->Credit_model->get_credits_trx($start, $end, $customer_id);
 		endif;
 		$this->load->view($this->config->item('admin_folder').'/reports/print_statement', $data);
+	}
+	
+	function viewprintpdf($from_year = '', $from_month = '', $to_year = '', $to_month = '', $card = '')
+	{
+		$data['activemenu'] = $this->activemenu;
+		$data['page_title']	= lang('print_statement');
+		
+		$this->load->helper('date');
+		$this->load->helper('pdf');
+		
+		$start = $from_year.'-'.$from_month.'-01';		
+		$end = $to_year.'-'.$to_month.'-31';
+			
+		$customer = $this->Customer_model->get_customer_by_card($card);
+		$customer_id = NULL;
+		if(isset($customer) && !empty($customer))
+		{
+			$customer_id = $customer['id'];
+		}
+		
+		if(!is_null($customer_id)):
+			$credit_balance = $this->Credit_model->get_credit_amt($customer_id);
+			$point_balance = $this->Point_model->get_point_amt($customer_id);
+			$credits	   = $this->Credit_model->get_credits_trx($start, $end, $customer_id);
+		endif;
+		
+		$pdf_printstatement = generate_pdf_print_statement($customer, $credit_balance, $point_balance, $credits, $from_year, $from_month, $to_year, $to_month, $card);
+			
 	}
 	
 	function voucher_listing()

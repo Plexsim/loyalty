@@ -13,13 +13,27 @@ Class Customer_model extends CI_Model
         $this->CI->load->helper('url');
     }
     
-    function get_customers($limit=0, $offset=0, $order_by='id', $direction='DESC')
+    function get_customers($limit=0, $offset=0, $order_by='id', $direction='DESC', $criteria='')
     {
         $this->db->order_by($order_by, $direction);
         if($limit>0)
         {
             $this->db->limit($limit, $offset);
         }
+		
+		//do we have a search submitted?
+		if($criteria)
+		{
+			$search	= json_decode($criteria);
+			//if we are searching dig through some basic fields
+			if(!empty($search->term))
+			{
+				$this->db->like('name', $search->term);
+				$this->db->or_like('card', $search->term);
+				$this->db->or_like('email', $search->term);
+				$this->db->or_like('phone', $search->term);
+			}			
+		}
 
         $result = $this->db->get('customers');
         return $result->result();

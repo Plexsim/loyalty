@@ -1,10 +1,16 @@
 
+
 <div class="row">
 	<div class="col-sm-10">
 		<h2><?php echo lang('account_info') ?></h2>	
 	</div>
-	<div class="col-sm-2">
+	<!--div class="col-sm-2">
 		<a href="#" onclick="javascript: print_content();" class="btn btn-danger no-print"><?php echo lang('print_content')?></a>
+	</div-->
+	<div class="col-sm-2">
+		<?php if($this->auth->check_access('Admin')) : ?>
+		<a href="<?php echo site_url($this->config->item('admin_folder').'/reports/viewprintpdf/'.$from_year.'/'.$from_month.'/'.$to_year.'/'.$to_month.'/'.$card);?>" class="btn btn-warning btn-md">Download PDF</a>	
+		<?php endif; ?>
 	</div>
 </div>
 

@@ -39,6 +39,16 @@ function areyousure()
 		<div class="col-sm-12">
 			<div class="ibox">
  				<div class="ibox-content">
+
+<table>
+<?php
+	$page_links	= $this->pagination->create_links();
+	
+	if($page_links != ''):?>
+	<tr><td colspan="5" style="text-align:center"><?php echo $page_links;?></td></tr>
+	<?php endif;?> 				
+</table>
+ 				
 <table class="table table-striped table-hover">
 	<thead>
 		<tr>
@@ -71,12 +81,7 @@ function areyousure()
 	</thead>
 	
 	<tbody>
-		<?php
-		$page_links	= $this->pagination->create_links();
-		
-		if($page_links != ''):?>
-		<tr><td colspan="5" style="text-align:center"><?php echo $page_links;?></td></tr>
-		<?php endif;?>
+
 		<?php echo (count($customers) < 1)?'<tr><td style="text-align:center;" colspan="5">'.lang('no_customers').'</td></tr>':''?>
 <?php foreach ($customers as $customer):?>
 		<tr>
@@ -106,11 +111,14 @@ function areyousure()
 				</div>
 			</td>
 		</tr>
-<?php endforeach;
-		if($page_links != ''):?>
+<?php endforeach;?>
+		
+	</tbody>
+</table>
+<table>
+		<?php if($page_links != ''):?>
 		<tr><td colspan="5" style="text-align:center"><?php echo $page_links;?></td></tr>
 		<?php endif;?>
-	</tbody>
 </table>
 		</div>
 			</div>
